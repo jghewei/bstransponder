@@ -1,0 +1,1198 @@
+CNMP-EWAVE5110-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, enterprises, Counter64, Unsigned32
+        FROM SNMPv2-SMI    -- http://www.ietf.org/rfc/rfc2578.txt
+    TEXTUAL-CONVENTION, DateAndTime, DisplayString, TruthValue, RowStatus,RowPointer
+        FROM SNMPv2-TC;    -- http://www.ietf.org/rfc/rfc2579.txt
+
+cnmp MODULE-IDENTITY
+    LAST-UPDATED ""
+    ORGANIZATION ""
+    CONTACT-INFO ""
+    DESCRIPTION  ""
+    REVISION     ""
+    ::= {enterprises 16589 }
+
+ewave5110 MODULE-IDENTITY
+    LAST-UPDATED ""
+    ORGANIZATION ""
+    CONTACT-INFO ""
+    DESCRIPTION  ""
+    REVISION     ""
+::= { cnmp 2 }
+
+--
+-- System mib
+--
+system OBJECT IDENTIFIER ::= { ewave5110 1 }
+
+systemName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 1 }
+
+systemContact OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 2 }
+
+systemLocation OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 3 }
+
+systemDescription OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 4 }
+
+systemUpTime OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 5 }
+
+systemCpuUsage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 6 }
+
+systemMemUsage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 7 }
+
+systemCurrentDateTime OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 8 }
+
+systemSetDateTime OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 9 }
+
+systemSwVersion OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 10 }
+
+systemRestart OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        none (0),
+        reboot (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 11 }
+
+systemDatabase OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        none (0),
+        clear (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 12 }
+
+systemLampTest OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        off (0),
+        on (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { system 13 }
+
+--
+-- FileMgmt mib
+--
+filemgmt OBJECT IDENTIFIER ::= { ewave5110 2 }
+
+filemgmtServerIpAddress OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { filemgmt 1 }
+
+filemgmtServerProtocol OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        tftp (2),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { filemgmt 2 }
+
+filemgmtFilePathName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { filemgmt 3 }
+
+filemgmtAction OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        none (0),
+        exportdatabase (1),
+        importdatabase (2),
+        upgradesoftware (3),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { filemgmt 4 }
+
+filemgmtState OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        none (0),
+        filetransfer (1),
+        filetransferfailed (2),
+        execute (3),
+        executefailed (4),
+        finished (5),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { filemgmt 5 }
+
+--
+-- Shelf mib
+--
+shelf OBJECT IDENTIFIER ::= { ewave5110 3 }
+
+shelfInletTemp OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { shelf 1 }
+
+shelfOutletTemp OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { shelf 2 }
+
+shelfTempLowThd OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { shelf 3 }
+
+shelfTempHighThd OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { shelf 4 }
+
+--
+-- Card mib
+--
+card OBJECT IDENTIFIER ::= { ewave5110 4 }
+
+cardBoardTemp OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { card 1 }
+
+cardLowTempThd OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { card 2 }
+
+cardHighTempThd OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { card 3 }
+
+cardOperStatus OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        normal (0),
+        minor (1),
+        major (2),
+        critical (3),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { card 4 }
+
+--
+-- Psu mib
+--
+psu OBJECT IDENTIFIER ::= { ewave5110 5 }
+
+psuTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF PsuEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { psu 1 }
+
+psuEntry OBJECT-TYPE
+    SYNTAX PsuEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { psuTable 1 }
+
+PsuEntry ::=
+    SEQUENCE {
+        psuKey DisplayString,
+        psuState INTEGER,
+    }
+
+psuKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { psuEntry 1 }
+
+psuState OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        normal (0),
+        failure (1),
+        nopower (2),
+        notpresent (3),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { psuEntry 2 }
+
+--
+-- Optics mib
+--
+optics OBJECT IDENTIFIER ::= { ewave5110 6 }
+
+opticsTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF OpticsEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { optics 1 }
+
+opticsEntry OBJECT-TYPE
+    SYNTAX OpticsEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { opticsTable 1 }
+
+OpticsEntry ::=
+    SEQUENCE {
+        opticsKey DisplayString,
+        opticsType DisplayString,
+        opticsLaser INTEGER,
+        opticsLos INTEGER,
+        opticsTxPower DisplayString,
+        opticsRxPower DisplayString,
+        opticsTemp DisplayString,
+    }
+
+opticsKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 1 }
+
+opticsType OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 2 }
+
+opticsLaser OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        off (0),
+        on (1),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 3 }
+
+opticsLos OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        on (0),
+        off (1),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 4 }
+
+opticsTxPower OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 5 }
+
+opticsRxPower OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 6 }
+
+opticsTemp OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { opticsEntry 7 }
+
+--
+-- Fan mib
+--
+fan OBJECT IDENTIFIER ::= { ewave5110 7 }
+
+fanTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF FanEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { fan 1 }
+
+fanEntry OBJECT-TYPE
+    SYNTAX FanEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { fanTable 1 }
+
+FanEntry ::=
+    SEQUENCE {
+        fanKey DisplayString,
+        fanState INTEGER,
+        fanSpeed INTEGER,
+        fanForceSpeed INTEGER,
+    }
+
+fanKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { fanEntry 1 }
+
+fanState OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        normal (0),
+        failure (1),
+        notpresent (2),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { fanEntry 2 }
+
+fanSpeed OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { fanEntry 3 }
+
+fanForceSpeed OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        auto (0),
+        fullspeed (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { fanEntry 4 }
+
+--
+-- Network mib
+--
+network OBJECT IDENTIFIER ::= { ewave5110 8 }
+
+networkTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF NetworkEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { network 1 }
+
+networkEntry OBJECT-TYPE
+    SYNTAX NetworkEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { networkTable 1 }
+
+NetworkEntry ::=
+    SEQUENCE {
+        networkKey DisplayString,
+        networkIpAddress DisplayString,
+        networkNetmask DisplayString,
+        networkGateway DisplayString,
+        networkMode INTEGER,
+    }
+
+networkKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { networkEntry 1 }
+
+networkIpAddress OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { networkEntry 2 }
+
+networkNetmask OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { networkEntry 3 }
+
+networkGateway OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { networkEntry 4 }
+
+networkMode OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        route (0),
+        bridge (1),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { networkEntry 5 }
+
+--
+-- Port mib
+--
+port OBJECT IDENTIFIER ::= { ewave5110 9 }
+
+portTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF PortEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { port 1 }
+
+portEntry OBJECT-TYPE
+    SYNTAX PortEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { portTable 1 }
+
+PortEntry ::=
+    SEQUENCE {
+        portKey DisplayString,
+        portAliasName DisplayString,
+        portPortMode INTEGER,
+        portAdminStatus INTEGER,
+        portOperStatus INTEGER,
+        portLoopbackType INTEGER,
+    }
+
+portKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 1 }
+
+portAliasName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 2 }
+
+portPortMode OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        none (0),
+        eth10g (1),
+        eth100g (2),
+        stm64 (3),
+        otu2 (5),
+        otu2e (6),
+        otu4 (7),
+        eth10g_gfp (10),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 3 }
+
+portAdminStatus OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        off (0),
+        on (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 4 }
+
+portOperStatus OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        off (0),
+        up (1),
+        down (2),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 5 }
+
+portLoopbackType OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        disabled (0),
+        facility (1),
+        terminal (2),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { portEntry 6 }
+
+--
+-- Eth mib
+--
+eth OBJECT IDENTIFIER ::= { ewave5110 10 }
+
+ethTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF EthEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { eth 1 }
+
+ethEntry OBJECT-TYPE
+    SYNTAX EthEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { ethTable 1 }
+
+EthEntry ::=
+    SEQUENCE {
+        ethKey DisplayString,
+    }
+
+ethKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ethEntry 1 }
+
+--
+-- Otu mib
+--
+otu OBJECT IDENTIFIER ::= { ewave5110 11 }
+
+otuTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF OtuEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { otu 1 }
+
+otuEntry OBJECT-TYPE
+    SYNTAX OtuEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { otuTable 1 }
+
+OtuEntry ::=
+    SEQUENCE {
+        otuKey DisplayString,
+        otuFecMode INTEGER,
+        otuTestSignalType INTEGER,
+        otuTestSignalStatus INTEGER,
+    }
+
+otuKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { otuEntry 1 }
+
+otuFecMode OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        disabled (0),
+        gfec (1),
+        i4 (2),
+        i7 (3),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { otuEntry 2 }
+
+otuTestSignalType OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        disabled (0),
+        prbs (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { otuEntry 3 }
+
+otuTestSignalStatus OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        disabled (0),
+        insync (1),
+        outsync (2),
+        errorsync (3),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { otuEntry 4 }
+
+--
+-- Och mib
+--
+och OBJECT IDENTIFIER ::= { ewave5110 12 }
+
+ochTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF OchEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { och 1 }
+
+ochEntry OBJECT-TYPE
+    SYNTAX OchEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { ochTable 1 }
+
+OchEntry ::=
+    SEQUENCE {
+        ochKey DisplayString,
+        ochFecMode INTEGER,
+        ochChanNum INTEGER,
+        ochMinLaserFreq DisplayString,
+        ochMaxLaserFreq DisplayString,
+        ochGridSpacing DisplayString,
+        ochMaxChans DisplayString,
+        ochCurTxLaserFreq DisplayString,
+        ochCurRxLaserFreq DisplayString,
+        ochDGD DisplayString,
+        ochCD DisplayString,
+        ochOSNR DisplayString,
+        ochQfactor DisplayString,
+    }
+
+ochKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 1 }
+
+ochFecMode OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        sdfec_enhance (0),
+        sdfec_comp (1),
+        gfec (2),
+        transparent (3),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 2 }
+
+ochChanNum OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 3 }
+
+ochMinLaserFreq OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 4 }
+
+ochMaxLaserFreq OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 5 }
+
+ochGridSpacing OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 6 }
+
+ochMaxChans OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 7 }
+
+ochCurTxLaserFreq OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 8 }
+
+ochCurRxLaserFreq OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 9 }
+
+ochDGD OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 10 }
+
+ochCD OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 11 }
+
+ochOSNR OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 12 }
+
+ochQfactor OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { ochEntry 13 }
+
+--
+-- Stm mib
+--
+stm OBJECT IDENTIFIER ::= { ewave5110 13 }
+
+stmTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF StmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { stm 1 }
+
+stmEntry OBJECT-TYPE
+    SYNTAX StmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { stmTable 1 }
+
+StmEntry ::=
+    SEQUENCE {
+        stmKey DisplayString,
+    }
+
+stmKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { stmEntry 1 }
+
+--
+-- Inventory mib
+--
+inventory OBJECT IDENTIFIER ::= { ewave5110 14 }
+
+inventoryTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF InventoryEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventory 1 }
+
+inventoryEntry OBJECT-TYPE
+    SYNTAX InventoryEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { inventoryTable 1 }
+
+InventoryEntry ::=
+    SEQUENCE {
+        inventoryKey DisplayString,
+        inventoryPresent INTEGER,
+        inventoryModuleType DisplayString,
+        inventoryPartNumber DisplayString,
+        inventorySerialNumber DisplayString,
+        inventoryHwVersion DisplayString,
+        inventoryVendorName DisplayString,
+        inventoryProduceDate DisplayString,
+        inventoryFwVersion DisplayString,
+    }
+
+inventoryKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 1 }
+
+inventoryPresent OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        no (0),
+        yes (1),
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 2 }
+
+inventoryModuleType OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 3 }
+
+inventoryPartNumber OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 4 }
+
+inventorySerialNumber OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 5 }
+
+inventoryHwVersion OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 6 }
+
+inventoryVendorName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 7 }
+
+inventoryProduceDate OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 8 }
+
+inventoryFwVersion OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { inventoryEntry 9 }
+
+--
+-- UserAdmin mib
+--
+useradmin OBJECT IDENTIFIER ::= { ewave5110 15 }
+
+useradminTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF UserAdminEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { useradmin 1 }
+
+useradminEntry OBJECT-TYPE
+    SYNTAX UserAdminEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { useradminTable 1 }
+
+UserAdminEntry ::=
+    SEQUENCE {
+        useradminKey DisplayString,
+        useradminUserName DisplayString,
+        useradminPassword DisplayString,
+        useradminPrivilege INTEGER,
+    }
+
+useradminKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { useradminEntry 1 }
+
+useradminUserName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { useradminEntry 2 }
+
+useradminPassword OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { useradminEntry 3 }
+
+useradminPrivilege OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        administrator (0),
+        service (1),
+        monitor (2),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { useradminEntry 4 }
+
+--
+-- Snmp mib
+--
+snmp OBJECT IDENTIFIER ::= { ewave5110 16 }
+
+snmpEnable OBJECT-TYPE
+    SYNTAX INTEGER
+    {
+        no (0),
+        yes (1),
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 1 }
+
+snmpGetCommunity OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 2 }
+
+snmpSetCommunity OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 3 }
+
+snmpTrapReceiver1 OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 4 }
+
+snmpTrapReceiver2 OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 5 }
+
+snmpTrapReceiver3 OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION ""
+    ::= { snmp 6 }
+
+
+--
+-- alarm table
+--
+alarm OBJECT IDENTIFIER ::= { ewave5110 100 }
+
+alarmTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF AlarmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarm 1 }
+
+alarmEntry OBJECT-TYPE
+    SYNTAX AlarmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { alarmTable 1 }
+
+AlarmEntry ::=
+    SEQUENCE {
+        alarmKey DisplayString,
+        alarmName DisplayString,
+        alarmType DisplayString,
+        alarmSeverity DisplayString,
+        alarmTime DisplayString,
+        alarmDesp DisplayString,
+    }
+
+alarmKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 1 }
+
+alarmName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 2 }
+
+alarmType OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 3 }
+
+alarmSeverity OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 4 }
+
+alarmTime OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 5 }
+
+alarmDesp OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 6 }
+
+--
+-- counter table
+--
+
+
+
+
+--
+--alarm notifications
+--
+trap OBJECT IDENTIFIER ::= { ewave5110 200 }
+
+alarmTrap NOTIFICATION-TYPE
+     OBJECTS{ alarmKey, alarmName, alarmType, alarmSeverity, alarmTime, alarmDesp}
+     STATUS current
+     DESCRIPTION ""
+     ::= { trap 1 }
+
+END

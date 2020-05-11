@@ -1,0 +1,250 @@
+The target system is: Linux -  - ppc
+The host system is: Linux - 3.10.0-327.36.3.el7.x86_64 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/3.3.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/3.3.1/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_454ff/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_454ff.dir/build.make CMakeFiles/cmTC_454ff.dir/build
+gmake: Warning: File `Makefile' has modification time 520 s in the future
+gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake[1]: Warning: File `CMakeFiles/cmTC_454ff.dir/flags.make' has modification time 520 s in the future
+Building C object CMakeFiles/cmTC_454ff.dir/testCCompiler.c.o
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc   -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_454ff.dir/testCCompiler.c.o   -c /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_454ff
+/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_454ff.dir/link.txt --verbose=1
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc       CMakeFiles/cmTC_454ff.dir/testCCompiler.c.o  -o cmTC_454ff -rdynamic 
+gmake[1]: 警告：检测到时钟错误。您的创建可能是不完整的。
+gmake[1]: 离开目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake: 警告：检测到时钟错误。您的创建可能是不完整的。
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_060b0/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_060b0.dir/build.make CMakeFiles/cmTC_060b0.dir/build
+gmake: Warning: File `Makefile' has modification time 520 s in the future
+gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake[1]: Warning: File `CMakeFiles/cmTC_060b0.dir/flags.make' has modification time 520 s in the future
+Building C object CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc   -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o   -c /root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/share/cmake-3.3/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_060b0
+/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_060b0.dir/link.txt --verbose=1
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc      -v CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o  -o cmTC_060b0 -rdynamic  
+Using built-in specs.
+Target: powerpc-e300c3-linux-gnu
+Configured with: ../gcc-4.1/configure --target=powerpc-e300c3-linux-gnu --host=i686-pc-linux-gnu --prefix=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu --with-sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --disable-libssp --disable-libgomp --disable-libmudflap --enable-shared --enable-threads --enable-languages=c,c++ --disable-nls --with-cpu=e300c3 --enable-__cxa_atexit --enable-cxx-flags=-mcpu=e300c3 --disable-multilib --disable-libstdcxx-pch --with-long-double-128
+Thread model: posix
+gcc version 4.1.2
+ /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2 --sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --eh-frame-hdr -V -Qy -m elf32ppclinux -export-dynamic -dynamic-linker /lib/ld.so.1 -o cmTC_060b0 /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2 -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o
+GNU ld version 2.17
+  Supported emulations:
+   elf32ppclinux
+   elf32ppc
+   elf32ppcsim
+gmake[1]: 警告：检测到时钟错误。您的创建可能是不完整的。
+gmake[1]: 离开目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake: 警告：检测到时钟错误。您的创建可能是不完整的。
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(powerpc-e300c3-linux-gnu-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_060b0/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_060b0.dir/build.make CMakeFiles/cmTC_060b0.dir/build]
+  ignore line: [gmake: Warning: File `Makefile' has modification time 520 s in the future]
+  ignore line: [gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”]
+  ignore line: [gmake[1]: Warning: File `CMakeFiles/cmTC_060b0.dir/flags.make' has modification time 520 s in the future]
+  ignore line: [Building C object CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc   -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o   -c /root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/share/cmake-3.3/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_060b0]
+  ignore line: [/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_060b0.dir/link.txt --verbose=1]
+  ignore line: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-gcc      -v CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o  -o cmTC_060b0 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [Target: powerpc-e300c3-linux-gnu]
+  ignore line: [Configured with: ../gcc-4.1/configure --target=powerpc-e300c3-linux-gnu --host=i686-pc-linux-gnu --prefix=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu --with-sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --disable-libssp --disable-libgomp --disable-libmudflap --enable-shared --enable-threads --enable-languages=c,c++ --disable-nls --with-cpu=e300c3 --enable-__cxa_atexit --enable-cxx-flags=-mcpu=e300c3 --disable-multilib --disable-libstdcxx-pch --with-long-double-128]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.1.2]
+  link line: [ /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2 --sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --eh-frame-hdr -V -Qy -m elf32ppclinux -export-dynamic -dynamic-linker /lib/ld.so.1 -o cmTC_060b0 /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2 -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o]
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2] ==> ignore
+    arg [--sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-V] ==> ignore
+    arg [-Qy] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf32ppclinux] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld.so.1] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_060b0] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o] ==> ignore
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+    arg [CMakeFiles/cmTC_060b0.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/lib]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/lib;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+  implicit fwks: []
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_0868b/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_0868b.dir/build.make CMakeFiles/cmTC_0868b.dir/build
+gmake: Warning: File `Makefile' has modification time 520 s in the future
+gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake[1]: Warning: File `CMakeFiles/cmTC_0868b.dir/flags.make' has modification time 520 s in the future
+Building CXX object CMakeFiles/cmTC_0868b.dir/testCXXCompiler.cxx.o
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++    -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_0868b.dir/testCXXCompiler.cxx.o -c /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_0868b
+/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0868b.dir/link.txt --verbose=1
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++        CMakeFiles/cmTC_0868b.dir/testCXXCompiler.cxx.o  -o cmTC_0868b -rdynamic 
+gmake[1]: 警告：检测到时钟错误。您的创建可能是不完整的。
+gmake[1]: 离开目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake: 警告：检测到时钟错误。您的创建可能是不完整的。
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/gmake" "cmTC_c6f50/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_c6f50.dir/build.make CMakeFiles/cmTC_c6f50.dir/build
+gmake: Warning: File `Makefile' has modification time 520 s in the future
+gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake[1]: Warning: File `CMakeFiles/cmTC_c6f50.dir/flags.make' has modification time 520 s in the future
+Building CXX object CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++    -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o -c /root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/share/cmake-3.3/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_c6f50
+/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c6f50.dir/link.txt --verbose=1
+/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++       -v CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_c6f50 -rdynamic  
+Using built-in specs.
+Target: powerpc-e300c3-linux-gnu
+Configured with: ../gcc-4.1/configure --target=powerpc-e300c3-linux-gnu --host=i686-pc-linux-gnu --prefix=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu --with-sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --disable-libssp --disable-libgomp --disable-libmudflap --enable-shared --enable-threads --enable-languages=c,c++ --disable-nls --with-cpu=e300c3 --enable-__cxa_atexit --enable-cxx-flags=-mcpu=e300c3 --disable-multilib --disable-libstdcxx-pch --with-long-double-128
+Thread model: posix
+gcc version 4.1.2
+ /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2 --sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --eh-frame-hdr -V -Qy -m elf32ppclinux -export-dynamic -dynamic-linker /lib/ld.so.1 -o cmTC_c6f50 /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2 -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o
+GNU ld version 2.17
+  Supported emulations:
+   elf32ppclinux
+   elf32ppc
+   elf32ppcsim
+gmake[1]: 警告：检测到时钟错误。您的创建可能是不完整的。
+gmake[1]: 离开目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”
+gmake: 警告：检测到时钟错误。您的创建可能是不完整的。
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(powerpc-e300c3-linux-gnu-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_c6f50/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_c6f50.dir/build.make CMakeFiles/cmTC_c6f50.dir/build]
+  ignore line: [gmake: Warning: File `Makefile' has modification time 520 s in the future]
+  ignore line: [gmake[1]: 进入目录“/media/sf_CentOS_share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/CMakeTmp”]
+  ignore line: [gmake[1]: Warning: File `CMakeFiles/cmTC_c6f50.dir/flags.make' has modification time 520 s in the future]
+  ignore line: [Building CXX object CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++    -D__TARGET__ -mcpu=e300c3 -m32 -fno-omit-frame-pointer -pipe -o CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o -c /root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/share/cmake-3.3/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_c6f50]
+  ignore line: [/root/share/mxp/src/3rdParty/cmake-3.3.1-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c6f50.dir/link.txt --verbose=1]
+  ignore line: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/bin/powerpc-e300c3-linux-gnu-g++       -v CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_c6f50 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [Target: powerpc-e300c3-linux-gnu]
+  ignore line: [Configured with: ../gcc-4.1/configure --target=powerpc-e300c3-linux-gnu --host=i686-pc-linux-gnu --prefix=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu --with-sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --disable-libssp --disable-libgomp --disable-libmudflap --enable-shared --enable-threads --enable-languages=c,c++ --disable-nls --with-cpu=e300c3 --enable-__cxa_atexit --enable-cxx-flags=-mcpu=e300c3 --disable-multilib --disable-libstdcxx-pch --with-long-double-128]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.1.2]
+  link line: [ /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2 --sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc --eh-frame-hdr -V -Qy -m elf32ppclinux -export-dynamic -dynamic-linker /lib/ld.so.1 -o cmTC_c6f50 /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2 -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib -L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o /opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o]
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/libexec/gcc/powerpc-e300c3-linux-gnu/4.1.2/collect2] ==> ignore
+    arg [--sysroot=/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-V] ==> ignore
+    arg [-Qy] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf32ppclinux] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld.so.1] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_c6f50] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crt1.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crti.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtbegin.o] ==> ignore
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib]
+    arg [-L/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib] ==> dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+    arg [CMakeFiles/cmTC_c6f50.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtsavres.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/crtend.o] ==> ignore
+    arg [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2/../../../../powerpc-e300c3-linux-gnu/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/lib]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib]
+  collapse library dir [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib] ==> [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/lib/gcc/powerpc-e300c3-linux-gnu/4.1.2;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/lib;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/lib;/opt/freescale/usr/local/gcc-4.1.78-eglibc-2.5.78-1/powerpc-e300c3-linux-gnu/powerpc-e300c3-linux-gnu/libc/usr/lib]
+  implicit fwks: []
+
+

@@ -1,0 +1,111 @@
+<script>
+'use strict';
+app.controller('FormCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+    var loadData = function () {
+        $http.get('/action/Snmp?id=' + $stateParams.id)
+        .success(function(data){$scope.formData = data.aaData[0];})
+    };
+    loadData();
+    $scope.refresh = function() { loadData(); };
+
+    $scope.processForm = function() {
+        $scope.message = "command inprogress";
+        $http({
+            method  : 'POST',
+            url     : '/action/Snmp?id=' + $stateParams.id,
+            data    : $.param($scope.formData),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+        .success(function(data) {
+            //console.log(data);
+            if (!data.success) {
+                $scope.message = data.message;
+            } else {
+                $scope.message = data.message;
+            }
+        });
+    };
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Snmp View</h1>
+</div>
+<div class="wrapper-md" ng-controller="FormCtrl">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="form-horizontal" method="get" ng-submit="processForm()">
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Key</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Key" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Enable</label>
+          <div class="col-sm-10">
+            <select name="account" class="form-control m-b" ng-model="formData.Enable">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">GetCommunity</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.GetCommunity">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">SetCommunity</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.SetCommunity">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">TrapReceiver1</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.TrapReceiver1">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">TrapReceiver2</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.TrapReceiver2">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">TrapReceiver3</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.TrapReceiver3">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <div class="col-sm-4 col-sm-offset-2">
+            <!--<button type="submit" class="btn btn-default">Cancel</button>-->
+            <button type="submit" class="btn btn-primary" ng-click="submit()">Save changes</button>
+            <button type="button" class="btn btn-info" ng-click="refresh()">Refresh</button>
+          </div>
+        </div>
+        <!-- SHOW ERROR/SUCCESS MESSAGES xxDebug -->
+        <div id="messages" ng-show="message">{{ message }}</div>
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,26 @@
+#!/bin/sh
+module="digi"
+device="digi"
+mode="664"
+
+if grep '^staff:' /etc/group > /dev/null; then
+  group="staff"
+else
+  group="wheel"
+fi
+
+insmod $module.ko $* || exit 1
+
+# find major numbers
+major=`cat /proc/devices | awk "\\$2==\"$module\" {print \\$1}"`
+
+rm -f /dev/digi0
+
+# create device node 
+mknod /dev/digi0 c $major 0
+
+chgrp $group /dev/digi0
+
+chmod $mode /dev/digi0
+
+

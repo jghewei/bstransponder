@@ -1,0 +1,578 @@
+/******************************************************************************
+ *   COPYRIGHT (C) 2013 PMC-SIERRA, INC. ALL RIGHTS RESERVED.
+ * --------------------------------------------------------------------------
+ *  This software embodies materials and concepts which are proprietary and
+ *  confidential to PMC-Sierra, Inc.
+ *  PMC-Sierra distributes this software to its customers pursuant to the
+ *  terms and conditions of the Software License Agreement
+ *  contained in the text file software.lic that is distributed along with
+ *  the software. This software can only be utilized if all
+ *  terms and conditions of the Software License Agreement are
+ *  accepted. If there are any questions, concerns, or if the
+ *  Software License Agreement text file, software.lic, is missing please
+ *  contact PMC-Sierra for assistance.
+ * -------------------------------------------------------------------------
+ *   DESCRIPTION:
+ *     Contains all register offset and register bit definitions for the
+ *     mstatx block
+ *****************************************************************************/
+#ifndef _MSTATX_REGS_H
+#define _MSTATX_REGS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+
+/*--------------------.
+ | register addresses |
+ +-------------------*/
+#define PMC_MSTATX_REG_INT_1                     0x00001000
+#define PMC_MSTATX_REG_INT_2                     0x00001004
+#define PMC_MSTATX_REG_INT_3                     0x00001008
+#define PMC_MSTATX_REG_INT_4                     0x0000100c
+#define PMC_MSTATX_REG_INT_5                     0x00001010
+#define PMC_MSTATX_REG_INT_EN_1                  0x00001014
+#define PMC_MSTATX_REG_INT_EN_2                  0x00001018
+#define PMC_MSTATX_REG_INT_EN_3                  0x0000101c
+#define PMC_MSTATX_REG_INT_EN_4                  0x00001020
+#define PMC_MSTATX_REG_INT_EN_5                  0x00001024
+#define PMC_MSTATX_REG_CTRL                      0x00001028
+#define PMC_MSTATX_REG_VARIABLE_SELECT           0x0000102c
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW( N )  (0x00001040 + (N) * 0x10)
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID( N )  (0x00001044 + (N) * 0x10)
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH( N ) (0x00001048 + (N) * 0x10)
+
+/*-----------------------------------------------.
+ | Register 0x00001000 INT_1                     |
+ +-----------------------------------------------+
+ | bit  15 R/W  RX_LONG_LENGTH_ERROR_I           |
+ | bit  14 R/W  RX_IN_RANGE_LENGTH_ERROR_I       |
+ | bit  13 R/W  RX_LAYER1_ERROR_I                |
+ | bit  12 R/W  RX_SYMBOL_ERROR_I                |
+ | bit  10 R/W  RX_FCS_ERROR_I                   |
+ | bit  9  R/W  RX_MAC_CONTROL_FRAMES_OK_I       |
+ | bit  8  R/W  RX_MAC_PAUSE_CONTROL_FRAMES_OK_I |
+ | bit  7  R/W  RX_TAGGED_FRAMES_OK_I            |
+ | bit  6  R/W  RX_MULTICAST_FRAMES_OK_I         |
+ | bit  5  R/W  RX_BROADCAST_FRAMES_OK_I         |
+ | bit  4  R/W  RX_UNICAST_FRAMES_OK_I           |
+ | bit  3  R/W  RX_OCTETS_I                      |
+ | bit  2  R/W  RX_FRAMES_I                      |
+ | bit  1  R/W  RX_OCTETS_OK_I                   |
+ | bit  0  R/W  RX_FRAMES_OK_I                   |
+ +----------------------------------------------*/
+#define PMC_MSTATX_REG_INT_1_UNUSED_MASK                          0xffff0000
+#define MSTATX_REG_INT_1_BIT_RX_LONG_LENGTH_ERROR_I_MSK           0x00008000
+#define MSTATX_REG_INT_1_BIT_RX_LONG_LENGTH_ERROR_I_OFF           15
+#define MSTATX_REG_INT_1_BIT_RX_IN_RANGE_LENGTH_ERROR_I_MSK       0x00004000
+#define MSTATX_REG_INT_1_BIT_RX_IN_RANGE_LENGTH_ERROR_I_OFF       14
+#define MSTATX_REG_INT_1_BIT_RX_LAYER1_ERROR_I_MSK                0x00002000
+#define MSTATX_REG_INT_1_BIT_RX_LAYER1_ERROR_I_OFF                13
+#define MSTATX_REG_INT_1_BIT_RX_SYMBOL_ERROR_I_MSK                0x00001000
+#define MSTATX_REG_INT_1_BIT_RX_SYMBOL_ERROR_I_OFF                12
+#define MSTATX_REG_INT_1_BIT_RX_FCS_ERROR_I_MSK                   0x00000400
+#define MSTATX_REG_INT_1_BIT_RX_FCS_ERROR_I_OFF                   10
+#define MSTATX_REG_INT_1_BIT_RX_MAC_CONTROL_FRAMES_OK_I_MSK       0x00000200
+#define MSTATX_REG_INT_1_BIT_RX_MAC_CONTROL_FRAMES_OK_I_OFF       9
+#define MSTATX_REG_INT_1_BIT_RX_MAC_PAUSE_CONTROL_FRAMES_OK_I_MSK 0x00000100
+#define MSTATX_REG_INT_1_BIT_RX_MAC_PAUSE_CONTROL_FRAMES_OK_I_OFF 8
+#define MSTATX_REG_INT_1_BIT_RX_TAGGED_FRAMES_OK_I_MSK            0x00000080
+#define MSTATX_REG_INT_1_BIT_RX_TAGGED_FRAMES_OK_I_OFF            7
+#define MSTATX_REG_INT_1_BIT_RX_MULTICAST_FRAMES_OK_I_MSK         0x00000040
+#define MSTATX_REG_INT_1_BIT_RX_MULTICAST_FRAMES_OK_I_OFF         6
+#define MSTATX_REG_INT_1_BIT_RX_BROADCAST_FRAMES_OK_I_MSK         0x00000020
+#define MSTATX_REG_INT_1_BIT_RX_BROADCAST_FRAMES_OK_I_OFF         5
+#define MSTATX_REG_INT_1_BIT_RX_UNICAST_FRAMES_OK_I_MSK           0x00000010
+#define MSTATX_REG_INT_1_BIT_RX_UNICAST_FRAMES_OK_I_OFF           4
+#define MSTATX_REG_INT_1_BIT_RX_OCTETS_I_MSK                      0x00000008
+#define MSTATX_REG_INT_1_BIT_RX_OCTETS_I_OFF                      3
+#define MSTATX_REG_INT_1_BIT_RX_FRAMES_I_MSK                      0x00000004
+#define MSTATX_REG_INT_1_BIT_RX_FRAMES_I_OFF                      2
+#define MSTATX_REG_INT_1_BIT_RX_OCTETS_OK_I_MSK                   0x00000002
+#define MSTATX_REG_INT_1_BIT_RX_OCTETS_OK_I_OFF                   1
+#define MSTATX_REG_INT_1_BIT_RX_FRAMES_OK_I_MSK                   0x00000001
+#define MSTATX_REG_INT_1_BIT_RX_FRAMES_OK_I_OFF                   0
+
+/*----------------------------------------------.
+ | Register 0x00001004 INT_2                    |
+ +----------------------------------------------+
+ | bit  11 R/W  RX_VARIABLE_I                   |
+ | bit  10 R/W  RX_STATION_ADDRESS_FILTERED_I   |
+ | bit  9  R/W  RX_FRAMES_1519_TO_MAX_SIZE_I    |
+ | bit  8  R/W  RX_FRAMES_1024_TO_1518_OCTETS_I |
+ | bit  7  R/W  RX_FRAMES_512_TO_1023_OCTETS_I  |
+ | bit  6  R/W  RX_FRAMES_256_TO_511_OCTETS_I   |
+ | bit  5  R/W  RX_FRAMES_128_TO_255_OCTETS_I   |
+ | bit  4  R/W  RX_FRAMES_65_TO_127_OCTETS_I    |
+ | bit  3  R/W  RX_FRAMES_64_OCTETS_I           |
+ | bit  2  R/W  RX_SHORT_LENGTH_CRC_ERROR_I     |
+ | bit  1  R/W  RX_SHORT_LENGTH_ERROR_I         |
+ | bit  0  R/W  RX_LONG_LENGTH_CRC_ERROR_I      |
+ +---------------------------------------------*/
+#define PMC_MSTATX_REG_INT_2_UNUSED_MASK                         0xfffff000
+#define MSTATX_REG_INT_2_BIT_RX_VARIABLE_I_MSK                   0x00000800
+#define MSTATX_REG_INT_2_BIT_RX_VARIABLE_I_OFF                   11
+#define MSTATX_REG_INT_2_BIT_RX_STATION_ADDRESS_FILTERED_I_MSK   0x00000400
+#define MSTATX_REG_INT_2_BIT_RX_STATION_ADDRESS_FILTERED_I_OFF   10
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_1519_TO_MAX_SIZE_I_MSK    0x00000200
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_1519_TO_MAX_SIZE_I_OFF    9
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_1024_TO_1518_OCTETS_I_MSK 0x00000100
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_1024_TO_1518_OCTETS_I_OFF 8
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_512_TO_1023_OCTETS_I_MSK  0x00000080
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_512_TO_1023_OCTETS_I_OFF  7
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_256_TO_511_OCTETS_I_MSK   0x00000040
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_256_TO_511_OCTETS_I_OFF   6
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_128_TO_255_OCTETS_I_MSK   0x00000020
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_128_TO_255_OCTETS_I_OFF   5
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_65_TO_127_OCTETS_I_MSK    0x00000010
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_65_TO_127_OCTETS_I_OFF    4
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_64_OCTETS_I_MSK           0x00000008
+#define MSTATX_REG_INT_2_BIT_RX_FRAMES_64_OCTETS_I_OFF           3
+#define MSTATX_REG_INT_2_BIT_RX_SHORT_LENGTH_CRC_ERROR_I_MSK     0x00000004
+#define MSTATX_REG_INT_2_BIT_RX_SHORT_LENGTH_CRC_ERROR_I_OFF     2
+#define MSTATX_REG_INT_2_BIT_RX_SHORT_LENGTH_ERROR_I_MSK         0x00000002
+#define MSTATX_REG_INT_2_BIT_RX_SHORT_LENGTH_ERROR_I_OFF         1
+#define MSTATX_REG_INT_2_BIT_RX_LONG_LENGTH_CRC_ERROR_I_MSK      0x00000001
+#define MSTATX_REG_INT_2_BIT_RX_LONG_LENGTH_CRC_ERROR_I_OFF      0
+
+/*---------------------------------------------.
+ | Register 0x00001008 INT_3                   |
+ +---------------------------------------------+
+ | bit  4 R/W  RX_FRAMES_2501_TO_MAX_SIZE_I    |
+ | bit  3 R/W  RX_FRAMES_2001_TO_2500_OCTETS_I |
+ | bit  2 R/W  RX_FRAMES_1549_TO_2000_OCTETS_I |
+ | bit  1 R/W  RX_FRAMES_1523_TO_1548_OCTETS_I |
+ | bit  0 R/W  RX_FRAMES_1519_TO_1522_OCTETS_I |
+ +--------------------------------------------*/
+#define PMC_MSTATX_REG_INT_3_UNUSED_MASK                         0xffffffe0
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_2501_TO_MAX_SIZE_I_MSK    0x00000010
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_2501_TO_MAX_SIZE_I_OFF    4
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_2001_TO_2500_OCTETS_I_MSK 0x00000008
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_2001_TO_2500_OCTETS_I_OFF 3
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1549_TO_2000_OCTETS_I_MSK 0x00000004
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1549_TO_2000_OCTETS_I_OFF 2
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1523_TO_1548_OCTETS_I_MSK 0x00000002
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1523_TO_1548_OCTETS_I_OFF 1
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1519_TO_1522_OCTETS_I_MSK 0x00000001
+#define MSTATX_REG_INT_3_BIT_RX_FRAMES_1519_TO_1522_OCTETS_I_OFF 0
+
+/*-----------------------------------------------.
+ | Register 0x0000100c INT_4                     |
+ +-----------------------------------------------+
+ | bit  15 R/W  TX_UNICAST_FRAMES_ATTEMPTED_I    |
+ | bit  14 R/W  TX_MULTICAST_FRAMES_OK_I         |
+ | bit  13 R/W  TX_BROADCAST_FRAMES_OK_I         |
+ | bit  12 R/W  TX_UNICAST_FRAMES_OK_I           |
+ | bit  11 R/W  TX_MAC_CONTROL_FRAMES_OK_I       |
+ | bit  10 R/W  TX_FRAMES_1523_TO_MAX_SIZE_I     |
+ | bit  9  R/W  TX_MAC_ERROR_I                   |
+ | bit  8  R/W  TX_SYSTEM_ERROR_I                |
+ | bit  7  R/W  TX_LONG_LENGTH_ERROR_I           |
+ | bit  6  R/W  TX_SHORT_LENGTH_ERROR_I          |
+ | bit  5  R/W  TX_FCS_ERROR_I                   |
+ | bit  4  R/W  TX_MAC_PAUSE_CONTROL_FRAMES_OK_I |
+ | bit  3  R/W  TX_TAGGED_FRAMES_OK_I            |
+ | bit  2  R/W  TX_OCTETS_I                      |
+ | bit  1  R/W  TX_OCTETS_OK_I                   |
+ | bit  0  R/W  TX_FRAMES_OK_I                   |
+ +----------------------------------------------*/
+#define PMC_MSTATX_REG_INT_4_UNUSED_MASK                          0xffff0000
+#define MSTATX_REG_INT_4_BIT_TX_UNICAST_FRAMES_ATTEMPTED_I_MSK    0x00008000
+#define MSTATX_REG_INT_4_BIT_TX_UNICAST_FRAMES_ATTEMPTED_I_OFF    15
+#define MSTATX_REG_INT_4_BIT_TX_MULTICAST_FRAMES_OK_I_MSK         0x00004000
+#define MSTATX_REG_INT_4_BIT_TX_MULTICAST_FRAMES_OK_I_OFF         14
+#define MSTATX_REG_INT_4_BIT_TX_BROADCAST_FRAMES_OK_I_MSK         0x00002000
+#define MSTATX_REG_INT_4_BIT_TX_BROADCAST_FRAMES_OK_I_OFF         13
+#define MSTATX_REG_INT_4_BIT_TX_UNICAST_FRAMES_OK_I_MSK           0x00001000
+#define MSTATX_REG_INT_4_BIT_TX_UNICAST_FRAMES_OK_I_OFF           12
+#define MSTATX_REG_INT_4_BIT_TX_MAC_CONTROL_FRAMES_OK_I_MSK       0x00000800
+#define MSTATX_REG_INT_4_BIT_TX_MAC_CONTROL_FRAMES_OK_I_OFF       11
+#define MSTATX_REG_INT_4_BIT_TX_FRAMES_1523_TO_MAX_SIZE_I_MSK     0x00000400
+#define MSTATX_REG_INT_4_BIT_TX_FRAMES_1523_TO_MAX_SIZE_I_OFF     10
+#define MSTATX_REG_INT_4_BIT_TX_MAC_ERROR_I_MSK                   0x00000200
+#define MSTATX_REG_INT_4_BIT_TX_MAC_ERROR_I_OFF                   9
+#define MSTATX_REG_INT_4_BIT_TX_SYSTEM_ERROR_I_MSK                0x00000100
+#define MSTATX_REG_INT_4_BIT_TX_SYSTEM_ERROR_I_OFF                8
+#define MSTATX_REG_INT_4_BIT_TX_LONG_LENGTH_ERROR_I_MSK           0x00000080
+#define MSTATX_REG_INT_4_BIT_TX_LONG_LENGTH_ERROR_I_OFF           7
+#define MSTATX_REG_INT_4_BIT_TX_SHORT_LENGTH_ERROR_I_MSK          0x00000040
+#define MSTATX_REG_INT_4_BIT_TX_SHORT_LENGTH_ERROR_I_OFF          6
+#define MSTATX_REG_INT_4_BIT_TX_FCS_ERROR_I_MSK                   0x00000020
+#define MSTATX_REG_INT_4_BIT_TX_FCS_ERROR_I_OFF                   5
+#define MSTATX_REG_INT_4_BIT_TX_MAC_PAUSE_CONTROL_FRAMES_OK_I_MSK 0x00000010
+#define MSTATX_REG_INT_4_BIT_TX_MAC_PAUSE_CONTROL_FRAMES_OK_I_OFF 4
+#define MSTATX_REG_INT_4_BIT_TX_TAGGED_FRAMES_OK_I_MSK            0x00000008
+#define MSTATX_REG_INT_4_BIT_TX_TAGGED_FRAMES_OK_I_OFF            3
+#define MSTATX_REG_INT_4_BIT_TX_OCTETS_I_MSK                      0x00000004
+#define MSTATX_REG_INT_4_BIT_TX_OCTETS_I_OFF                      2
+#define MSTATX_REG_INT_4_BIT_TX_OCTETS_OK_I_MSK                   0x00000002
+#define MSTATX_REG_INT_4_BIT_TX_OCTETS_OK_I_OFF                   1
+#define MSTATX_REG_INT_4_BIT_TX_FRAMES_OK_I_MSK                   0x00000001
+#define MSTATX_REG_INT_4_BIT_TX_FRAMES_OK_I_OFF                   0
+
+/*----------------------------------------------.
+ | Register 0x00001010 INT_5                    |
+ +----------------------------------------------+
+ | bit  15 R/W  TX_FRAMES_2501_TO_MAX_SIZE_I    |
+ | bit  14 R/W  TX_FRAMES_2001_TO_2500_OCTETS_I |
+ | bit  13 R/W  TX_FRAMES_1549_TO_2000_OCTETS_I |
+ | bit  12 R/W  TX_FRAMES_1523_TO_1548_OCTETS_I |
+ | bit  11 R/W  TX_FRAMES_1519_TO_1522_OCTETS_I |
+ | bit  10 R/W  RX_FRAMES_1523_TO_MAX_SIZE_I    |
+ | bit  9  R/W  TX_VARIABLE_I                   |
+ | bit  8  R/W  TX_FRAMES_1519_TO_MAX_SIZE_I    |
+ | bit  7  R/W  TX_FRAMES_1024_TO_1518_OCTETS_I |
+ | bit  6  R/W  TX_FRAMES_512_TO_1023_OCTETS_I  |
+ | bit  5  R/W  TX_FRAMES_256_TO_511_OCTETS_I   |
+ | bit  4  R/W  TX_FRAMES_128_TO_255_OCTETS_I   |
+ | bit  3  R/W  TX_FRAMES_65_TO_127_OCTETS_I    |
+ | bit  2  R/W  TX_FRAMES_64_OCTETS_I           |
+ | bit  1  R/W  TX_MULTICAST_FRAMES_ATTEMPTED_I |
+ | bit  0  R/W  TX_BROADCAST_FRAMES_ATTEMPTED_I |
+ +---------------------------------------------*/
+#define PMC_MSTATX_REG_INT_5_UNUSED_MASK                         0xffff0000
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_2501_TO_MAX_SIZE_I_MSK    0x00008000
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_2501_TO_MAX_SIZE_I_OFF    15
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_2001_TO_2500_OCTETS_I_MSK 0x00004000
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_2001_TO_2500_OCTETS_I_OFF 14
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1549_TO_2000_OCTETS_I_MSK 0x00002000
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1549_TO_2000_OCTETS_I_OFF 13
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1523_TO_1548_OCTETS_I_MSK 0x00001000
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1523_TO_1548_OCTETS_I_OFF 12
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1519_TO_1522_OCTETS_I_MSK 0x00000800
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1519_TO_1522_OCTETS_I_OFF 11
+#define MSTATX_REG_INT_5_BIT_RX_FRAMES_1523_TO_MAX_SIZE_I_MSK    0x00000400
+#define MSTATX_REG_INT_5_BIT_RX_FRAMES_1523_TO_MAX_SIZE_I_OFF    10
+#define MSTATX_REG_INT_5_BIT_TX_VARIABLE_I_MSK                   0x00000200
+#define MSTATX_REG_INT_5_BIT_TX_VARIABLE_I_OFF                   9
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1519_TO_MAX_SIZE_I_MSK    0x00000100
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1519_TO_MAX_SIZE_I_OFF    8
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1024_TO_1518_OCTETS_I_MSK 0x00000080
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_1024_TO_1518_OCTETS_I_OFF 7
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_512_TO_1023_OCTETS_I_MSK  0x00000040
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_512_TO_1023_OCTETS_I_OFF  6
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_256_TO_511_OCTETS_I_MSK   0x00000020
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_256_TO_511_OCTETS_I_OFF   5
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_128_TO_255_OCTETS_I_MSK   0x00000010
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_128_TO_255_OCTETS_I_OFF   4
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_65_TO_127_OCTETS_I_MSK    0x00000008
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_65_TO_127_OCTETS_I_OFF    3
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_64_OCTETS_I_MSK           0x00000004
+#define MSTATX_REG_INT_5_BIT_TX_FRAMES_64_OCTETS_I_OFF           2
+#define MSTATX_REG_INT_5_BIT_TX_MULTICAST_FRAMES_ATTEMPTED_I_MSK 0x00000002
+#define MSTATX_REG_INT_5_BIT_TX_MULTICAST_FRAMES_ATTEMPTED_I_OFF 1
+#define MSTATX_REG_INT_5_BIT_TX_BROADCAST_FRAMES_ATTEMPTED_I_MSK 0x00000001
+#define MSTATX_REG_INT_5_BIT_TX_BROADCAST_FRAMES_ATTEMPTED_I_OFF 0
+
+/*-----------------------------------------------.
+ | Register 0x00001014 INT_EN_1                  |
+ +-----------------------------------------------+
+ | bit  15 R/W  RX_LONG_LENGTH_ERROR_E           |
+ | bit  14 R/W  RX_IN_RANGE_LENGTH_ERROR_E       |
+ | bit  13 R/W  RX_LAYER1_ERROR_E                |
+ | bit  12 R/W  RX_SYMBOL_ERROR_E                |
+ | bit  10 R/W  RX_FCS_ERROR_E                   |
+ | bit  9  R/W  RX_MAC_CONTROL_FRAMES_OK_E       |
+ | bit  8  R/W  RX_MAC_PAUSE_CONTROL_FRAMES_OK_E |
+ | bit  7  R/W  RX_TAGGED_FRAMES_OK_E            |
+ | bit  6  R/W  RX_MULTICAST_FRAMES_OK_E         |
+ | bit  5  R/W  RX_BROADCAST_FRAMES_OK_E         |
+ | bit  4  R/W  RX_UNICAST_FRAMES_OK_E           |
+ | bit  3  R/W  RX_OCTETS_E                      |
+ | bit  2  R/W  RX_FRAMES_E                      |
+ | bit  1  R/W  RX_OCTETS_OK_E                   |
+ | bit  0  R/W  RX_FRAMES_OK_E                   |
+ +----------------------------------------------*/
+#define PMC_MSTATX_REG_INT_EN_1_UNUSED_MASK                          0xffff0000
+#define MSTATX_REG_INT_EN_1_BIT_RX_LONG_LENGTH_ERROR_E_MSK           0x00008000
+#define MSTATX_REG_INT_EN_1_BIT_RX_LONG_LENGTH_ERROR_E_OFF           15
+#define MSTATX_REG_INT_EN_1_BIT_RX_IN_RANGE_LENGTH_ERROR_E_MSK       0x00004000
+#define MSTATX_REG_INT_EN_1_BIT_RX_IN_RANGE_LENGTH_ERROR_E_OFF       14
+#define MSTATX_REG_INT_EN_1_BIT_RX_LAYER1_ERROR_E_MSK                0x00002000
+#define MSTATX_REG_INT_EN_1_BIT_RX_LAYER1_ERROR_E_OFF                13
+#define MSTATX_REG_INT_EN_1_BIT_RX_SYMBOL_ERROR_E_MSK                0x00001000
+#define MSTATX_REG_INT_EN_1_BIT_RX_SYMBOL_ERROR_E_OFF                12
+#define MSTATX_REG_INT_EN_1_BIT_RX_FCS_ERROR_E_MSK                   0x00000400
+#define MSTATX_REG_INT_EN_1_BIT_RX_FCS_ERROR_E_OFF                   10
+#define MSTATX_REG_INT_EN_1_BIT_RX_MAC_CONTROL_FRAMES_OK_E_MSK       0x00000200
+#define MSTATX_REG_INT_EN_1_BIT_RX_MAC_CONTROL_FRAMES_OK_E_OFF       9
+#define MSTATX_REG_INT_EN_1_BIT_RX_MAC_PAUSE_CONTROL_FRAMES_OK_E_MSK 0x00000100
+#define MSTATX_REG_INT_EN_1_BIT_RX_MAC_PAUSE_CONTROL_FRAMES_OK_E_OFF 8
+#define MSTATX_REG_INT_EN_1_BIT_RX_TAGGED_FRAMES_OK_E_MSK            0x00000080
+#define MSTATX_REG_INT_EN_1_BIT_RX_TAGGED_FRAMES_OK_E_OFF            7
+#define MSTATX_REG_INT_EN_1_BIT_RX_MULTICAST_FRAMES_OK_E_MSK         0x00000040
+#define MSTATX_REG_INT_EN_1_BIT_RX_MULTICAST_FRAMES_OK_E_OFF         6
+#define MSTATX_REG_INT_EN_1_BIT_RX_BROADCAST_FRAMES_OK_E_MSK         0x00000020
+#define MSTATX_REG_INT_EN_1_BIT_RX_BROADCAST_FRAMES_OK_E_OFF         5
+#define MSTATX_REG_INT_EN_1_BIT_RX_UNICAST_FRAMES_OK_E_MSK           0x00000010
+#define MSTATX_REG_INT_EN_1_BIT_RX_UNICAST_FRAMES_OK_E_OFF           4
+#define MSTATX_REG_INT_EN_1_BIT_RX_OCTETS_E_MSK                      0x00000008
+#define MSTATX_REG_INT_EN_1_BIT_RX_OCTETS_E_OFF                      3
+#define MSTATX_REG_INT_EN_1_BIT_RX_FRAMES_E_MSK                      0x00000004
+#define MSTATX_REG_INT_EN_1_BIT_RX_FRAMES_E_OFF                      2
+#define MSTATX_REG_INT_EN_1_BIT_RX_OCTETS_OK_E_MSK                   0x00000002
+#define MSTATX_REG_INT_EN_1_BIT_RX_OCTETS_OK_E_OFF                   1
+#define MSTATX_REG_INT_EN_1_BIT_RX_FRAMES_OK_E_MSK                   0x00000001
+#define MSTATX_REG_INT_EN_1_BIT_RX_FRAMES_OK_E_OFF                   0
+
+/*----------------------------------------------.
+ | Register 0x00001018 INT_EN_2                 |
+ +----------------------------------------------+
+ | bit  11 R/W  RX_VARIABLE_E                   |
+ | bit  10 R/W  RX_STATION_ADDRESS_FILTERED_E   |
+ | bit  9  R/W  RX_FRAMES_1519_TO_MAX_SIZE_E    |
+ | bit  8  R/W  RX_FRAMES_1024_TO_1518_OCTETS_E |
+ | bit  7  R/W  RX_FRAMES_512_TO_1023_OCTETS_E  |
+ | bit  6  R/W  RX_FRAMES_256_TO_511_OCTETS_E   |
+ | bit  5  R/W  RX_FRAMES_128_TO_255_OCTETS_E   |
+ | bit  4  R/W  RX_FRAMES_65_TO_127_OCTETS_E    |
+ | bit  3  R/W  RX_FRAMES_64_OCTETS_E           |
+ | bit  2  R/W  RX_SHORT_LENGTH_CRC_ERROR_E     |
+ | bit  1  R/W  RX_SHORT_LENGTH_ERROR_E         |
+ | bit  0  R/W  RX_LONG_LENGTH_CRC_ERROR_E      |
+ +---------------------------------------------*/
+#define PMC_MSTATX_REG_INT_EN_2_UNUSED_MASK                         0xfffff000
+#define MSTATX_REG_INT_EN_2_BIT_RX_VARIABLE_E_MSK                   0x00000800
+#define MSTATX_REG_INT_EN_2_BIT_RX_VARIABLE_E_OFF                   11
+#define MSTATX_REG_INT_EN_2_BIT_RX_STATION_ADDRESS_FILTERED_E_MSK   0x00000400
+#define MSTATX_REG_INT_EN_2_BIT_RX_STATION_ADDRESS_FILTERED_E_OFF   10
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_1519_TO_MAX_SIZE_E_MSK    0x00000200
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_1519_TO_MAX_SIZE_E_OFF    9
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_1024_TO_1518_OCTETS_E_MSK 0x00000100
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_1024_TO_1518_OCTETS_E_OFF 8
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_512_TO_1023_OCTETS_E_MSK  0x00000080
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_512_TO_1023_OCTETS_E_OFF  7
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_256_TO_511_OCTETS_E_MSK   0x00000040
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_256_TO_511_OCTETS_E_OFF   6
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_128_TO_255_OCTETS_E_MSK   0x00000020
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_128_TO_255_OCTETS_E_OFF   5
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_65_TO_127_OCTETS_E_MSK    0x00000010
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_65_TO_127_OCTETS_E_OFF    4
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_64_OCTETS_E_MSK           0x00000008
+#define MSTATX_REG_INT_EN_2_BIT_RX_FRAMES_64_OCTETS_E_OFF           3
+#define MSTATX_REG_INT_EN_2_BIT_RX_SHORT_LENGTH_CRC_ERROR_E_MSK     0x00000004
+#define MSTATX_REG_INT_EN_2_BIT_RX_SHORT_LENGTH_CRC_ERROR_E_OFF     2
+#define MSTATX_REG_INT_EN_2_BIT_RX_SHORT_LENGTH_ERROR_E_MSK         0x00000002
+#define MSTATX_REG_INT_EN_2_BIT_RX_SHORT_LENGTH_ERROR_E_OFF         1
+#define MSTATX_REG_INT_EN_2_BIT_RX_LONG_LENGTH_CRC_ERROR_E_MSK      0x00000001
+#define MSTATX_REG_INT_EN_2_BIT_RX_LONG_LENGTH_CRC_ERROR_E_OFF      0
+
+/*---------------------------------------------.
+ | Register 0x0000101c INT_EN_3                |
+ +---------------------------------------------+
+ | bit  4 R/W  RX_FRAMES_2501_TO_MAX_SIZE_E    |
+ | bit  3 R/W  RX_FRAMES_2001_TO_2500_OCTETS_E |
+ | bit  2 R/W  RX_FRAMES_1549_TO_2000_OCTETS_E |
+ | bit  1 R/W  RX_FRAMES_1523_TO_1548_OCTETS_E |
+ | bit  0 R/W  RX_FRAMES_1519_TO_1522_OCTETS_E |
+ +--------------------------------------------*/
+#define PMC_MSTATX_REG_INT_EN_3_UNUSED_MASK                         0xffffffe0
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_2501_TO_MAX_SIZE_E_MSK    0x00000010
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_2501_TO_MAX_SIZE_E_OFF    4
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_2001_TO_2500_OCTETS_E_MSK 0x00000008
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_2001_TO_2500_OCTETS_E_OFF 3
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1549_TO_2000_OCTETS_E_MSK 0x00000004
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1549_TO_2000_OCTETS_E_OFF 2
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1523_TO_1548_OCTETS_E_MSK 0x00000002
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1523_TO_1548_OCTETS_E_OFF 1
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1519_TO_1522_OCTETS_E_MSK 0x00000001
+#define MSTATX_REG_INT_EN_3_BIT_RX_FRAMES_1519_TO_1522_OCTETS_E_OFF 0
+
+/*-----------------------------------------------.
+ | Register 0x00001020 INT_EN_4                  |
+ +-----------------------------------------------+
+ | bit  15 R/W  TX_UNICAST_FRAMES_ATTEMPTED_E    |
+ | bit  14 R/W  TX_MULTICAST_FRAMES_OK_E         |
+ | bit  13 R/W  TX_BROADCAST_FRAMES_OK_E         |
+ | bit  12 R/W  TX_UNICAST_FRAMES_OK_E           |
+ | bit  11 R/W  TX_MAC_CONTROL_FRAMES_OK_E       |
+ | bit  10 R/W  TX_FRAMES_1523_TO_MAX_SIZE_E     |
+ | bit  9  R/W  TX_MAC_ERROR_E                   |
+ | bit  8  R/W  TX_SYSTEM_ERROR_E                |
+ | bit  7  R/W  TX_LONG_LENGTH_ERROR_E           |
+ | bit  6  R/W  TX_SHORT_LENGTH_ERROR_E          |
+ | bit  5  R/W  TX_FCS_ERROR_E                   |
+ | bit  4  R/W  TX_MAC_PAUSE_CONTROL_FRAMES_OK_E |
+ | bit  3  R/W  TX_TAGGED_FRAMES_OK_E            |
+ | bit  2  R/W  TX_OCTETS_E                      |
+ | bit  1  R/W  TX_OCTETS_OK_E                   |
+ | bit  0  R/W  TX_FRAMES_OK_E                   |
+ +----------------------------------------------*/
+#define PMC_MSTATX_REG_INT_EN_4_UNUSED_MASK                          0xffff0000
+#define MSTATX_REG_INT_EN_4_BIT_TX_UNICAST_FRAMES_ATTEMPTED_E_MSK    0x00008000
+#define MSTATX_REG_INT_EN_4_BIT_TX_UNICAST_FRAMES_ATTEMPTED_E_OFF    15
+#define MSTATX_REG_INT_EN_4_BIT_TX_MULTICAST_FRAMES_OK_E_MSK         0x00004000
+#define MSTATX_REG_INT_EN_4_BIT_TX_MULTICAST_FRAMES_OK_E_OFF         14
+#define MSTATX_REG_INT_EN_4_BIT_TX_BROADCAST_FRAMES_OK_E_MSK         0x00002000
+#define MSTATX_REG_INT_EN_4_BIT_TX_BROADCAST_FRAMES_OK_E_OFF         13
+#define MSTATX_REG_INT_EN_4_BIT_TX_UNICAST_FRAMES_OK_E_MSK           0x00001000
+#define MSTATX_REG_INT_EN_4_BIT_TX_UNICAST_FRAMES_OK_E_OFF           12
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_CONTROL_FRAMES_OK_E_MSK       0x00000800
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_CONTROL_FRAMES_OK_E_OFF       11
+#define MSTATX_REG_INT_EN_4_BIT_TX_FRAMES_1523_TO_MAX_SIZE_E_MSK     0x00000400
+#define MSTATX_REG_INT_EN_4_BIT_TX_FRAMES_1523_TO_MAX_SIZE_E_OFF     10
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_ERROR_E_MSK                   0x00000200
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_ERROR_E_OFF                   9
+#define MSTATX_REG_INT_EN_4_BIT_TX_SYSTEM_ERROR_E_MSK                0x00000100
+#define MSTATX_REG_INT_EN_4_BIT_TX_SYSTEM_ERROR_E_OFF                8
+#define MSTATX_REG_INT_EN_4_BIT_TX_LONG_LENGTH_ERROR_E_MSK           0x00000080
+#define MSTATX_REG_INT_EN_4_BIT_TX_LONG_LENGTH_ERROR_E_OFF           7
+#define MSTATX_REG_INT_EN_4_BIT_TX_SHORT_LENGTH_ERROR_E_MSK          0x00000040
+#define MSTATX_REG_INT_EN_4_BIT_TX_SHORT_LENGTH_ERROR_E_OFF          6
+#define MSTATX_REG_INT_EN_4_BIT_TX_FCS_ERROR_E_MSK                   0x00000020
+#define MSTATX_REG_INT_EN_4_BIT_TX_FCS_ERROR_E_OFF                   5
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_PAUSE_CONTROL_FRAMES_OK_E_MSK 0x00000010
+#define MSTATX_REG_INT_EN_4_BIT_TX_MAC_PAUSE_CONTROL_FRAMES_OK_E_OFF 4
+#define MSTATX_REG_INT_EN_4_BIT_TX_TAGGED_FRAMES_OK_E_MSK            0x00000008
+#define MSTATX_REG_INT_EN_4_BIT_TX_TAGGED_FRAMES_OK_E_OFF            3
+#define MSTATX_REG_INT_EN_4_BIT_TX_OCTETS_E_MSK                      0x00000004
+#define MSTATX_REG_INT_EN_4_BIT_TX_OCTETS_E_OFF                      2
+#define MSTATX_REG_INT_EN_4_BIT_TX_OCTETS_OK_E_MSK                   0x00000002
+#define MSTATX_REG_INT_EN_4_BIT_TX_OCTETS_OK_E_OFF                   1
+#define MSTATX_REG_INT_EN_4_BIT_TX_FRAMES_OK_E_MSK                   0x00000001
+#define MSTATX_REG_INT_EN_4_BIT_TX_FRAMES_OK_E_OFF                   0
+
+/*----------------------------------------------.
+ | Register 0x00001024 INT_EN_5                 |
+ +----------------------------------------------+
+ | bit  15 R/W  TX_FRAMES_2501_TO_MAX_SIZE_E    |
+ | bit  14 R/W  TX_FRAMES_2001_TO_2500_OCTETS_E |
+ | bit  13 R/W  TX_FRAMES_1549_TO_2000_OCTETS_E |
+ | bit  12 R/W  TX_FRAMES_1523_TO_1548_OCTETS_E |
+ | bit  11 R/W  TX_FRAMES_1519_TO_1522_OCTETS_E |
+ | bit  10 R/W  RX_FRAMES_1523_TO_MAX_SIZE_E    |
+ | bit  9  R/W  TX_VARIABLE_E                   |
+ | bit  8  R/W  TX_FRAMES_1519_TO_MAX_SIZE_E    |
+ | bit  7  R/W  TX_FRAMES_1024_TO_1518_OCTETS_E |
+ | bit  6  R/W  TX_FRAMES_512_TO_1023_OCTETS_E  |
+ | bit  5  R/W  TX_FRAMES_256_TO_511_OCTETS_E   |
+ | bit  4  R/W  TX_FRAMES_128_TO_255_OCTETS_E   |
+ | bit  3  R/W  TX_FRAMES_65_TO_127_OCTETS_E    |
+ | bit  2  R/W  TX_FRAMES_64_OCTETS_E           |
+ | bit  1  R/W  TX_MULTICAST_FRAMES_ATTEMPTED_E |
+ | bit  0  R/W  TX_BROADCAST_FRAMES_ATTEMPTED_E |
+ +---------------------------------------------*/
+#define PMC_MSTATX_REG_INT_EN_5_UNUSED_MASK                         0xffff0000
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_2501_TO_MAX_SIZE_E_MSK    0x00008000
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_2501_TO_MAX_SIZE_E_OFF    15
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_2001_TO_2500_OCTETS_E_MSK 0x00004000
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_2001_TO_2500_OCTETS_E_OFF 14
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1549_TO_2000_OCTETS_E_MSK 0x00002000
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1549_TO_2000_OCTETS_E_OFF 13
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1523_TO_1548_OCTETS_E_MSK 0x00001000
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1523_TO_1548_OCTETS_E_OFF 12
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1519_TO_1522_OCTETS_E_MSK 0x00000800
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1519_TO_1522_OCTETS_E_OFF 11
+#define MSTATX_REG_INT_EN_5_BIT_RX_FRAMES_1523_TO_MAX_SIZE_E_MSK    0x00000400
+#define MSTATX_REG_INT_EN_5_BIT_RX_FRAMES_1523_TO_MAX_SIZE_E_OFF    10
+#define MSTATX_REG_INT_EN_5_BIT_TX_VARIABLE_E_MSK                   0x00000200
+#define MSTATX_REG_INT_EN_5_BIT_TX_VARIABLE_E_OFF                   9
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1519_TO_MAX_SIZE_E_MSK    0x00000100
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1519_TO_MAX_SIZE_E_OFF    8
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1024_TO_1518_OCTETS_E_MSK 0x00000080
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_1024_TO_1518_OCTETS_E_OFF 7
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_512_TO_1023_OCTETS_E_MSK  0x00000040
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_512_TO_1023_OCTETS_E_OFF  6
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_256_TO_511_OCTETS_E_MSK   0x00000020
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_256_TO_511_OCTETS_E_OFF   5
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_128_TO_255_OCTETS_E_MSK   0x00000010
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_128_TO_255_OCTETS_E_OFF   4
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_65_TO_127_OCTETS_E_MSK    0x00000008
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_65_TO_127_OCTETS_E_OFF    3
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_64_OCTETS_E_MSK           0x00000004
+#define MSTATX_REG_INT_EN_5_BIT_TX_FRAMES_64_OCTETS_E_OFF           2
+#define MSTATX_REG_INT_EN_5_BIT_TX_MULTICAST_FRAMES_ATTEMPTED_E_MSK 0x00000002
+#define MSTATX_REG_INT_EN_5_BIT_TX_MULTICAST_FRAMES_ATTEMPTED_E_OFF 1
+#define MSTATX_REG_INT_EN_5_BIT_TX_BROADCAST_FRAMES_ATTEMPTED_E_MSK 0x00000001
+#define MSTATX_REG_INT_EN_5_BIT_TX_BROADCAST_FRAMES_ATTEMPTED_E_OFF 0
+
+/*----------------------------.
+ | Register 0x00001028 CTRL   |
+ +----------------------------+
+ | bit  15 R/W  LCLK_MODE     |
+ | bit  6  R/W  TX_LOAD       |
+ | bit  5  R/W  TX_SNAP_CLEAR |
+ | bit  4  R/W  TX_SNAP_POST  |
+ | bit  2  R/W  RX_LOAD       |
+ | bit  1  R/W  RX_SNAP_CLEAR |
+ | bit  0  R/W  RX_SNAP_POST  |
+ +---------------------------*/
+#define PMC_MSTATX_REG_CTRL_UNUSED_MASK       0xffff7f88
+#define MSTATX_REG_CTRL_BIT_LCLK_MODE_MSK     0x00008000
+#define MSTATX_REG_CTRL_BIT_LCLK_MODE_OFF     15
+#define MSTATX_REG_CTRL_BIT_TX_LOAD_MSK       0x00000040
+#define MSTATX_REG_CTRL_BIT_TX_LOAD_OFF       6
+#define MSTATX_REG_CTRL_BIT_TX_SNAP_CLEAR_MSK 0x00000020
+#define MSTATX_REG_CTRL_BIT_TX_SNAP_CLEAR_OFF 5
+#define MSTATX_REG_CTRL_BIT_TX_SNAP_POST_MSK  0x00000010
+#define MSTATX_REG_CTRL_BIT_TX_SNAP_POST_OFF  4
+#define MSTATX_REG_CTRL_BIT_RX_LOAD_MSK       0x00000004
+#define MSTATX_REG_CTRL_BIT_RX_LOAD_OFF       2
+#define MSTATX_REG_CTRL_BIT_RX_SNAP_CLEAR_MSK 0x00000002
+#define MSTATX_REG_CTRL_BIT_RX_SNAP_CLEAR_OFF 1
+#define MSTATX_REG_CTRL_BIT_RX_SNAP_POST_MSK  0x00000001
+#define MSTATX_REG_CTRL_BIT_RX_SNAP_POST_OFF  0
+
+/*-------------------------------------.
+ | Register 0x0000102c VARIABLE_SELECT |
+ +-------------------------------------+
+ | bit  12:8 R/W  TX_INDEX             |
+ | bit  4:0  R/W  RX_INDEX             |
+ +------------------------------------*/
+#define PMC_MSTATX_REG_VARIABLE_SELECT_UNUSED_MASK  0xffffe0e0
+#define MSTATX_REG_VARIABLE_SELECT_BIT_TX_INDEX_MSK 0x00001f00
+#define MSTATX_REG_VARIABLE_SELECT_BIT_TX_INDEX_OFF 8
+#define MSTATX_REG_VARIABLE_SELECT_BIT_RX_INDEX_MSK 0x0000001f
+#define MSTATX_REG_VARIABLE_SELECT_BIT_RX_INDEX_OFF 0
+
+/* index definitions for PMC_MSTATX_REG_STATISTICAL_CNT_LOW */
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW_INDEX_N_MIN    0
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW_INDEX_N_MAX    64
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW_INDEX_N_SIZE   65
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW_INDEX_N_OFFSET 0x10
+
+/*--------------------------------------------------------.
+ | Register (0x00001040 + (N) * 0x10) STATISTICAL_CNT_LOW |
+ +--------------------------------------------------------+
+ | bit  15:0 R  COUNTL                                    |
+ +-------------------------------------------------------*/
+#define PMC_MSTATX_REG_STATISTICAL_CNT_LOW_UNUSED_MASK    0xffff0000
+#define MSTATX_REG_STATISTICAL_CNT_LOW_BIT_COUNTL_MSK     0x0000ffff
+#define MSTATX_REG_STATISTICAL_CNT_LOW_BIT_COUNTL_OFF     0
+
+/* index definitions for PMC_MSTATX_REG_STATISTICAL_CNT_MID */
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID_INDEX_N_MIN    0
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID_INDEX_N_MAX    64
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID_INDEX_N_SIZE   65
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID_INDEX_N_OFFSET 0x10
+
+/*--------------------------------------------------------.
+ | Register (0x00001044 + (N) * 0x10) STATISTICAL_CNT_MID |
+ +--------------------------------------------------------+
+ | bit  15:0 R  COUNTM                                    |
+ +-------------------------------------------------------*/
+#define PMC_MSTATX_REG_STATISTICAL_CNT_MID_UNUSED_MASK    0xffff0000
+#define MSTATX_REG_STATISTICAL_CNT_MID_BIT_COUNTM_MSK     0x0000ffff
+#define MSTATX_REG_STATISTICAL_CNT_MID_BIT_COUNTM_OFF     0
+
+/* index definitions for PMC_MSTATX_REG_STATISTICAL_CNT_HIGH */
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH_INDEX_N_MIN    0
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH_INDEX_N_MAX    64
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH_INDEX_N_SIZE   65
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH_INDEX_N_OFFSET 0x10
+
+/*---------------------------------------------------------.
+ | Register (0x00001048 + (N) * 0x10) STATISTICAL_CNT_HIGH |
+ +---------------------------------------------------------+
+ | bit  7:0 R  COUNTH                                      |
+ +--------------------------------------------------------*/
+#define PMC_MSTATX_REG_STATISTICAL_CNT_HIGH_UNUSED_MASK    0xffffff00
+#define MSTATX_REG_STATISTICAL_CNT_HIGH_BIT_COUNTH_MSK     0x000000ff
+#define MSTATX_REG_STATISTICAL_CNT_HIGH_BIT_COUNTH_OFF     0
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* _MSTATX_REGS_H */

@@ -1,0 +1,67 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/System")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.RestartEnum = {0:"None",1:"Reboot",99:"INVALID"};
+    $scope.DatabaseEnum = {0:"None",1:"Clear",99:"INVALID"};
+    $scope.LampTestEnum = {0:"Off",1:"On",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">System Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>UpTime</th>
+            <th>CpuUsage</th>
+            <th>MemUsage</th>
+            <th>CurrentDateTime</th>
+            <th>SetDateTime</th>
+            <th>SwVersion</th>
+            <th>Restart</th>
+            <th>Database</th>
+            <th>LampTest</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.Name }}</td>
+            <td>{{ x.Contact }}</td>
+            <td>{{ x.Location }}</td>
+            <td>{{ x.Description }}</td>
+            <td>{{ x.UpTime }}</td>
+            <td>{{ x.CpuUsage }}</td>
+            <td>{{ x.MemUsage }}</td>
+            <td>{{ x.CurrentDateTime }}</td>
+            <td>{{ x.SetDateTime }}</td>
+            <td>{{ x.SwVersion }}</td>
+            <td>{{ RestartEnum[x.Restart] }}</td>
+            <td>{{ DatabaseEnum[x.Database] }}</td>
+            <td>{{ LampTestEnum[x.LampTest] }}</td>
+            <td>
+              <a ui_sref="app.SystemView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

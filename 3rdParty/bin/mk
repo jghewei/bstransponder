@@ -1,0 +1,109 @@
+#!/bin/bash
+
+function usage ()
+{
+    echo -e ""
+    echo -e "** $1 **"
+    echo -e ""
+    echo -e "usage:  $(basename $0) [-w|-d|-v|-f|-a|-h]"
+    echo -e ""
+    echo -e "\t -w - specify workbench env"
+    echo -e "\t -d - compile with debug info"
+    echo -e "\t -v - compile with verbose flag"
+    echo -e "\t -f - force clean compilation"
+    echo -e "\t -h - print help"
+
+    exit 1;
+}
+
+
+#################################################################
+#### Usage checks... only execute script if correctly called ####
+#################################################################
+
+ARCH="target"
+DEBUG="off"
+VERBOSE="off"
+FORCE="off"
+HELP="off"
+PARALLEL="off"
+TARGET="all"
+
+BUILD_TYPE="Release"
+
+set -- $(getopt wdfvajh "$@")
+while [ $# -gt 0 ]
+do
+    case "$1" in
+    (-w) ARCH="x86";;
+    (-d) DEBUG="on";;
+    (-f) FORCE="on";;
+    (-v) VERBOSE="on";;
+    (-h) HELP="on";;
+    (-j) PARALLEL="on";;
+    (--) shift; break;;
+    (-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+    (*)  break;;
+    esac
+    shift
+done
+
+##get target default is all
+if [ $# -ge 1 ]; then
+    TARGET=$1
+fi
+
+#if help on print usage
+if [ $HELP == "on" ]; then
+    usage "Possible options"
+fi
+
+COMMON_MOD_PATH="$DanOS_DIR/3rdParty/cmakeModules"
+BUILD_TYPE="Release"
+
+if [ $ARCH == "target" ]; then
+    TOOLCHAIN_FILE="$DanOS_DIR/3rdParty/cmakeModules/powerpc-e300c-linux-gnu.cmake"
+fi
+
+if [ $ARCH == "x86" ]; then
+    TOOLCHAIN_FILE=""
+fi
+
+if [ $DEBUG == "on" ]; then
+    BUILD_TYPE="Debug"
+fi
+
+if [ $VERBOSE == "on" ]; then
+    EXTRA_OPTIONS="VERBOSE=1"
+fi
+
+if [ $PARALLEL == "on" ]; then
+    EXTRA_OPTIONS="$EXTRA_OPTIONS -j $NUM_CPU"
+fi
+
+BUILD_FOLDER="build_${ARCH}${BUILD_ARCH_SUFIX}"
+EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_TOOLCHAIN_FILE=$TOOLCHAIN_FILE -DCMAKE_MODULE_PATH=$COMMON_MOD_PATH"
+
+if [ $FORCE == "on" ]; then
+    echo "### Cleaning $BUILD_FOLDER"
+    rm -rf $BUILD_FOLDER
+fi
+
+compilation_error_code=1
+
+function compile()
+{
+    mkdir -p $BUILD_FOLDER && \
+    cd $BUILD_FOLDER && \
+    cmake $EXTRA_CMAKE_FLAGS .. && \
+    make $EXTRA_OPTIONS $TARGET
+    compilation_error_code=$?
+    cd ..
+}
+
+TIMEFORMAT="Compilation took %R seconds"
+echo "### Compiling for '$ARCH' with '$EXTRA_CMAKE_FLAGS' '$EXTRA_OPTIONS' in folder '$BUILD_FOLDER'"
+time compile
+
+exit $compilation_error_code
+

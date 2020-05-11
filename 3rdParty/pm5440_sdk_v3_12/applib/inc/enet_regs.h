@@ -1,0 +1,262 @@
+/******************************************************************************
+ *   COPYRIGHT (C) 2013 PMC-SIERRA, INC. ALL RIGHTS RESERVED.
+ * --------------------------------------------------------------------------
+ *  This software embodies materials and concepts which are proprietary and
+ *  confidential to PMC-Sierra, Inc.
+ *  PMC-Sierra distributes this software to its customers pursuant to the
+ *  terms and conditions of the Software License Agreement
+ *  contained in the text file software.lic that is distributed along with
+ *  the software. This software can only be utilized if all
+ *  terms and conditions of the Software License Agreement are
+ *  accepted. If there are any questions, concerns, or if the
+ *  Software License Agreement text file, software.lic, is missing please
+ *  contact PMC-Sierra for assistance.
+ * -------------------------------------------------------------------------
+ *   DESCRIPTION:
+ *     Contains all register offset and register bit definitions for the
+ *     enet block
+ *****************************************************************************/
+#ifndef _ENET_REGS_H
+#define _ENET_REGS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+
+/*--------------------.
+ | register addresses |
+ +-------------------*/
+#define PMC_ENET120_TOP_REG_MTSB_SW_RESET               0x00000000
+#define PMC_ENET120_TOP_REG_MTSB_LOW_POWER_MODE         0x00000004
+#define PMC_ENET120_TOP_REG_SUBSYSTEM_CTRL              0x00000008
+#define PMC_ENET120_TOP_REG_ENET_DATAPATH_CFG           0x0000000c
+#define PMC_ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0      0x00000010
+#define PMC_ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1       0x00000014
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0( N ) (0x00000020 + (N) * 8)
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1( N ) (0x00000024 + (N) * 8)
+
+/*-----------------------------------.
+ | Register 0x00000000 MTSB_SW_RESET |
+ +-----------------------------------+
+ | bit  4 R/W  ETRANS120_SW_RST      |
+ | bit  3 R/W  EPMM120_SW_RST        |
+ | bit  2 R/W  EMPEI120_E_SW_RST     |
+ | bit  1 R/W  EMPEI120_I_SW_RST     |
+ | bit  0 R/W  EMAC120_SW_RST        |
+ +----------------------------------*/
+#define PMC_ENET120_TOP_REG_MTSB_SW_RESET_UNUSED_MASK           0xffffffe0
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_ETRANS120_SW_RST_MSK  0x00000010
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_ETRANS120_SW_RST_OFF  4
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EPMM120_SW_RST_MSK    0x00000008
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EPMM120_SW_RST_OFF    3
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMPEI120_E_SW_RST_MSK 0x00000004
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMPEI120_E_SW_RST_OFF 2
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMPEI120_I_SW_RST_MSK 0x00000002
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMPEI120_I_SW_RST_OFF 1
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMAC120_SW_RST_MSK    0x00000001
+#define ENET120_TOP_REG_MTSB_SW_RESET_BIT_EMAC120_SW_RST_OFF    0
+
+/*-----------------------------------------.
+ | Register 0x00000004 MTSB_LOW_POWER_MODE |
+ +-----------------------------------------+
+ | bit  12 R/W  ETRANS120_RAM_LOWPWR       |
+ | bit  11 R/W  EPMM120_RAM_LOWPWR         |
+ | bit  10 R/W  EMPEI120_E_RAM_LOWPWR      |
+ | bit  9  R/W  EMPEI120_I_RAM_LOWPWR      |
+ | bit  8  R/W  EMAC120_RAM_LOWPWR         |
+ | bit  4  R/W  ETRANS120_LOWPWR           |
+ | bit  3  R/W  EPMM120_LOWPWR             |
+ | bit  2  R/W  EMPEI120_E_LOWPWR          |
+ | bit  1  R/W  EMPEI120_I_LOWPWR          |
+ | bit  0  R/W  EMAC120_LOWPWR             |
+ +----------------------------------------*/
+#define PMC_ENET120_TOP_REG_MTSB_LOW_POWER_MODE_UNUSED_MASK               0xffffe0e0
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_ETRANS120_RAM_LOWPWR_MSK  0x00001000
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_ETRANS120_RAM_LOWPWR_OFF  12
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EPMM120_RAM_LOWPWR_MSK    0x00000800
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EPMM120_RAM_LOWPWR_OFF    11
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_E_RAM_LOWPWR_MSK 0x00000400
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_E_RAM_LOWPWR_OFF 10
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_I_RAM_LOWPWR_MSK 0x00000200
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_I_RAM_LOWPWR_OFF 9
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMAC120_RAM_LOWPWR_MSK    0x00000100
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMAC120_RAM_LOWPWR_OFF    8
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_ETRANS120_LOWPWR_MSK      0x00000010
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_ETRANS120_LOWPWR_OFF      4
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EPMM120_LOWPWR_MSK        0x00000008
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EPMM120_LOWPWR_OFF        3
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_E_LOWPWR_MSK     0x00000004
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_E_LOWPWR_OFF     2
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_I_LOWPWR_MSK     0x00000002
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMPEI120_I_LOWPWR_OFF     1
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMAC120_LOWPWR_MSK        0x00000001
+#define ENET120_TOP_REG_MTSB_LOW_POWER_MODE_BIT_EMAC120_LOWPWR_OFF        0
+
+/*------------------------------------.
+ | Register 0x00000008 SUBSYSTEM_CTRL |
+ +------------------------------------+
+ | bit  2 R/W  SS_PG_OVERRIDE         |
+ | bit  1 R/W  SS_CLR_INT             |
+ | bit  0 R/W  SS_WCI_MODE            |
+ +-----------------------------------*/
+#define PMC_ENET120_TOP_REG_SUBSYSTEM_CTRL_UNUSED_MASK        0xfffffff8
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_PG_OVERRIDE_MSK 0x00000004
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_PG_OVERRIDE_OFF 2
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_CLR_INT_MSK     0x00000002
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_CLR_INT_OFF     1
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_WCI_MODE_MSK    0x00000001
+#define ENET120_TOP_REG_SUBSYSTEM_CTRL_BIT_SS_WCI_MODE_OFF    0
+
+/*---------------------------------------.
+ | Register 0x0000000c ENET_DATAPATH_CFG |
+ +---------------------------------------+
+ | bit  15    R/W  LINK_100G_EN          |
+ | bit  14:12 R/W  LINK_40G_EN           |
+ | bit  11:0  R/W  LINK_10G_EN           |
+ +--------------------------------------*/
+#define PMC_ENET120_TOP_REG_ENET_DATAPATH_CFG_UNUSED_MASK      0xffff0000
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_100G_EN_MSK 0x00008000
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_100G_EN_OFF 15
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_40G_EN_MSK  0x00007000
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_40G_EN_OFF  12
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_10G_EN_MSK  0x00000fff
+#define ENET120_TOP_REG_ENET_DATAPATH_CFG_BIT_LINK_10G_EN_OFF  0
+
+/*--------------------------------------------.
+ | Register 0x00000010 ENET_SS_INT_SMRY_PGE_0 |
+ +--------------------------------------------+
+ | bit  24    R  EPMM_MPMO_INT                |
+ | bit  23    R  EPMM_MPMA_INT                |
+ | bit  22    R  EPMM_EXCO4M_INT              |
+ | bit  21:19 R  EPMM_EXCO3M_INT              |
+ | bit  18:7  R  EPMM_GSUP_INT                |
+ | bit  6     R  EPMM_TOP_INT                 |
+ | bit  5     R  ECLASS_E_INT                 |
+ | bit  4     R  EMPEI_E_INT                  |
+ | bit  3     R  ECLASS_I_INT                 |
+ | bit  2     R  EMPEI_I_INT                  |
+ | bit  1     R  ETIME_INT                    |
+ | bit  0     R  EMAC_INT                     |
+ +-------------------------------------------*/
+#define PMC_ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_UNUSED_MASK         0xfe000000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_MPMO_INT_MSK   0x01000000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_MPMO_INT_OFF   24
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_MPMA_INT_MSK   0x00800000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_MPMA_INT_OFF   23
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_EXCO4M_INT_MSK 0x00400000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_EXCO4M_INT_OFF 22
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_EXCO3M_INT_MSK 0x00380000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_EXCO3M_INT_OFF 19
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_GSUP_INT_MSK   0x0007ff80
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_GSUP_INT_OFF   7
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_TOP_INT_MSK    0x00000040
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EPMM_TOP_INT_OFF    6
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ECLASS_E_INT_MSK    0x00000020
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ECLASS_E_INT_OFF    5
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMPEI_E_INT_MSK     0x00000010
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMPEI_E_INT_OFF     4
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ECLASS_I_INT_MSK    0x00000008
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ECLASS_I_INT_OFF    3
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMPEI_I_INT_MSK     0x00000004
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMPEI_I_INT_OFF     2
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ETIME_INT_MSK       0x00000002
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_ETIME_INT_OFF       1
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMAC_INT_MSK        0x00000001
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PGE_0_BIT_EMAC_INT_OFF        0
+
+/*-------------------------------------------.
+ | Register 0x00000014 ENET_SS_INT_SMRY_PG_1 |
+ +-------------------------------------------+
+ | bit  22    R  ETRANS_EXCO4M_INT           |
+ | bit  21:19 R  ETRANS_EXCO3M_INT           |
+ | bit  12:1  R  ETRANS_GSUP_INT             |
+ | bit  0     R  ETRANS_TOP_INT              |
+ +------------------------------------------*/
+#define PMC_ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_UNUSED_MASK           0xff87e000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_EXCO4M_INT_MSK 0x00400000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_EXCO4M_INT_OFF 22
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_EXCO3M_INT_MSK 0x00380000
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_EXCO3M_INT_OFF 19
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_GSUP_INT_MSK   0x00001ffe
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_GSUP_INT_OFF   1
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_TOP_INT_MSK    0x00000001
+#define ENET120_TOP_REG_ENET_SS_INT_SMRY_PG_1_BIT_ETRANS_TOP_INT_OFF    0
+
+/* index definitions for PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0 */
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_INDEX_N_MIN            0
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_INDEX_N_MAX            3
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_INDEX_N_SIZE           4
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_INDEX_N_OFFSET         8
+
+/*--------------------------------------------------------.
+ | Register (0x00000020 + (N) * 8) SUBSTSEM_INT_EN_PAGE_0 |
+ +--------------------------------------------------------+
+ | bit  24    R/W  EPMM_MPMO_INT_EN                       |
+ | bit  23    R/W  EPMM_MPMA_INT_EN                       |
+ | bit  22    R/W  EPMM_EXCO4M_INT_EN                     |
+ | bit  21:19 R/W  EPMM_EXCO3M_INT_EN                     |
+ | bit  18:7  R/W  EPMM_GSUP_INT_EN                       |
+ | bit  6     R/W  EPMM_TOP_INT_EN                        |
+ | bit  5     R/W  ECLASS_E_INT_EN                        |
+ | bit  4     R/W  EMPEI_E_INT_EN                         |
+ | bit  3     R/W  ECLASS_I_INT_EN                        |
+ | bit  2     R/W  EMPEI_I_INT_EN                         |
+ | bit  1     R/W  ETIME_INT_EN                           |
+ | bit  0     R/W  EMAC_INT_EN                            |
+ +-------------------------------------------------------*/
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_UNUSED_MASK            0xfe000000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_MPMO_INT_EN_MSK   0x01000000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_MPMO_INT_EN_OFF   24
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_MPMA_INT_EN_MSK   0x00800000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_MPMA_INT_EN_OFF   23
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_EXCO4M_INT_EN_MSK 0x00400000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_EXCO4M_INT_EN_OFF 22
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_EXCO3M_INT_EN_MSK 0x00380000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_EXCO3M_INT_EN_OFF 19
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_GSUP_INT_EN_MSK   0x0007ff80
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_GSUP_INT_EN_OFF   7
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_TOP_INT_EN_MSK    0x00000040
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EPMM_TOP_INT_EN_OFF    6
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ECLASS_E_INT_EN_MSK    0x00000020
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ECLASS_E_INT_EN_OFF    5
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMPEI_E_INT_EN_MSK     0x00000010
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMPEI_E_INT_EN_OFF     4
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ECLASS_I_INT_EN_MSK    0x00000008
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ECLASS_I_INT_EN_OFF    3
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMPEI_I_INT_EN_MSK     0x00000004
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMPEI_I_INT_EN_OFF     2
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ETIME_INT_EN_MSK       0x00000002
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_ETIME_INT_EN_OFF       1
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMAC_INT_EN_MSK        0x00000001
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_0_BIT_EMAC_INT_EN_OFF        0
+
+/* index definitions for PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1 */
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_INDEX_N_MIN              0
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_INDEX_N_MAX              3
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_INDEX_N_SIZE             4
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_INDEX_N_OFFSET           8
+
+/*--------------------------------------------------------.
+ | Register (0x00000024 + (N) * 8) SUBSTSEM_INT_EN_PAGE_1 |
+ +--------------------------------------------------------+
+ | bit  16    R/W  ETRANS_EXCO4M_INT_EN                   |
+ | bit  15:13 R/W  ETRANS_EXCO3M_INT_EN                   |
+ | bit  12:1  R/W  ETRANS_GSUP_INT_EN                     |
+ | bit  0     R/W  ETRANS_TOP_INT_EN                      |
+ +-------------------------------------------------------*/
+#define PMC_ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_UNUSED_MASK              0xfffe0000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_EXCO4M_INT_EN_MSK 0x00010000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_EXCO4M_INT_EN_OFF 16
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_EXCO3M_INT_EN_MSK 0x0000e000
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_EXCO3M_INT_EN_OFF 13
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_GSUP_INT_EN_MSK   0x00001ffe
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_GSUP_INT_EN_OFF   1
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_TOP_INT_EN_MSK    0x00000001
+#define ENET120_TOP_REG_SUBSTSEM_INT_EN_PAGE_1_BIT_ETRANS_TOP_INT_EN_OFF    0
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* _ENET_REGS_H */

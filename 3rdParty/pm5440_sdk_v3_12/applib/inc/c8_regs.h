@@ -1,0 +1,1235 @@
+/******************************************************************************
+ *   COPYRIGHT (C) 2013 PMC-SIERRA, INC. ALL RIGHTS RESERVED.
+ * --------------------------------------------------------------------------
+ *  This software embodies materials and concepts which are proprietary and
+ *  confidential to PMC-Sierra, Inc.
+ *  PMC-Sierra distributes this software to its customers pursuant to the
+ *  terms and conditions of the Software License Agreement
+ *  contained in the text file software.lic that is distributed along with
+ *  the software. This software can only be utilized if all
+ *  terms and conditions of the Software License Agreement are
+ *  accepted. If there are any questions, concerns, or if the
+ *  Software License Agreement text file, software.lic, is missing please
+ *  contact PMC-Sierra for assistance.
+ * -------------------------------------------------------------------------
+ *   DESCRIPTION:
+ *     Contains all register offset and register bit definitions for the
+ *     c8 block
+ *****************************************************************************/
+#ifndef _C8_REGS_H
+#define _C8_REGS_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+
+/*--------------------.
+ | register addresses |
+ +-------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIGITAL_RST_REG          0x00000000
+#define PMC_CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG        0x00000004
+#define PMC_CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG       0x00000008
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG1            0x00000010
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG2            0x00000014
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG3            0x00000018
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG4            0x0000001c
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG5            0x00000020
+#define PMC_CNI_UNI_TXRX_REG_PLL_STS_REG              0x00000024
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG1           0x0000002c
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG2           0x00000030
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG3           0x00000034
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG4           0x00000038
+#define PMC_CNI_UNI_TXRX_REG_MDSP_CNFG_REG            0x00000040
+#define PMC_CNI_UNI_TXRX_REG_CTRL_CNFG_REG            0x00000044
+#define PMC_CNI_UNI_TXRX_REG_DLPBK_CNFG_REG           0x00000048
+#define PMC_CNI_UNI_TXRX_REG_SIPO_CNFG_REG            0x00000050
+#define PMC_CNI_UNI_TXRX_REG_PISO_CNFG_REG            0x00000058
+#define PMC_CNI_UNI_TXRX_REG_EFUSE_CNFG_REG           0x00000060
+#define PMC_CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG     0x0000006c
+#define PMC_CNI_UNI_TXRX_REG_SSI_CNFG_REG1            0x00000074
+#define PMC_CNI_UNI_TXRX_REG_SSI_CNFG_REG2            0x00000078
+#define PMC_CNI_UNI_TXRX_REG_SSI_STATUS_REG           0x0000007c
+#define PMC_CNI_UNI_TXRX_REG_DLOS_CNFG_REG            0x00000080
+#define PMC_CNI_UNI_TXRX_REG_MABC_ADC_STS_REG         0x0000008c
+#define PMC_CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG        0x00000090
+#define PMC_CNI_UNI_TXRX_REG_MABC_CNFG_REG            0x00000094
+#define PMC_CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1      0x00000098
+#define PMC_CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2      0x0000009c
+#define PMC_CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG    0x00000100
+#define PMC_CNI_UNI_TXRX_REG_TXRX_CNFG_REG            0x00000104
+#define PMC_CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG       0x00000108
+#define PMC_CNI_UNI_TXRX_REG_DIV_CNFG_REG             0x00000110
+#define PMC_CNI_UNI_TXRX_REG_INT_REG                  0x00000114
+#define PMC_CNI_UNI_TXRX_REG_INT_ENB_REG              0x00000118
+#define PMC_CNI_UNI_TXRX_REG_INT_VAL_REG              0x0000011c
+#define PMC_CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG         0x00000120
+#define PMC_CNI_UNI_TXRX_REG_MTSB_CTRL_CNFG_REG       0x00000124
+#define PMC_CNI_UNI_TXRX_REG_DIAG_CNFG_REG1           0x00000128
+#define PMC_CNI_UNI_TXRX_REG_DIAG_CNFG_REG2           0x0000012c
+#define PMC_CNI_UNI_TXRX_REG_DIAG_STATUS_REG1         0x00000130
+#define PMC_CNI_UNI_TXRX_REG_DIAG_STATUS_REG2         0x00000134
+#define PMC_CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG       0x00000140
+#define PMC_CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG     0x00000144
+#define PMC_CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1       0x00000150
+#define PMC_CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG2       0x00000154
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1       0x00000158
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG2       0x0000015c
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_STATUS_REG1     0x00000160
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG1        0x00000170
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG2        0x00000174
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3        0x00000178
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4        0x0000017c
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5        0x00000180
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG6        0x00000184
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG7        0x00000188
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1         0x0000018c
+#define PMC_CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1       0x00000190
+#define PMC_CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2       0x00000194
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG( N ) (0x00000300 + (N) * 0x4)
+
+/*-------------------------------------.
+ | Register 0x00000000 DIGITAL_RST_REG |
+ +-------------------------------------+
+ | bit  31 R/W  GLBL_DRSTB             |
+ | bit  16 R/W  PMM_WRAP_RSTB          |
+ | bit  15 R/W  PLL_LOCK_DET_SRST      |
+ | bit  14 R/W  PATT_MON_RSTB          |
+ | bit  13 R/W  PATT_GEN_RSTB          |
+ | bit  12 R/W  SIPO_BIST_RSTB         |
+ | bit  11 R/W  FIFO_HW_RESET          |
+ | bit  10 R/W  DSKW_FIFO_RSTB         |
+ | bit  9  R/W  DSIPO_RSTB             |
+ | bit  8  R/W  DPISO_RSTB             |
+ | bit  7  R/W  CTRL_RSTB              |
+ | bit  6  R/W  MDSP_RSTB              |
+ | bit  5  R/W  ADPT_RSTB              |
+ | bit  4  R/W  DLOS_RSTB              |
+ | bit  3  R/W  DIAG_RSTB              |
+ | bit  2  R/W  SSI_RSTB               |
+ | bit  1  R/W  GCOC_RSTB              |
+ | bit  0  R/W  LOCK_DET_RSTB          |
+ +------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIGITAL_RST_REG_UNUSED_MASK           0x7ffe0000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_GLBL_DRSTB_MSK        0x80000000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_GLBL_DRSTB_OFF        31
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PMM_WRAP_RSTB_MSK     0x00010000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PMM_WRAP_RSTB_OFF     16
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PLL_LOCK_DET_SRST_MSK 0x00008000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PLL_LOCK_DET_SRST_OFF 15
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PATT_MON_RSTB_MSK     0x00004000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PATT_MON_RSTB_OFF     14
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PATT_GEN_RSTB_MSK     0x00002000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_PATT_GEN_RSTB_OFF     13
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_SIPO_BIST_RSTB_MSK    0x00001000
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_SIPO_BIST_RSTB_OFF    12
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_FIFO_HW_RESET_MSK     0x00000800
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_FIFO_HW_RESET_OFF     11
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DSKW_FIFO_RSTB_MSK    0x00000400
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DSKW_FIFO_RSTB_OFF    10
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DSIPO_RSTB_MSK        0x00000200
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DSIPO_RSTB_OFF        9
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DPISO_RSTB_MSK        0x00000100
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DPISO_RSTB_OFF        8
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_CTRL_RSTB_MSK         0x00000080
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_CTRL_RSTB_OFF         7
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_MDSP_RSTB_MSK         0x00000040
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_MDSP_RSTB_OFF         6
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_ADPT_RSTB_MSK         0x00000020
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_ADPT_RSTB_OFF         5
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DLOS_RSTB_MSK         0x00000010
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DLOS_RSTB_OFF         4
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DIAG_RSTB_MSK         0x00000008
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_DIAG_RSTB_OFF         3
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_SSI_RSTB_MSK          0x00000004
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_SSI_RSTB_OFF          2
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_GCOC_RSTB_MSK         0x00000002
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_GCOC_RSTB_OFF         1
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_LOCK_DET_RSTB_MSK     0x00000001
+#define CNI_UNI_TXRX_REG_DIGITAL_RST_REG_BIT_LOCK_DET_RSTB_OFF     0
+
+/*---------------------------------------.
+ | Register 0x00000004 MABC_RST_CNFG_REG |
+ +---------------------------------------+
+ | bit  4 R/W  RXCPGEN_ARSTB             |
+ | bit  3 R/W  RXCPGEN_RSTB              |
+ | bit  2 R/W  PISO_RSTB                 |
+ | bit  1 R/W  ADC_RSTB                  |
+ | bit  0 R/W  ADC_DAC_RSTB              |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_UNUSED_MASK       0xffffffe0
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_RXCPGEN_ARSTB_MSK 0x00000010
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_RXCPGEN_ARSTB_OFF 4
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_RXCPGEN_RSTB_MSK  0x00000008
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_RXCPGEN_RSTB_OFF  3
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_PISO_RSTB_MSK     0x00000004
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_PISO_RSTB_OFF     2
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_ADC_RSTB_MSK      0x00000002
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_ADC_RSTB_OFF      1
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_ADC_DAC_RSTB_MSK  0x00000001
+#define CNI_UNI_TXRX_REG_MABC_RST_CNFG_REG_BIT_ADC_DAC_RSTB_OFF  0
+
+/*----------------------------------------.
+ | Register 0x00000008 CLK_DGLCH_CNFG_REG |
+ +----------------------------------------+
+ | bit  3 R/W  DGLT_PCLK_EN               |
+ | bit  2 R/W  DGLT_TPCOUT_EN             |
+ | bit  1 R/W  DGLT_BADJ_EN               |
+ | bit  0 R/W  DGLCH_ADC_CLK_EN           |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_UNUSED_MASK          0xfffffff0
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_PCLK_EN_MSK     0x00000008
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_PCLK_EN_OFF     3
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_TPCOUT_EN_MSK   0x00000004
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_TPCOUT_EN_OFF   2
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_BADJ_EN_MSK     0x00000002
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLT_BADJ_EN_OFF     1
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLCH_ADC_CLK_EN_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_CLK_DGLCH_CNFG_REG_BIT_DGLCH_ADC_CLK_EN_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000010 PLL_CNFG_REG1 |
+ +-----------------------------------+
+ | bit  8 R/W  LOAD_CLK_CNTRS        |
+ | bit  4 R/W  RESET_HISTORY         |
+ | bit  0 R/W  PPM_OFF_RD_REQ        |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG1_UNUSED_MASK        0xfffffeee
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_LOAD_CLK_CNTRS_MSK 0x00000100
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_LOAD_CLK_CNTRS_OFF 8
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_RESET_HISTORY_MSK  0x00000010
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_RESET_HISTORY_OFF  4
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_PPM_OFF_RD_REQ_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG1_BIT_PPM_OFF_RD_REQ_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000014 PLL_CNFG_REG2 |
+ +-----------------------------------+
+ | bit  3:0 R/W  LOCK_PRECISION      |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG2_UNUSED_MASK        0xfffffff0
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG2_BIT_LOCK_PRECISION_MSK 0x0000000f
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG2_BIT_LOCK_PRECISION_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000018 PLL_CNFG_REG3 |
+ +-----------------------------------+
+ | bit  19:0 R/W  CLK_CNT_MAX        |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG3_UNUSED_MASK     0xfff00000
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG3_BIT_CLK_CNT_MAX_MSK 0x000fffff
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG3_BIT_CLK_CNT_MAX_OFF 0
+
+/*-----------------------------------.
+ | Register 0x0000001c PLL_CNFG_REG4 |
+ +-----------------------------------+
+ | bit  31:16 R/W  FAIL_CNT_MAX      |
+ | bit  15:0  R/W  PASS_CNT_MAX      |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG4_UNUSED_MASK      0x00000000
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG4_BIT_FAIL_CNT_MAX_MSK 0xffff0000
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG4_BIT_FAIL_CNT_MAX_OFF 16
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG4_BIT_PASS_CNT_MAX_MSK 0x0000ffff
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG4_BIT_PASS_CNT_MAX_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000020 PLL_CNFG_REG5 |
+ +-----------------------------------+
+ | bit  23:16 R/W  LOCK_CNT_MAX      |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_CNFG_REG5_UNUSED_MASK      0xff00ffff
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG5_BIT_LOCK_CNT_MAX_MSK 0x00ff0000
+#define CNI_UNI_TXRX_REG_PLL_CNFG_REG5_BIT_LOCK_CNT_MAX_OFF 16
+
+/*---------------------------------.
+ | Register 0x00000024 PLL_STS_REG |
+ +---------------------------------+
+ | bit  31   R  PPM_OFF_RD_SIGN    |
+ | bit  20:0 R  PPM_OFF_RD_VAL     |
+ +--------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PLL_STS_REG_UNUSED_MASK         0x7fe00000
+#define CNI_UNI_TXRX_REG_PLL_STS_REG_BIT_PPM_OFF_RD_SIGN_MSK 0x80000000
+#define CNI_UNI_TXRX_REG_PLL_STS_REG_BIT_PPM_OFF_RD_SIGN_OFF 31
+#define CNI_UNI_TXRX_REG_PLL_STS_REG_BIT_PPM_OFF_RD_VAL_MSK  0x001fffff
+#define CNI_UNI_TXRX_REG_PLL_STS_REG_BIT_PPM_OFF_RD_VAL_OFF  0
+
+/*------------------------------------.
+ | Register 0x0000002c GCOC_CNFG_REG1 |
+ +------------------------------------+
+ | bit  4 R/W  MABC_INT_OVR_EN        |
+ | bit  3 R/W  OFFSET_EN              |
+ | bit  2 R/W  CALIB_PROG_EN          |
+ | bit  1 R/W  ADC_WR_OVR             |
+ | bit  0 R/W  CALIB                  |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_UNUSED_MASK         0xffffffe0
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_MABC_INT_OVR_EN_MSK 0x00000010
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_MABC_INT_OVR_EN_OFF 4
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_OFFSET_EN_MSK       0x00000008
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_OFFSET_EN_OFF       3
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_CALIB_PROG_EN_MSK   0x00000004
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_CALIB_PROG_EN_OFF   2
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_ADC_WR_OVR_MSK      0x00000002
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_ADC_WR_OVR_OFF      1
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_CALIB_MSK           0x00000001
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG1_BIT_CALIB_OFF           0
+
+/*------------------------------------.
+ | Register 0x00000030 GCOC_CNFG_REG2 |
+ +------------------------------------+
+ | bit  13:10 R/W  ACC_DELAY          |
+ | bit  9:0   R/W  DAC_DELAY          |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG2_UNUSED_MASK   0xffffc000
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG2_BIT_ACC_DELAY_MSK 0x00003c00
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG2_BIT_ACC_DELAY_OFF 10
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG2_BIT_DAC_DELAY_MSK 0x000003ff
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG2_BIT_DAC_DELAY_OFF 0
+
+/*------------------------------------.
+ | Register 0x00000034 GCOC_CNFG_REG3 |
+ +------------------------------------+
+ | bit  31:0 R/W  THR_MAP             |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG3_UNUSED_MASK 0x00000000
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG3_BIT_THR_MAP_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG3_BIT_THR_MAP_OFF 0
+
+/*------------------------------------.
+ | Register 0x00000038 GCOC_CNFG_REG4 |
+ +------------------------------------+
+ | bit  31:24 R/W  ADC_A_OVR          |
+ | bit  23:16 R/W  ADC_D_OVR          |
+ | bit  13:0  R/W  N_ACCUM_CYCLES     |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_UNUSED_MASK        0x0000c000
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_ADC_A_OVR_MSK      0xff000000
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_ADC_A_OVR_OFF      24
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_ADC_D_OVR_MSK      0x00ff0000
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_ADC_D_OVR_OFF      16
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_N_ACCUM_CYCLES_MSK 0x00003fff
+#define CNI_UNI_TXRX_REG_GCOC_CNFG_REG4_BIT_N_ACCUM_CYCLES_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000040 MDSP_CNFG_REG |
+ +-----------------------------------+
+ | bit  1:0 R/W  DECIM_FACT          |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MDSP_CNFG_REG_UNUSED_MASK    0xfffffffc
+#define CNI_UNI_TXRX_REG_MDSP_CNFG_REG_BIT_DECIM_FACT_MSK 0x00000003
+#define CNI_UNI_TXRX_REG_MDSP_CNFG_REG_BIT_DECIM_FACT_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000044 CTRL_CNFG_REG |
+ +-----------------------------------+
+ | bit  0 R/W  RX_ADAPT_START        |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_CTRL_CNFG_REG_UNUSED_MASK        0xfffffffe
+#define CNI_UNI_TXRX_REG_CTRL_CNFG_REG_BIT_RX_ADAPT_START_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_CTRL_CNFG_REG_BIT_RX_ADAPT_START_OFF 0
+
+/*------------------------------------.
+ | Register 0x00000048 DLPBK_CNFG_REG |
+ +------------------------------------+
+ | bit  0 R/W  DLPBK_EN               |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DLPBK_CNFG_REG_UNUSED_MASK  0xfffffffe
+#define CNI_UNI_TXRX_REG_DLPBK_CNFG_REG_BIT_DLPBK_EN_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_DLPBK_CNFG_REG_BIT_DLPBK_EN_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000050 SIPO_CNFG_REG |
+ +-----------------------------------+
+ | bit  2:1 R/W  SIPO_DIV_RATIO      |
+ | bit  0   R/W  SIPO_BUS_WIDTH      |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SIPO_CNFG_REG_UNUSED_MASK        0xfffffff8
+#define CNI_UNI_TXRX_REG_SIPO_CNFG_REG_BIT_SIPO_DIV_RATIO_MSK 0x00000006
+#define CNI_UNI_TXRX_REG_SIPO_CNFG_REG_BIT_SIPO_DIV_RATIO_OFF 1
+#define CNI_UNI_TXRX_REG_SIPO_CNFG_REG_BIT_SIPO_BUS_WIDTH_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_SIPO_CNFG_REG_BIT_SIPO_BUS_WIDTH_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000058 PISO_CNFG_REG |
+ +-----------------------------------+
+ | bit  2:1 R/W  PISO_DIV_RATIO      |
+ | bit  0   R/W  PISO_BUS_WIDTH      |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PISO_CNFG_REG_UNUSED_MASK        0xfffffff8
+#define CNI_UNI_TXRX_REG_PISO_CNFG_REG_BIT_PISO_DIV_RATIO_MSK 0x00000006
+#define CNI_UNI_TXRX_REG_PISO_CNFG_REG_BIT_PISO_DIV_RATIO_OFF 1
+#define CNI_UNI_TXRX_REG_PISO_CNFG_REG_BIT_PISO_BUS_WIDTH_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_PISO_CNFG_REG_BIT_PISO_BUS_WIDTH_OFF 0
+
+/*------------------------------------.
+ | Register 0x00000060 EFUSE_CNFG_REG |
+ +------------------------------------+
+ | bit  1:0 R/W  RAM_EXT_INT_SEL      |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_EFUSE_CNFG_REG_UNUSED_MASK         0xfffffffc
+#define CNI_UNI_TXRX_REG_EFUSE_CNFG_REG_BIT_RAM_EXT_INT_SEL_MSK 0x00000003
+#define CNI_UNI_TXRX_REG_EFUSE_CNFG_REG_BIT_RAM_EXT_INT_SEL_OFF 0
+
+/*------------------------------------------.
+ | Register 0x0000006c DESKEW_FIFO_CNFG_REG |
+ +------------------------------------------+
+ | bit  3:1 R/W  RD_PTR_SYNC_VAL            |
+ | bit  0   R/W  SYNC                       |
+ +-----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG_UNUSED_MASK         0xfffffff0
+#define CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG_BIT_RD_PTR_SYNC_VAL_MSK 0x0000000e
+#define CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG_BIT_RD_PTR_SYNC_VAL_OFF 1
+#define CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG_BIT_SYNC_MSK            0x00000001
+#define CNI_UNI_TXRX_REG_DESKEW_FIFO_CNFG_REG_BIT_SYNC_OFF            0
+
+/*--------------------------------------.
+ | Register 0x00000074 SSI_CNFG_REG1    |
+ +--------------------------------------+
+ | bit  31:30 R/W  REL_AMP              |
+ | bit  27:24 R/W  SSI_ACC_CNT          |
+ | bit  23:10 R/W  SSI_LIMIT            |
+ | bit  9     R/W  SSI_OVR_EN           |
+ | bit  8     R/W  SSI_OVR              |
+ | bit  7:3   R/W  THRESHOLD_OVR        |
+ | bit  2     R/W  THRESHOLD_OVR_EN     |
+ | bit  1     R/W  ADJ_THR_RELEASES_SSI |
+ | bit  0     R/W  ADJUST_THRESHOLD     |
+ +-------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SSI_CNFG_REG1_UNUSED_MASK              0x30000000
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_REL_AMP_MSK              0xc0000000
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_REL_AMP_OFF              30
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_ACC_CNT_MSK          0x0f000000
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_ACC_CNT_OFF          24
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_LIMIT_MSK            0x00fffc00
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_LIMIT_OFF            10
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_OVR_EN_MSK           0x00000200
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_OVR_EN_OFF           9
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_OVR_MSK              0x00000100
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_SSI_OVR_OFF              8
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_THRESHOLD_OVR_MSK        0x000000f8
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_THRESHOLD_OVR_OFF        3
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_THRESHOLD_OVR_EN_MSK     0x00000004
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_THRESHOLD_OVR_EN_OFF     2
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_ADJ_THR_RELEASES_SSI_MSK 0x00000002
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_ADJ_THR_RELEASES_SSI_OFF 1
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_ADJUST_THRESHOLD_MSK     0x00000001
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG1_BIT_ADJUST_THRESHOLD_OFF     0
+
+/*-----------------------------------.
+ | Register 0x00000078 SSI_CNFG_REG2 |
+ +-----------------------------------+
+ | bit  4:0 R/W  MIN_THRESHOLD       |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SSI_CNFG_REG2_UNUSED_MASK       0xffffffe0
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG2_BIT_MIN_THRESHOLD_MSK 0x0000001f
+#define CNI_UNI_TXRX_REG_SSI_CNFG_REG2_BIT_MIN_THRESHOLD_OFF 0
+
+/*------------------------------------.
+ | Register 0x0000007c SSI_STATUS_REG |
+ +------------------------------------+
+ | bit  4:0 R  CURR_THRESHOLD         |
+ +-----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SSI_STATUS_REG_UNUSED_MASK        0xffffffe0
+#define CNI_UNI_TXRX_REG_SSI_STATUS_REG_BIT_CURR_THRESHOLD_MSK 0x0000001f
+#define CNI_UNI_TXRX_REG_SSI_STATUS_REG_BIT_CURR_THRESHOLD_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000080 DLOS_CNFG_REG |
+ +-----------------------------------+
+ | bit  18:11 R/W  LOS_LIMIT         |
+ | bit  10:7  R/W  LOS_ACC_CNT       |
+ | bit  5:3   R/W  AMP_THR           |
+ | bit  2     R/W  DLOS_OVR_EN       |
+ | bit  1     R/W  DLOS_OVR          |
+ | bit  0     R/W  ONE_COMP_EN       |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DLOS_CNFG_REG_UNUSED_MASK     0xfff80040
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_LOS_LIMIT_MSK   0x0007f800
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_LOS_LIMIT_OFF   11
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_LOS_ACC_CNT_MSK 0x00000780
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_LOS_ACC_CNT_OFF 7
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_AMP_THR_MSK     0x00000038
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_AMP_THR_OFF     3
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_DLOS_OVR_EN_MSK 0x00000004
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_DLOS_OVR_EN_OFF 2
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_DLOS_OVR_MSK    0x00000002
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_DLOS_OVR_OFF    1
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_ONE_COMP_EN_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_DLOS_CNFG_REG_BIT_ONE_COMP_EN_OFF 0
+
+/*--------------------------------------.
+ | Register 0x0000008c MABC_ADC_STS_REG |
+ +--------------------------------------+
+ | bit  7:0 R  ADC_Q                    |
+ +-------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_ADC_STS_REG_UNUSED_MASK 0xffffff00
+#define CNI_UNI_TXRX_REG_MABC_ADC_STS_REG_BIT_ADC_Q_MSK   0x000000ff
+#define CNI_UNI_TXRX_REG_MABC_ADC_STS_REG_BIT_ADC_Q_OFF   0
+
+/*---------------------------------------.
+ | Register 0x00000090 MABC_ADC_CNFG_REG |
+ +---------------------------------------+
+ | bit  27:20 R/W  ADC_MODE              |
+ | bit  12:10 R/W  ADC_ENB               |
+ | bit  4     R/W  ADC_RD                |
+ | bit  3     R/W  ADC_DLB_EN            |
+ | bit  2     R/W  ADC_DAC_ENB           |
+ | bit  1     R/W  ADC_BIST              |
+ | bit  0     R/W  ADC_ATMSB             |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_UNUSED_MASK     0xf00fe3e0
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_MODE_MSK    0x0ff00000
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_MODE_OFF    20
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_ENB_MSK     0x00001c00
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_ENB_OFF     10
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_RD_MSK      0x00000010
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_RD_OFF      4
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_DLB_EN_MSK  0x00000008
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_DLB_EN_OFF  3
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_DAC_ENB_MSK 0x00000004
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_DAC_ENB_OFF 2
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_BIST_MSK    0x00000002
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_BIST_OFF    1
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_ATMSB_MSK   0x00000001
+#define CNI_UNI_TXRX_REG_MABC_ADC_CNFG_REG_BIT_ADC_ATMSB_OFF   0
+
+/*-----------------------------------.
+ | Register 0x00000094 MABC_CNFG_REG |
+ +-----------------------------------+
+ | bit  0 R/W  BADJ_ENB              |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_CNFG_REG_UNUSED_MASK  0xfffffffe
+#define CNI_UNI_TXRX_REG_MABC_CNFG_REG_BIT_BADJ_ENB_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_MABC_CNFG_REG_BIT_BADJ_ENB_OFF 0
+
+/*-----------------------------------------.
+ | Register 0x00000098 MABC_PISO_CNFG_REG1 |
+ +-----------------------------------------+
+ | bit  4 R/W  PISO_PBUS_WIDTH             |
+ | bit  3 R/W  PISO_ENB                    |
+ | bit  2 R/W  PISO_DLB_EN                 |
+ | bit  1 R/W  PISO_DIV_ENABLE             |
+ | bit  0 R/W  PISO_ALTPAT_EN              |
+ +----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_UNUSED_MASK         0xffffffe0
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_PBUS_WIDTH_MSK 0x00000010
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_PBUS_WIDTH_OFF 4
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_ENB_MSK        0x00000008
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_ENB_OFF        3
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_DLB_EN_MSK     0x00000004
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_DLB_EN_OFF     2
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_DIV_ENABLE_MSK 0x00000002
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_DIV_ENABLE_OFF 1
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_ALTPAT_EN_MSK  0x00000001
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG1_BIT_PISO_ALTPAT_EN_OFF  0
+
+/*-----------------------------------------.
+ | Register 0x0000009c MABC_PISO_CNFG_REG2 |
+ +-----------------------------------------+
+ | bit  7:5 R/W  PISO_CTRL_7_5             |
+ | bit  4:3 R/W  PISO_CTRL_4_3             |
+ | bit  2   R/W  PISO_CTRL_2               |
+ | bit  1:0 R/W  PISO_CTRL_1_0             |
+ +----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_UNUSED_MASK       0xffffff00
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_7_5_MSK 0x000000e0
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_7_5_OFF 5
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_4_3_MSK 0x00000018
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_4_3_OFF 3
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_2_MSK   0x00000004
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_2_OFF   2
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_1_0_MSK 0x00000003
+#define CNI_UNI_TXRX_REG_MABC_PISO_CNFG_REG2_BIT_PISO_CTRL_1_0_OFF 0
+
+/*-------------------------------------------.
+ | Register 0x00000100 MABC_RXCPGEN_CNFG_REG |
+ +-------------------------------------------+
+ | bit  31    R/W  RXCM_ENB                  |
+ | bit  30    R/W  RXCPGEN_ENB               |
+ | bit  29:28 R/W  RXCPGEN_MODE_9_8          |
+ | bit  27    R/W  RXCPGEN_MODE_7            |
+ | bit  26:25 R/W  RXCPGEN_MODE_6_5          |
+ | bit  24:23 R/W  RXCPGEN_MODE_4_3          |
+ | bit  22:20 R/W  RXCPGEN_MODE_2_0          |
+ | bit  15    R/W  RXCPGEN_CTRL_15           |
+ | bit  14    R/W  RXCPGEN_CTRL_14           |
+ | bit  13    R/W  RXCPGEN_CTRL_13           |
+ | bit  12    R/W  RXCPGEN_CTRL_12           |
+ | bit  11    R/W  RXCPGEN_CTRL_11           |
+ | bit  10    R/W  RXCPGEN_CTRL_10           |
+ | bit  9:8   R/W  RXCPGEN_CTRL_9_8          |
+ | bit  7     R/W  RXCPGEN_CTRL_7            |
+ | bit  6     R/W  RXCPGEN_CTRL_6            |
+ | bit  5:4   R/W  RXCPGEN_CTRL_5_4          |
+ | bit  3:1   R/W  RXCPGEN_CTRL_3_1          |
+ | bit  0     R/W  RXCPGEN_CTRL_0            |
+ +------------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_UNUSED_MASK          0x000f0000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCM_ENB_MSK         0x80000000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCM_ENB_OFF         31
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_ENB_MSK      0x40000000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_ENB_OFF      30
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_9_8_MSK 0x30000000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_9_8_OFF 28
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_7_MSK   0x08000000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_7_OFF   27
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_6_5_MSK 0x06000000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_6_5_OFF 25
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_4_3_MSK 0x01800000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_4_3_OFF 23
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_2_0_MSK 0x00700000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_MODE_2_0_OFF 20
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_15_MSK  0x00008000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_15_OFF  15
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_14_MSK  0x00004000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_14_OFF  14
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_13_MSK  0x00002000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_13_OFF  13
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_12_MSK  0x00001000
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_12_OFF  12
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_11_MSK  0x00000800
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_11_OFF  11
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_10_MSK  0x00000400
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_10_OFF  10
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_9_8_MSK 0x00000300
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_9_8_OFF 8
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_7_MSK   0x00000080
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_7_OFF   7
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_6_MSK   0x00000040
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_6_OFF   6
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_5_4_MSK 0x00000030
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_5_4_OFF 4
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_3_1_MSK 0x0000000e
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_3_1_OFF 1
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_0_MSK   0x00000001
+#define CNI_UNI_TXRX_REG_MABC_RXCPGEN_CNFG_REG_BIT_RXCPGEN_CTRL_0_OFF   0
+
+/*-----------------------------------.
+ | Register 0x00000104 TXRX_CNFG_REG |
+ +-----------------------------------+
+ | bit  31    R/W  TX_TEST_SEL       |
+ | bit  30    R/W  TX_SDATA_EN       |
+ | bit  21:20 R/W  TXRXCS_CLKSEL     |
+ | bit  13    R/W  TXRXCS_CTRL_3     |
+ | bit  12:10 R/W  TXRXCS_CTRL_2_0   |
+ | bit  3     R/W  TXRXCS_MODE_3     |
+ | bit  2     R/W  TXRXCS_MODE_2     |
+ | bit  1:0   R/W  TXRXCS_MODE_1_0   |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TXRX_CNFG_REG_UNUSED_MASK         0x3fcfc3f0
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TX_TEST_SEL_MSK     0x80000000
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TX_TEST_SEL_OFF     31
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TX_SDATA_EN_MSK     0x40000000
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TX_SDATA_EN_OFF     30
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CLKSEL_MSK   0x00300000
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CLKSEL_OFF   20
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CTRL_3_MSK   0x00002000
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CTRL_3_OFF   13
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CTRL_2_0_MSK 0x00001c00
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_CTRL_2_0_OFF 10
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_3_MSK   0x00000008
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_3_OFF   3
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_2_MSK   0x00000004
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_2_OFF   2
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_1_0_MSK 0x00000003
+#define CNI_UNI_TXRX_REG_TXRX_CNFG_REG_BIT_TXRXCS_MODE_1_0_OFF 0
+
+/*----------------------------------------.
+ | Register 0x00000108 MABC_TEST_CNFG_REG |
+ +----------------------------------------+
+ | bit  11  R/W  VDDBIAS_ATMSB            |
+ | bit  10  R/W  TX_ATMSB                 |
+ | bit  9   R/W  TXRXCS_ATMSB             |
+ | bit  8   R/W  RX_ATMSB                 |
+ | bit  7   R/W  RXDET_ATMSB              |
+ | bit  6   R/W  RXCPGEN_ATMSB            |
+ | bit  5   R/W  PISO_ATMSB               |
+ | bit  4:0 R/W  ATIN                     |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_UNUSED_MASK       0xfffff000
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_VDDBIAS_ATMSB_MSK 0x00000800
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_VDDBIAS_ATMSB_OFF 11
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_TX_ATMSB_MSK      0x00000400
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_TX_ATMSB_OFF      10
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_TXRXCS_ATMSB_MSK  0x00000200
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_TXRXCS_ATMSB_OFF  9
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RX_ATMSB_MSK      0x00000100
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RX_ATMSB_OFF      8
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RXDET_ATMSB_MSK   0x00000080
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RXDET_ATMSB_OFF   7
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RXCPGEN_ATMSB_MSK 0x00000040
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_RXCPGEN_ATMSB_OFF 6
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_PISO_ATMSB_MSK    0x00000020
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_PISO_ATMSB_OFF    5
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_ATIN_MSK          0x0000001f
+#define CNI_UNI_TXRX_REG_MABC_TEST_CNFG_REG_BIT_ATIN_OFF          0
+
+/*----------------------------------.
+ | Register 0x00000110 DIV_CNFG_REG |
+ +----------------------------------+
+ | bit  15:8 R/W  CM_CLK_DIVFACT    |
+ | bit  7:4  R/W  HRCLKDIV4_DIVFACT |
+ | bit  3:0  R/W  ADC_CLK_DIVFACT   |
+ +---------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIV_CNFG_REG_UNUSED_MASK           0xffff0000
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_CM_CLK_DIVFACT_MSK    0x0000ff00
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_CM_CLK_DIVFACT_OFF    8
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_HRCLKDIV4_DIVFACT_MSK 0x000000f0
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_HRCLKDIV4_DIVFACT_OFF 4
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_ADC_CLK_DIVFACT_MSK   0x0000000f
+#define CNI_UNI_TXRX_REG_DIV_CNFG_REG_BIT_ADC_CLK_DIVFACT_OFF   0
+
+/*-----------------------------------.
+ | Register 0x00000114 INT_REG       |
+ +-----------------------------------+
+ | bit  17 R/W  PATT_MON_ERR_I17     |
+ | bit  16 R/W  DIVCLK_DEAD_I16      |
+ | bit  15 R/W  SIPO_BIST_ERR_I15    |
+ | bit  14 R/W  RX_ADAPT_DONE_I14    |
+ | bit  13 R/W  ECC_2BIT_BERR_I13    |
+ | bit  12 R/W  ECC_1BIT_BERR_I12    |
+ | bit  11 R/W  ECC_2BIT_AERR_I11    |
+ | bit  10 R/W  ECC_1BIT_AERR_I10    |
+ | bit  9  R/W  ERROR_BIT_I9         |
+ | bit  8  R/W  DLOSB_I8             |
+ | bit  7  R/W  PROG_REF_DONE_I7     |
+ | bit  6  R/W  CALIB_DONE_I6        |
+ | bit  5  R/W  SSI_ADJUST_DONE_I5   |
+ | bit  4  R/W  SSI_I4               |
+ | bit  3  R/W  LOCK_LOSS_I3         |
+ | bit  2  R/W  LOCK_GAIN_I2         |
+ | bit  1  R/W  IN_RANGE_N_FAILS_I1  |
+ | bit  0  R/W  IN_RANGE_N_PASSES_I0 |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_INT_REG_UNUSED_MASK              0xfffc0000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_PATT_MON_ERR_I17_MSK     0x00020000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_PATT_MON_ERR_I17_OFF     17
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_DIVCLK_DEAD_I16_MSK      0x00010000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_DIVCLK_DEAD_I16_OFF      16
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SIPO_BIST_ERR_I15_MSK    0x00008000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SIPO_BIST_ERR_I15_OFF    15
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_RX_ADAPT_DONE_I14_MSK    0x00004000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_RX_ADAPT_DONE_I14_OFF    14
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_2BIT_BERR_I13_MSK    0x00002000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_2BIT_BERR_I13_OFF    13
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_1BIT_BERR_I12_MSK    0x00001000
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_1BIT_BERR_I12_OFF    12
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_2BIT_AERR_I11_MSK    0x00000800
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_2BIT_AERR_I11_OFF    11
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_1BIT_AERR_I10_MSK    0x00000400
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ECC_1BIT_AERR_I10_OFF    10
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ERROR_BIT_I9_MSK         0x00000200
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_ERROR_BIT_I9_OFF         9
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_DLOSB_I8_MSK             0x00000100
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_DLOSB_I8_OFF             8
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_PROG_REF_DONE_I7_MSK     0x00000080
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_PROG_REF_DONE_I7_OFF     7
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_CALIB_DONE_I6_MSK        0x00000040
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_CALIB_DONE_I6_OFF        6
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SSI_ADJUST_DONE_I5_MSK   0x00000020
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SSI_ADJUST_DONE_I5_OFF   5
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SSI_I4_MSK               0x00000010
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_SSI_I4_OFF               4
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_LOCK_LOSS_I3_MSK         0x00000008
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_LOCK_LOSS_I3_OFF         3
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_LOCK_GAIN_I2_MSK         0x00000004
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_LOCK_GAIN_I2_OFF         2
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_IN_RANGE_N_FAILS_I1_MSK  0x00000002
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_IN_RANGE_N_FAILS_I1_OFF  1
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_IN_RANGE_N_PASSES_I0_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_INT_REG_BIT_IN_RANGE_N_PASSES_I0_OFF 0
+
+/*-----------------------------------.
+ | Register 0x00000118 INT_ENB_REG   |
+ +-----------------------------------+
+ | bit  17 R/W  PATT_MON_ERR_E17     |
+ | bit  16 R/W  DIVCLK_DEAD_E16      |
+ | bit  15 R/W  SIPO_BIST_ERR_E15    |
+ | bit  14 R/W  RX_ADAPT_DONE_E14    |
+ | bit  13 R/W  ECC_2BIT_BERR_E13    |
+ | bit  12 R/W  ECC_1BIT_BERR_E12    |
+ | bit  11 R/W  ECC_2BIT_AERR_E11    |
+ | bit  10 R/W  ECC_1BIT_AERR_E10    |
+ | bit  9  R/W  ERROR_BIT_E9         |
+ | bit  8  R/W  DLOSB_E8             |
+ | bit  7  R/W  PROG_REF_DONE_E7     |
+ | bit  6  R/W  CALIB_DONE_E6        |
+ | bit  5  R/W  SSI_ADJUST_DONE_E5   |
+ | bit  4  R/W  SSI_E4               |
+ | bit  3  R/W  LOCK_LOSS_E3         |
+ | bit  2  R/W  LOCK_GAIN_E2         |
+ | bit  1  R/W  IN_RANGE_N_FAILS_E1  |
+ | bit  0  R/W  IN_RANGE_N_PASSES_E0 |
+ +----------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_INT_ENB_REG_UNUSED_MASK              0xfffc0000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_PATT_MON_ERR_E17_MSK     0x00020000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_PATT_MON_ERR_E17_OFF     17
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_DIVCLK_DEAD_E16_MSK      0x00010000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_DIVCLK_DEAD_E16_OFF      16
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SIPO_BIST_ERR_E15_MSK    0x00008000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SIPO_BIST_ERR_E15_OFF    15
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_RX_ADAPT_DONE_E14_MSK    0x00004000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_RX_ADAPT_DONE_E14_OFF    14
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_2BIT_BERR_E13_MSK    0x00002000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_2BIT_BERR_E13_OFF    13
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_1BIT_BERR_E12_MSK    0x00001000
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_1BIT_BERR_E12_OFF    12
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_2BIT_AERR_E11_MSK    0x00000800
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_2BIT_AERR_E11_OFF    11
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_1BIT_AERR_E10_MSK    0x00000400
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ECC_1BIT_AERR_E10_OFF    10
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ERROR_BIT_E9_MSK         0x00000200
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_ERROR_BIT_E9_OFF         9
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_DLOSB_E8_MSK             0x00000100
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_DLOSB_E8_OFF             8
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_PROG_REF_DONE_E7_MSK     0x00000080
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_PROG_REF_DONE_E7_OFF     7
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_CALIB_DONE_E6_MSK        0x00000040
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_CALIB_DONE_E6_OFF        6
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SSI_ADJUST_DONE_E5_MSK   0x00000020
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SSI_ADJUST_DONE_E5_OFF   5
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SSI_E4_MSK               0x00000010
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_SSI_E4_OFF               4
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_LOCK_LOSS_E3_MSK         0x00000008
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_LOCK_LOSS_E3_OFF         3
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_LOCK_GAIN_E2_MSK         0x00000004
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_LOCK_GAIN_E2_OFF         2
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_IN_RANGE_N_FAILS_E1_MSK  0x00000002
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_IN_RANGE_N_FAILS_E1_OFF  1
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_IN_RANGE_N_PASSES_E0_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_INT_ENB_REG_BIT_IN_RANGE_N_PASSES_E0_OFF 0
+
+/*---------------------------------.
+ | Register 0x0000011c INT_VAL_REG |
+ +---------------------------------+
+ | bit  17 R  PATT_MON_ERR_V17     |
+ | bit  16 R  DIVCLK_DEAD_V16      |
+ | bit  15 R  SIPO_BIST_ERR_V15    |
+ | bit  14 R  RX_ADAPT_DONE_V14    |
+ | bit  13 R  ECC_2BIT_BERR_V13    |
+ | bit  12 R  ECC_1BIT_BERR_V12    |
+ | bit  11 R  ECC_2BIT_AERR_V11    |
+ | bit  10 R  ECC_1BIT_AERR_V10    |
+ | bit  9  R  ERROR_BIT_V9         |
+ | bit  8  R  DLOSB_V8             |
+ | bit  7  R  PROG_REF_DONE_V7     |
+ | bit  6  R  CALIB_DONE_V6        |
+ | bit  5  R  SSI_ADJUST_DONE_V5   |
+ | bit  4  R  SSI_V4               |
+ | bit  3  R  LOCK_LOSS_V3         |
+ | bit  2  R  LOCK_GAIN_V2         |
+ | bit  1  R  IN_RANGE_N_FAILS_V1  |
+ | bit  0  R  IN_RANGE_N_PASSES_V0 |
+ +--------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_INT_VAL_REG_UNUSED_MASK              0xfffc0000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_PATT_MON_ERR_V17_MSK     0x00020000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_PATT_MON_ERR_V17_OFF     17
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_DIVCLK_DEAD_V16_MSK      0x00010000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_DIVCLK_DEAD_V16_OFF      16
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SIPO_BIST_ERR_V15_MSK    0x00008000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SIPO_BIST_ERR_V15_OFF    15
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_RX_ADAPT_DONE_V14_MSK    0x00004000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_RX_ADAPT_DONE_V14_OFF    14
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_2BIT_BERR_V13_MSK    0x00002000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_2BIT_BERR_V13_OFF    13
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_1BIT_BERR_V12_MSK    0x00001000
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_1BIT_BERR_V12_OFF    12
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_2BIT_AERR_V11_MSK    0x00000800
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_2BIT_AERR_V11_OFF    11
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_1BIT_AERR_V10_MSK    0x00000400
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ECC_1BIT_AERR_V10_OFF    10
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ERROR_BIT_V9_MSK         0x00000200
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_ERROR_BIT_V9_OFF         9
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_DLOSB_V8_MSK             0x00000100
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_DLOSB_V8_OFF             8
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_PROG_REF_DONE_V7_MSK     0x00000080
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_PROG_REF_DONE_V7_OFF     7
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_CALIB_DONE_V6_MSK        0x00000040
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_CALIB_DONE_V6_OFF        6
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SSI_ADJUST_DONE_V5_MSK   0x00000020
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SSI_ADJUST_DONE_V5_OFF   5
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SSI_V4_MSK               0x00000010
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_SSI_V4_OFF               4
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_LOCK_LOSS_V3_MSK         0x00000008
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_LOCK_LOSS_V3_OFF         3
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_LOCK_GAIN_V2_MSK         0x00000004
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_LOCK_GAIN_V2_OFF         2
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_IN_RANGE_N_FAILS_V1_MSK  0x00000002
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_IN_RANGE_N_FAILS_V1_OFF  1
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_IN_RANGE_N_PASSES_V0_MSK 0x00000001
+#define CNI_UNI_TXRX_REG_INT_VAL_REG_BIT_IN_RANGE_N_PASSES_V0_OFF 0
+
+/*--------------------------------------.
+ | Register 0x00000120 OFF_RAM_CNFG_REG |
+ +--------------------------------------+
+ | bit  5   R/W  RAM_SHUT_DOWN          |
+ | bit  4   R/W  RAM_DEEP_SLEEP         |
+ | bit  3   R/W  RAM_LIGHT_SLEEP        |
+ | bit  2:1 R/W  RAM_ERR_INJECT         |
+ | bit  0   R/W  ECC_BYPASS             |
+ +-------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_UNUSED_MASK         0xffffff80
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_SHUT_DOWN_MSK   0x00000020
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_SHUT_DOWN_OFF   5
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_DEEP_SLEEP_MSK  0x00000010
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_DEEP_SLEEP_OFF  4
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_LIGHT_SLEEP_MSK 0x00000008
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_LIGHT_SLEEP_OFF 3
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_ERR_INJECT_MSK  0x00000006
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_RAM_ERR_INJECT_OFF  1
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_ECC_BYPASS_MSK      0x00000001
+#define CNI_UNI_TXRX_REG_OFF_RAM_CNFG_REG_BIT_ECC_BYPASS_OFF      0
+
+/*----------------------------------------.
+ | Register 0x00000124 MTSB_CTRL_CNFG_REG |
+ +----------------------------------------+
+ | bit  1:0 R/W  RX_RATE                  |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_MTSB_CTRL_CNFG_REG_UNUSED_MASK 0xfffffffc
+#define CNI_UNI_TXRX_REG_MTSB_CTRL_CNFG_REG_BIT_RX_RATE_MSK 0x00000003
+#define CNI_UNI_TXRX_REG_MTSB_CTRL_CNFG_REG_BIT_RX_RATE_OFF 0
+
+/*-------------------------------------------.
+ | Register 0x00000128 DIAG_CNFG_REG1        |
+ +-------------------------------------------+
+ | bit  31:24 R/W  VHIST_CNT_TIM_LIMIT_39_32 |
+ | bit  2     R/W  VHIST_PERBIN_VALUE_RD_ENB |
+ | bit  1     R/W  VHIST_CAPT_START          |
+ | bit  0     R/W  VHIST_CAPT_ENB            |
+ +------------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_UNUSED_MASK                   0x00fffff8
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CNT_TIM_LIMIT_39_32_MSK 0xff000000
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CNT_TIM_LIMIT_39_32_OFF 24
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_PERBIN_VALUE_RD_ENB_MSK 0x00000004
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_PERBIN_VALUE_RD_ENB_OFF 2
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CAPT_START_MSK          0x00000002
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CAPT_START_OFF          1
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CAPT_ENB_MSK            0x00000001
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG1_BIT_VHIST_CAPT_ENB_OFF            0
+
+/*-----------------------------------------.
+ | Register 0x0000012c DIAG_CNFG_REG2      |
+ +-----------------------------------------+
+ | bit  31:0 R/W  VHIST_CNT_TIM_LIMIT_31_0 |
+ +----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIAG_CNFG_REG2_UNUSED_MASK                  0x00000000
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG2_BIT_VHIST_CNT_TIM_LIMIT_31_0_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_DIAG_CNFG_REG2_BIT_VHIST_CNT_TIM_LIMIT_31_0_OFF 0
+
+/*----------------------------------------.
+ | Register 0x00000130 DIAG_STATUS_REG1   |
+ +----------------------------------------+
+ | bit  31:24 R  VHIST_PERBIN_VALUE_39_32 |
+ | bit  15:11 R  VHIST_READ_BACK_ADDR     |
+ | bit  7:5   R  VHIST_FSM_STATE          |
+ | bit  1     R  VHIST_PERBIN_VALUE_OVFL  |
+ | bit  0     R  VHIST_CAPT_RUNNING       |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_UNUSED_MASK                  0x00ff071c
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_PERBIN_VALUE_39_32_MSK 0xff000000
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_PERBIN_VALUE_39_32_OFF 24
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_READ_BACK_ADDR_MSK     0x0000f800
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_READ_BACK_ADDR_OFF     11
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_FSM_STATE_MSK          0x000000e0
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_FSM_STATE_OFF          5
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_PERBIN_VALUE_OVFL_MSK  0x00000002
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_PERBIN_VALUE_OVFL_OFF  1
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_CAPT_RUNNING_MSK       0x00000001
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG1_BIT_VHIST_CAPT_RUNNING_OFF       0
+
+/*--------------------------------------.
+ | Register 0x00000134 DIAG_STATUS_REG2 |
+ +--------------------------------------+
+ | bit  31:0 R  VHIST_PERBIN_VALUE_31_0 |
+ +-------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_DIAG_STATUS_REG2_UNUSED_MASK                 0x00000000
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG2_BIT_VHIST_PERBIN_VALUE_31_0_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_DIAG_STATUS_REG2_BIT_VHIST_PERBIN_VALUE_31_0_OFF 0
+
+/*----------------------------------------.
+ | Register 0x00000140 SIPO_BIST_CNFG_REG |
+ +----------------------------------------+
+ | bit  8   R/W  TIME_REVERSE             |
+ | bit  6:4 R/W  SIPO_BIST_SEL            |
+ | bit  0   R/W  SIPO_BIST_EN             |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_UNUSED_MASK       0xfffffe8e
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_TIME_REVERSE_MSK  0x00000100
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_TIME_REVERSE_OFF  8
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_SIPO_BIST_SEL_MSK 0x00000070
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_SIPO_BIST_SEL_OFF 4
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_SIPO_BIST_EN_MSK  0x00000001
+#define CNI_UNI_TXRX_REG_SIPO_BIST_CNFG_REG_BIT_SIPO_BIST_EN_OFF  0
+
+/*------------------------------------------.
+ | Register 0x00000144 SIPO_BIST_STATUS_REG |
+ +------------------------------------------+
+ | bit  1 R  SIPO_BIST_SYNC                 |
+ | bit  0 R  SIPO_BIST_ERR                  |
+ +-----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG_UNUSED_MASK        0xfffffffc
+#define CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG_BIT_SIPO_BIST_SYNC_MSK 0x00000002
+#define CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG_BIT_SIPO_BIST_SYNC_OFF 1
+#define CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG_BIT_SIPO_BIST_ERR_MSK  0x00000001
+#define CNI_UNI_TXRX_REG_SIPO_BIST_STATUS_REG_BIT_SIPO_BIST_ERR_OFF  0
+
+/*----------------------------------------.
+ | Register 0x00000150 PATT_GEN_CNFG_REG1 |
+ +----------------------------------------+
+ | bit  31:24 R/W  GEN_USR_PAT_39_32      |
+ | bit  14:9  R/W  PATT_BUS_WIDTH         |
+ | bit  8     R/W  GEN_ERR_INJ            |
+ | bit  7     R/W  GEN_INV                |
+ | bit  6:3   R/W  GEN_MODE               |
+ | bit  2     R/W  INV_TX_DATA            |
+ | bit  1     R/W  PATT_GEN_SEL           |
+ | bit  0     R/W  GEN_EN                 |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_UNUSED_MASK           0x00ff8000
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_USR_PAT_39_32_MSK 0xff000000
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_USR_PAT_39_32_OFF 24
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_PATT_BUS_WIDTH_MSK    0x00007e00
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_PATT_BUS_WIDTH_OFF    9
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_ERR_INJ_MSK       0x00000100
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_ERR_INJ_OFF       8
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_INV_MSK           0x00000080
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_INV_OFF           7
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_MODE_MSK          0x00000078
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_MODE_OFF          3
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_INV_TX_DATA_MSK       0x00000004
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_INV_TX_DATA_OFF       2
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_PATT_GEN_SEL_MSK      0x00000002
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_PATT_GEN_SEL_OFF      1
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_EN_MSK            0x00000001
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG1_BIT_GEN_EN_OFF            0
+
+/*----------------------------------------.
+ | Register 0x00000154 PATT_GEN_CNFG_REG2 |
+ +----------------------------------------+
+ | bit  31:0 R/W  GEN_USR_PAT_31_0        |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG2_UNUSED_MASK          0x00000000
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG2_BIT_GEN_USR_PAT_31_0_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_PATT_GEN_CNFG_REG2_BIT_GEN_USR_PAT_31_0_OFF 0
+
+/*----------------------------------------.
+ | Register 0x00000158 PATT_CHK_CNFG_REG1 |
+ +----------------------------------------+
+ | bit  31:24 R/W  CHK_USR_PAT_39_32      |
+ | bit  8     R/W  CHK_READ               |
+ | bit  7     R/W  CHK_INV                |
+ | bit  6:3   R/W  CHK_MODE               |
+ | bit  0     R/W  CHK_EN                 |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_UNUSED_MASK           0x00fffe06
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_USR_PAT_39_32_MSK 0xff000000
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_USR_PAT_39_32_OFF 24
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_READ_MSK          0x00000100
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_READ_OFF          8
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_INV_MSK           0x00000080
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_INV_OFF           7
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_MODE_MSK          0x00000078
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_MODE_OFF          3
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_EN_MSK            0x00000001
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG1_BIT_CHK_EN_OFF            0
+
+/*----------------------------------------.
+ | Register 0x0000015c PATT_CHK_CNFG_REG2 |
+ +----------------------------------------+
+ | bit  31:0 R/W  CHK_USR_PAT_31_0        |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG2_UNUSED_MASK          0x00000000
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG2_BIT_CHK_USR_PAT_31_0_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_PATT_CHK_CNFG_REG2_BIT_CHK_USR_PAT_31_0_OFF 0
+
+/*------------------------------------------.
+ | Register 0x00000160 PATT_CHK_STATUS_REG1 |
+ +------------------------------------------+
+ | bit  31:0 R  CHK_ERR_CNT                 |
+ +-----------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PATT_CHK_STATUS_REG1_UNUSED_MASK     0x00000000
+#define CNI_UNI_TXRX_REG_PATT_CHK_STATUS_REG1_BIT_CHK_ERR_CNT_MSK 0xffffffff
+#define CNI_UNI_TXRX_REG_PATT_CHK_STATUS_REG1_BIT_CHK_ERR_CNT_OFF 0
+
+/*---------------------------------------.
+ | Register 0x00000170 TX_CTRL_CNFG_REG1 |
+ +---------------------------------------+
+ | bit  16:0 R/W  TX_PSELI               |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG1_UNUSED_MASK  0xfffe0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG1_BIT_TX_PSELI_MSK 0x0001ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG1_BIT_TX_PSELI_OFF 0
+
+/*---------------------------------------.
+ | Register 0x00000174 TX_CTRL_CNFG_REG2 |
+ +---------------------------------------+
+ | bit  16:0 R/W  TX_DENI                |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG2_UNUSED_MASK 0xfffe0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG2_BIT_TX_DENI_MSK 0x0001ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG2_BIT_TX_DENI_OFF 0
+
+/*---------------------------------------.
+ | Register 0x00000178 TX_CTRL_CNFG_REG3 |
+ +---------------------------------------+
+ | bit  31:30 R/W  PISO_PRE2_MODE        |
+ | bit  25    R/W  PISO_PRE2_ENABLE      |
+ | bit  24    R/W  PISO_PRE1_ENABLE      |
+ | bit  21:16 R/W  TX_DPENI2             |
+ | bit  13:8  R/W  TX_DPENI1             |
+ | bit  4:0   R/W  TX_DER                |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_UNUSED_MASK          0x3cc0c0e0
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE2_MODE_MSK   0xc0000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE2_MODE_OFF   30
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE2_ENABLE_MSK 0x02000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE2_ENABLE_OFF 25
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE1_ENABLE_MSK 0x01000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_PISO_PRE1_ENABLE_OFF 24
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DPENI2_MSK        0x003f0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DPENI2_OFF        16
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DPENI1_MSK        0x00003f00
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DPENI1_OFF        8
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DER_MSK           0x0000001f
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG3_BIT_TX_DER_OFF           0
+
+/*---------------------------------------.
+ | Register 0x0000017c TX_CTRL_CNFG_REG4 |
+ +---------------------------------------+
+ | bit  31    R/W  RXDET_CANCEL_OVR      |
+ | bit  30:25 R/W  RXDET_CTRL_PCBI       |
+ | bit  24:19 R/W  RXDET_CTRL_CORE       |
+ | bit  18    R/W  TX_CAL_EN             |
+ | bit  17    R/W  TX_CM_ENB             |
+ | bit  16    R/W  TX_EDGE_DELAY_SEL     |
+ | bit  15    R/W  TX_CM_MODN_B          |
+ | bit  14    R/W  TX_CM_MODP_B          |
+ | bit  13    R/W  RXDET_ENB             |
+ | bit  12    R/W  RXDET_HI_SET          |
+ | bit  11    R/W  TX_WIZARD_EN          |
+ | bit  10    R/W  TX_AMP_EMPH_EN        |
+ | bit  9     R/W  TX_CTRL_ENB           |
+ | bit  8     R/W  TX_CMD_EN             |
+ | bit  2:0   R/W  RXDET_IDLE_DELAY      |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_UNUSED_MASK           0x000000f8
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CANCEL_OVR_MSK  0x80000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CANCEL_OVR_OFF  31
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CTRL_PCBI_MSK   0x7e000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CTRL_PCBI_OFF   25
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CTRL_CORE_MSK   0x01f80000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_CTRL_CORE_OFF   19
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CAL_EN_MSK         0x00040000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CAL_EN_OFF         18
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_ENB_MSK         0x00020000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_ENB_OFF         17
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_EDGE_DELAY_SEL_MSK 0x00010000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_EDGE_DELAY_SEL_OFF 16
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_MODN_B_MSK      0x00008000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_MODN_B_OFF      15
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_MODP_B_MSK      0x00004000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CM_MODP_B_OFF      14
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_ENB_MSK         0x00002000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_ENB_OFF         13
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_HI_SET_MSK      0x00001000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_HI_SET_OFF      12
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_WIZARD_EN_MSK      0x00000800
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_WIZARD_EN_OFF      11
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_AMP_EMPH_EN_MSK    0x00000400
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_AMP_EMPH_EN_OFF    10
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CTRL_ENB_MSK       0x00000200
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CTRL_ENB_OFF       9
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CMD_EN_MSK         0x00000100
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_TX_CMD_EN_OFF         8
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_IDLE_DELAY_MSK  0x00000007
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG4_BIT_RXDET_IDLE_DELAY_OFF  0
+
+/*---------------------------------------.
+ | Register 0x00000180 TX_CTRL_CNFG_REG5 |
+ +---------------------------------------+
+ | bit  31:16 R/W  TX_CTRL_EDGE          |
+ | bit  15:0  R/W  TX_CM_COUNTER         |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5_UNUSED_MASK       0x00000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5_BIT_TX_CTRL_EDGE_MSK  0xffff0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5_BIT_TX_CTRL_EDGE_OFF  16
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5_BIT_TX_CM_COUNTER_MSK 0x0000ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG5_BIT_TX_CM_COUNTER_OFF 0
+
+/*---------------------------------------.
+ | Register 0x00000184 TX_CTRL_CNFG_REG6 |
+ +---------------------------------------+
+ | bit  17:0 R/W  TX_CTRL_PRE1           |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG6_UNUSED_MASK      0xfffc0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG6_BIT_TX_CTRL_PRE1_MSK 0x0003ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG6_BIT_TX_CTRL_PRE1_OFF 0
+
+/*---------------------------------------.
+ | Register 0x00000188 TX_CTRL_CNFG_REG7 |
+ +---------------------------------------+
+ | bit  17:0 R/W  TX_CTRL_PRE2           |
+ +--------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG7_UNUSED_MASK      0xfffc0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG7_BIT_TX_CTRL_PRE2_MSK 0x0003ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_CNFG_REG7_BIT_TX_CTRL_PRE2_OFF 0
+
+/*--------------------------------------.
+ | Register 0x0000018c TX_CTRL_STS_REG1 |
+ +--------------------------------------+
+ | bit  31:16 R  TX_CODE_OUT            |
+ | bit  15:0  R  TX_SUM_OUT             |
+ +-------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1_UNUSED_MASK     0x00000000
+#define CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1_BIT_TX_CODE_OUT_MSK 0xffff0000
+#define CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1_BIT_TX_CODE_OUT_OFF 16
+#define CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1_BIT_TX_SUM_OUT_MSK  0x0000ffff
+#define CNI_UNI_TXRX_REG_TX_CTRL_STS_REG1_BIT_TX_SUM_OUT_OFF  0
+
+/*----------------------------------------.
+ | Register 0x00000190 PMM_WRAP_CNFG_REG1 |
+ +----------------------------------------+
+ | bit  29:16 R/W  DSM_DENOM              |
+ | bit  1:0   R/W  DSM_TYPE               |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1_UNUSED_MASK   0xc000fffc
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1_BIT_DSM_DENOM_MSK 0x3fff0000
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1_BIT_DSM_DENOM_OFF 16
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1_BIT_DSM_TYPE_MSK  0x00000003
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG1_BIT_DSM_TYPE_OFF  0
+
+/*----------------------------------------.
+ | Register 0x00000194 PMM_WRAP_CNFG_REG2 |
+ +----------------------------------------+
+ | bit  31    R/W  PMM_WRAP_EN            |
+ | bit  24:16 R/W  PKT_SIZE               |
+ | bit  15:0  R/W  PKT_PERIOD             |
+ +---------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_UNUSED_MASK     0x7e000000
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PMM_WRAP_EN_MSK 0x80000000
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PMM_WRAP_EN_OFF 31
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PKT_SIZE_MSK    0x01ff0000
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PKT_SIZE_OFF    16
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PKT_PERIOD_MSK  0x0000ffff
+#define CNI_UNI_TXRX_REG_PMM_WRAP_CNFG_REG2_BIT_PKT_PERIOD_OFF  0
+
+/* index definitions for PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG */
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_INDEX_N_MIN    0
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_INDEX_N_MAX    26
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_INDEX_N_SIZE   27
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_INDEX_N_OFFSET 0x4
+
+/*-------------------------------------------------------.
+ | Register (0x00000300 + (N) * 0x4) GCOC_OFFSET_RAM_REG |
+ +-------------------------------------------------------+
+ | bit  31:0 R/W  OFFSET                                 |
+ +------------------------------------------------------*/
+#define PMC_CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_UNUSED_MASK    0x00000000
+#define CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_BIT_OFFSET_MSK     0xffffffff
+#define CNI_UNI_TXRX_REG_GCOC_OFFSET_RAM_REG_BIT_OFFSET_OFF     0
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* _C8_REGS_H */

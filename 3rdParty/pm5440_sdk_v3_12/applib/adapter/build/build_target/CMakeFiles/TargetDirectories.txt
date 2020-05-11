@@ -1,0 +1,1 @@
+/root/share/mxp/src/3rdParty/pm5440_sdk_v3_12/applib/adapter/build/build_target/CMakeFiles/pm5440.dir

@@ -1,0 +1,51 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Inventory")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.PresentEnum = {0:"No",1:"Yes",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Inventory Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>Present</th>
+            <th>ModuleType</th>
+            <th>PartNumber</th>
+            <th>SerialNumber</th>
+            <th>VendorName</th>
+            <th>ProduceDate</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ PresentEnum[x.Present] }}</td>
+            <td>{{ x.ModuleType }}</td>
+            <td>{{ x.PartNumber }}</td>
+            <td>{{ x.SerialNumber }}</td>
+            <td>{{ x.VendorName }}</td>
+            <td>{{ x.ProduceDate }}</td>
+            <td>
+              <a ui_sref="app.InventoryView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

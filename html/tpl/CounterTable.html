@@ -1,0 +1,39 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+	var loadData = function () {
+		$http.get('/action/Counter')
+			.success(function(data) {$scope.aaData = data.aaData;})
+    };
+    loadData();
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Counter Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th style="width:25%">#</th>
+            <th style="width:25%">Key</th>
+            <th style="width:25%">Number</th>
+            <th style="width:25%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.Num }}</td>
+            <td>
+              <a ui_sref="app.CounterView({id:{{ $index }}})" class="text-info">View</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,0 +1,51 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Snmp")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.EnableEnum = {0:"No",1:"Yes",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Snmp Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>Enable</th>
+            <th>GetCommunity</th>
+            <th>SetCommunity</th>
+            <th>TrapReceiver1</th>
+            <th>TrapReceiver2</th>
+            <th>TrapReceiver3</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ EnableEnum[x.Enable] }}</td>
+            <td>{{ x.GetCommunity }}</td>
+            <td>{{ x.SetCommunity }}</td>
+            <td>{{ x.TrapReceiver1 }}</td>
+            <td>{{ x.TrapReceiver2 }}</td>
+            <td>{{ x.TrapReceiver3 }}</td>
+            <td>
+              <a ui_sref="app.SnmpView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

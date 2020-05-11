@@ -1,0 +1,1146 @@
+/*******************************************************************************
+*   COPYRIGHT (C) 2011 PMC-SIERRA, INC. ALL RIGHTS RESERVED.                  
+* --------------------------------------------------------------------------
+*  This software embodies materials and concepts which are proprietary and  
+*  confidential to PMC-Sierra, Inc.                                         
+*  PMC-Sierra distributes this software to its customers pursuant to the    
+*  terms and conditions of the Software License Agreement                   
+*  contained in the text file software.lic that is distributed along with   
+*  the software. This software can only be utilized if all                  
+*  terms and conditions of the Software License Agreement are               
+*  accepted. If there are any questions, concerns, or if the                
+*  Software License Agreement text file, software.lic, is missing please    
+*  contact PMC-Sierra for assistance.                                       
+* --------------------------------------------------------------------------
+*   DESCRIPTION: 
+*     This file contains the operations for the PMC software test mode which
+*     is a local memory version of the device registers. This model does not
+*     have the behavioral characteristics of the device, just the registers
+*     and can be used to view read/write sequences.
+* 
+*   NOTES:
+*  
+******************************************************************************/
+
+/*---- Compile Options -----------------------------------------------------*/
+/*#define DIGI_SW_SIMULATION_MUTEX 1*/
+
+/*---- Include Files -------------------------------------------------------*/
+#include <memory.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <sys/time.h>
+#include "pmc_sw_simulation.h"
+#include "pmc_sys.h"
+#include "l4_sys.h"
+#ifdef DIGI_SW_SIMULATION_MUTEX
+#include <pthread.h>
+#endif
+#ifdef PMC_SW_SIMULATION
+
+/*---- Extern Declarations -------------------------------------------------*/
+/*---- Private Constant and Type Declarations ------------------------------*/
+
+typedef struct simulation_hook_struct_t {
+    /* arbitrary paramater passed back to the simulation hook */
+    void                   *param;
+
+    /* simulation function */
+    simulation_function_t  fn;
+
+    /* next simulation hook */
+    struct simulation_hook_struct_t *next;
+} simulation_hook_t;
+
+#define SIM_READ  1
+#define SIM_WRITE 0
+
+PRIVATE UINT64 pmc_calc_timeval_diff(struct timeval *tv_start, struct timeval *tv_end);
+
+
+void simulation_add_hook( pmc_sys_handle_t *sys, UINT32 addr, simulation_function_t fn, void *param )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    simulation_hook_t *sim_hook = (simulation_hook_t *)sr_get_extra_space(sim_sys->simulation,addr);
+#ifndef NO_IO_LOGGING
+    LOG("adding simulation hook to address 0x%08x \"%s\"",addr,pmc_sys_get_description(sys,addr));
+#endif
+    if (sim_hook->fn != NULL)
+    {
+        simulation_hook_t **link = &(sim_hook->next);
+        while (*link != NULL)
+            link = &((*link)->next);
+        *link = (simulation_hook_t *)PMC_CALLOC(sizeof(simulation_hook_t));
+        sim_hook = (*link);
+    }
+    sim_hook->fn = fn;
+    sim_hook->param = param;
+    sim_hook->next = NULL;
+}
+
+
+/* whenever the address register is written:
+ * if (read_mask & command_register == 1) data = mem[addr];
+ * if (read_mask & command_register == 0) mem[addr] = data;
+ */ 
+typedef struct {
+    simulation_sys_handle_t *sim_sys;
+    sr_memory_region_t indirect_memory;
+    UINT32 address_register;
+    UINT32 sts_3_mask;
+    UINT32 sts_3_shift;
+    UINT32 sts_1_mask;
+    UINT32 sts_1_shift;
+    UINT32 iaddr_mask;
+    UINT32 iaddr_shift;
+    UINT32 data_register;
+    UINT32 num_data_registers;
+    UINT32 command_register;
+    UINT32 busy_mask;
+    UINT32 rwb_mask;
+    int busy_count;
+} indirect_simulation_t;
+
+void address_register_sim( pmc_sys_handle_t *sys, UINT32 addr, void *param, UINT32 read_flag, UINT32 *value )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    indirect_simulation_t *i_sim = (indirect_simulation_t*)param;
+    UINT32 iaddr;
+    UINT32 sts_3;
+    UINT32 sts_3_size;
+    UINT32 sts_1;
+    UINT32 sts_1_size;
+    UINT32 addr_regval = *value; /* note: if this was a command register and the address register was a different register then we'd call:
+                                  sr_read(sim_sys->simulation,indirect_simulation->address_register) to read the address */
+    UINT32 sim_addr;
+
+    sts_3 = (addr_regval & i_sim->sts_3_mask) >> i_sim->sts_3_shift;
+    sts_1 = (addr_regval & i_sim->sts_1_mask) >> i_sim->sts_1_shift;
+    iaddr = (addr_regval & i_sim->iaddr_mask) >> i_sim->iaddr_shift;
+    sts_3_size = (i_sim->sts_3_mask >> i_sim->sts_3_shift) + 1;
+    sts_1_size = (i_sim->sts_1_mask >> i_sim->sts_1_shift) + 1;
+    sim_addr = (((sts_3 * sts_3_size) + sts_1) * sts_1_size + iaddr) * i_sim->num_data_registers * 4;
+    if (read_flag)
+    {
+        /*LOG("address register read");*/
+    }
+    else
+    {
+        UINT32 i;
+        /*LOG("address register write");*/
+        for (i=0;i<i_sim->num_data_registers;i++)
+        {
+            UINT32 full_sim_addr = sim_addr + i*4;
+            /* read_bit == 1 means it's a read, so read from simulation memory and plug the values into the data registers */
+            if (*value & i_sim->rwb_mask)
+            {
+                /* set the data register to the value from the indirect memory */
+                UINT32 regval = sr_read(i_sim->indirect_memory,full_sim_addr);
+                LOG("simulating indirect register read sim_addr=0x%08x -> val=0x%08x %s",full_sim_addr,regval,pmc_sys_get_description_and_value(sys,addr,0xffffffff,*value));
+                sr_write(sim_sys->simulation,i_sim->data_register,regval);
+            }
+            /* read_bit == 0 means it's a write, so take the values from the data registers and save them to the simulation memory */
+            else
+            {
+                /* set the indirect memory from the value of the data register */
+                UINT32 regval = sr_read(sim_sys->simulation,i_sim->data_register);
+                LOG("simulating indirect register write sim_addr=0x%08x <- val=0x%08x %s",full_sim_addr,regval,pmc_sys_get_description_and_value(sys,addr,0xffffffff,*value));
+                /* note: this is "pushing" the simulated data value into the data register when the command register says "go" */
+                /* an alternative would be to add a simulation hook on the data register and figure out what the data should be at that point */
+                sr_write(i_sim->indirect_memory,full_sim_addr,regval);
+            }
+        }
+        i_sim->busy_count = 10;
+    }
+}
+void command_register_sim( pmc_sys_handle_t *sys, UINT32 addr, void *param, UINT32 read_flag, UINT32 *value )
+{
+    indirect_simulation_t *i_sim = (indirect_simulation_t*)param;
+    if (read_flag)
+    {
+        /* keep the busy mask set for 10 reads after a command is issued */
+        if (i_sim->busy_count > 0)
+        {
+            i_sim->busy_count--;
+            /*LOG("pretending busy and setting bit 0x%08x",i_sim->busy_mask);*/
+            *value = *value | i_sim->busy_mask;
+        }
+        else
+        {
+            if (i_sim->busy_count == 0)
+                LOG("simulating busy bit clear");
+            i_sim->busy_count--;
+            /* LOG("pretending done and clearing bit 0x%08x",i_sim->busy_mask); */
+            *value = *value & ~(i_sim->busy_mask);
+        }
+    }
+}
+
+/*
+ *
+ * e.g. for rttp we would call:
+ 
+void *simulation_indirect_memory_create( pmc_sys_handle_t *sys,
+                                         PMC_RTTP_REG_IND_ADR,           / * address_register         * /
+                                         RTTP_REG_IND_ADR_BIT_STS_3_MSK, / * sts_3 mask * /
+                                         RTTP_REG_IND_ADR_BIT_STS_3_OFS, / * sts_3 shift * /
+                                         RTTP_REG_IND_ADR_BIT_STS_1_MSK, / * sts_1 mask * /
+                                         RTTP_REG_IND_ADR_BIT_STS_1_OFS, / * sts_1 shift * /
+                                         RTTP_REG_IND_ADR_BIT_IADDR_MSK, / * iaddr mask * /
+                                         RTTP_REG_IND_ADR_BIT_IADDR_OFS, / * iaddr shift * /
+                                         PMC_RTTP_REG_IND_DATA,          / * data_register            * /
+                                         1,                              / * num_data_registers       * /
+                                         PMC_RTTP_REG_IND_ADR,           / * command register         * /
+                                         RTTP_REG_IND_ADR_BIT_BUSY_MSK,  / * busy_mask                * /
+                                         RTTP_REG_IND_ADR_BIT_RWB_MSK    / * rwb_mask                  * /
+                                         );
+*/
+/*
+ * first cut at simulating indirect memory.
+ * assumes that there are 3 registers:
+ * address_register,
+ * data_register[0]..data_register[num_data_registers-1] (contiguous data registers)
+ * command_register  with go_mask, done_mask and rwb_mask.
+ */
+void *simulation_indirect_memory_create(
+    pmc_sys_handle_t *sys,
+    UINT32 address_register,
+    UINT32 sts_3_mask,
+    UINT32 sts_3_shift,
+    UINT32 sts_1_mask,
+    UINT32 sts_1_shift,
+    UINT32 iaddr_mask,
+    UINT32 iaddr_shift, 
+    UINT32 data_register, 
+    UINT32 num_data_registers, 
+    UINT32 command_register, 
+    UINT32 busy_mask, 
+    UINT32 rwb_mask )
+{
+    indirect_simulation_t *i_sim = (indirect_simulation_t *)PMC_CALLOC(sizeof(indirect_simulation_t));
+
+    i_sim->indirect_memory    = sr_create_memory_region(0);
+    i_sim->address_register   = address_register;
+    i_sim->sts_3_mask         = sts_3_mask;
+    i_sim->sts_3_shift        = sts_3_shift;
+    i_sim->sts_1_mask         = sts_1_mask;
+    i_sim->sts_1_shift        = sts_1_shift;
+    i_sim->iaddr_mask         = iaddr_mask;
+    i_sim->iaddr_shift        = iaddr_shift;
+    i_sim->data_register      = data_register;
+    i_sim->num_data_registers = num_data_registers;
+    i_sim->command_register   = command_register;
+    i_sim->busy_mask          = busy_mask;
+    i_sim->rwb_mask          = rwb_mask;
+    simulation_add_hook( sys, i_sim->address_register, address_register_sim, i_sim );
+    /* note: for RTTP the command and address registers are the same, ..
+    *   but this demonstrates how to extend the code for the next type of indirect memory if go and done and are on different addresses */
+    simulation_add_hook( sys, i_sim->command_register, command_register_sim, i_sim );
+    LOG("simulating indirect memory with address_register 0x%08x \"%s\", data_register 0x%08x \"%s\"",
+        address_register,
+        pmc_sys_get_description(sys,address_register),
+        data_register,
+        pmc_sys_get_description(sys,data_register));
+    return i_sim;
+}
+
+
+pmc_sys_handle_t *simulation_sys_create( )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)PMC_CALLOC(sizeof(simulation_sys_handle_t));
+    sim_sys->simulation = sr_create_memory_region(sizeof(simulation_hook_t));
+    return (pmc_sys_handle_t *)sim_sys;
+}
+
+
+void simulation_sys_destroy(pmc_sys_handle_t **sys )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)*sys;
+    sr_delete_memory_region(sim_sys->simulation);
+    PMC_FREE(&sim_sys);
+}
+
+
+
+/* initialize the simulation memory with a set of default values */
+void simulation_init_simple_defaults( pmc_sys_handle_t *sys, simple_memory_defaults *defaults, int num_defaults )
+{
+    int i;
+    int count = 0;
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    for (i=0;i<num_defaults;i++)
+    {
+        UINT32 addr = defaults[i].addr;
+        const char *reg_bit_descriptions = pmc_sys_get_reg_bit_descriptions( sys, defaults[i].addr );
+        count ++;
+        sr_write(sim_sys->simulation,defaults[i].addr,defaults[i].data);
+        if ((i > 0) && (defaults[i].addr <= defaults[i-1].addr))
+            LOG("warning non-ascending default value: [%d].0x%08x = 0x%08x, [%d].0x%08x = 0x%08x"
+                    ,i-1,defaults[i-1].addr,defaults[i-1].data,i,defaults[i].addr,defaults[i].data);
+        /* simulate SDH_PMG_RTTP indirect memory */
+        if (strcmp( reg_bit_descriptions, "0x00008000,BUSY,0x00004000,RWB,0x00003fc0,IADDR,0x0000003c,STS_3,0x00000003,STS_1" ) == 0)
+        {
+            UINT32 data_register = addr + 0x4; /* data register immediately follows address register */
+            simulation_indirect_memory_create(sys,addr,0x0000003c,2,0x00000003,0,0x00003fc0,6,data_register,1,addr,0x00008000,0x00004000);
+        }
+        /* simulate SDH_PMG_SBER indirect memory */
+        if (strcmp( reg_bit_descriptions, "0x00008000,BUSY,0x00004000,RWB,0x000007c0,IADDR,0x0000003c,STS_3,0x00000003,STS_1" ) == 0)
+        {
+            UINT32 data_register = addr + 0x4; /* data register immediately follows address register */
+            simulation_indirect_memory_create(sys,addr,0x0000003c,2,0x00000003,0,0x000007c0,6,data_register,1,addr,0x00008000,0x00004000);
+        }
+    }
+    sr_clear_access_flags(sim_sys->simulation);
+    LOG("initialized %d default registers",count);
+}
+
+UINT32 simulation_sys_reg_read( pmc_sys_handle_t *sys, UINT32 addr )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    simulation_hook_t *sim_hook = (simulation_hook_t*)sr_get_extra_space(sim_sys->simulation,addr);
+    if (sim_hook->fn != NULL)
+    {
+        UINT32 sim_val = sr_read(sim_sys->simulation,addr);
+        do {
+            simulation_function_t fn = sim_hook->fn;
+            fn(sys,addr,sim_hook->param,1,&sim_val);
+            sr_write(sim_sys->simulation,addr,sim_val);
+            sim_hook = sim_hook->next;
+        } while (sim_hook != NULL);
+    }
+    return sr_read(sim_sys->simulation,addr);
+} 
+
+void simulation_sys_reg_write( pmc_sys_handle_t *sys, UINT32 addr, UINT32 value )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    simulation_hook_t *sim_hook = (simulation_hook_t*)sr_get_extra_space(sim_sys->simulation,addr);
+    if (sim_hook->fn != NULL)
+    {
+        do {
+            (*sim_hook->fn)(sys,addr,sim_hook->param,0,&value);
+            sim_hook = sim_hook->next;
+        } while(sim_hook != NULL);
+    }
+    sr_write(sim_sys->simulation,addr,value);
+}
+
+void simulation_sys_burst_read(pmc_sys_handle_t *sys, UINT32 addr, UINT32 len, UINT32 *value )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    sr_burst_read(sim_sys->simulation, addr, len, value );
+}
+
+void simulation_sys_burst_write(pmc_sys_handle_t *sys, UINT32 addr, UINT32 len, UINT32 *value )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+    sr_burst_write(sim_sys->simulation, addr, len, value );
+}
+
+UINT32 simulation_sys_reg_read_modify_write( pmc_sys_handle_t *sys, 
+                                             UINT32 addr,
+                                             UINT32 mask,
+                                             UINT32 value,
+                                             UINT32 *oldval )
+{
+    /*simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;*/
+    UINT32 regval;
+    regval = simulation_sys_reg_read(sys,addr);
+    if (oldval != NULL)
+        *oldval = regval; /* save old value for logging purposes */
+    regval &= ~mask;
+    regval |= (mask & value);
+    simulation_sys_reg_write(sys, addr, regval );
+    return regval; /* return value written, mostly for logging purposes */
+}
+
+/*******************************************************************************
+* simulation_sys_mem_write
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   This function is a memory write function to the DIGI device used to transfer
+*   byte-array values (e.g. firmware image). This operation transfers is
+*   intended to be an endian agnostic transfer and transfers a byte length.
+*
+* INPUTS:
+*   sys    - System handle
+*   addr   - First device address to write.
+*   len    - Number of bytes to write.
+*   data_ptr   - Array of len bytes.
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   None.
+*
+* NOTES:
+*
+*******************************************************************************/
+void simulation_sys_mem_write(pmc_sys_handle_t *sys, UINT32 addr, UINT32 len, UINT8 *data_ptr )
+{
+    simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;
+
+    PMC_ASSERT((len & 0x3) == 0, PMC_ERR_INVALID_PARAMETERS, 0x0, 0x0); /* Ensure that length is a multiple of 4 bytes since using a word length function */
+    sr_burst_write(sim_sys->simulation, addr, len/4, (UINT32 *)data_ptr);
+}
+
+PMC_ERROR simulation_sys_poll_bit( pmc_sys_handle_t *sys, UINT32 addr, UINT32 mask, UINT32 value, UINT32 max_count, UINT32 *num_failed_polls, UINT32 delay_between_polls_in_microseconds )
+{
+    UINT32 i;
+    /*simulation_sys_handle_t *sim_sys = (simulation_sys_handle_t*)sys;*/
+    for (i=0;i<max_count;i++)
+    {
+        if ((simulation_sys_reg_read(sys,addr) & mask) == value)
+        {
+            if (num_failed_polls != NULL)
+                *num_failed_polls = i;
+            return PMC_SUCCESS;
+        }
+        if (delay_between_polls_in_microseconds > 0)
+            PMC_OS_USLEEP(delay_between_polls_in_microseconds);
+    }
+    if (num_failed_polls != NULL)
+        *num_failed_polls = i;
+    return PMC_SW_SIM_ERR_POLL_TIMEOUT;
+}
+
+/* Output to screen/log is done before calling this function */
+PUBLIC void pmc_assert_function(PMC_ERROR error_code, const char *file_ptr, UINT32 line)
+{
+#ifdef PMC_SW_SIMULATION
+    PMC_LOG_TRACE("%s:%d: ASSERT: 0x%x\n", file_ptr, line, error_code);
+#endif
+    /* May want to put a while(1) option here so that function can be stepped out of
+       to determine the operation that caused assert or see the call stack */
+    assert(FALSE);
+}
+
+/*******************************************************************************
+*
+*  simulation_sys_file_open
+*  ___________________________________________________________________________
+*
+*  DESCRIPTION:   
+*    This function opens a file. Content must be updated by user for their 
+*    specific system requirements.
+*
+*  INPUTS:        
+*    *path_ptr      - path to file 
+*
+*  OUTPUTS:       
+*    None.
+*
+*  RETURNS:        FILE  pointer to streem, NULL on errror
+*
+*******************************************************************************/
+PUBLIC FILE* simulation_sys_file_open(const char* path_ptr)
+{
+    FILE *f = NULL;
+
+    PMC_ENTRY();
+
+    f = fopen(path_ptr, "rb");
+
+    PMC_RETURN(f);
+} /* simulation_sys_file_open */
+
+/*******************************************************************************
+*
+*  simulation_sys_output_file_open
+*  ___________________________________________________________________________
+*
+*  DESCRIPTION:   
+*    This function opens a file in write mode. 
+*    Content must be updated by user for their specific system requirements.
+*
+*  INPUTS:        
+*    *path_ptr      - path to file
+*
+*  OUTPUTS:       
+*    None.
+*
+*  RETURNS:        FILE  pointer to streem, NULL on errror
+*
+*******************************************************************************/
+PUBLIC FILE* simulation_sys_output_file_open(const char* path_ptr)
+{
+    FILE *f = NULL;
+
+    PMC_ENTRY();
+
+    f = fopen(path_ptr, "wb");
+
+    return(f);
+} /* simulation_sys_output_file_open */
+
+/*******************************************************************************
+*
+*  simulation_sys_file_close
+*  ___________________________________________________________________________
+*
+*  DESCRIPTION:   
+*    This function closes a file. Content must be updated by user for their 
+*    specific system requirements.
+*
+*  INPUTS:        
+*     *stream_ptr  - file stream pointer
+*
+*  OUTPUTS:       
+*     None.
+*
+*  RETURNS:      PMC_SUCCESS, on SUCCESS. Failure otherwise. 
+*
+*******************************************************************************/
+PUBLIC PMC_ERROR simulation_sys_file_close(FILE* stream_ptr)
+{
+    PMC_ERROR result = PMC_ERR_FAIL;
+
+    PMC_ENTRY();
+
+    if ((fclose(stream_ptr) == 0)) {
+
+        result = PMC_SUCCESS;
+    }
+
+    PMC_RETURN(result);
+} /* simulation_sys_file_close */
+
+/*******************************************************************************
+*
+*  simulation_sys_file_read
+*  ___________________________________________________________________________
+*
+*  DESCRIPTION:   
+*    This function reads 4-bytes from the file at the specified pointer 
+*    location. Content must be updated by user for their specific system 
+*    requirements.
+*
+*  INPUTS:        
+*    *f_ptr       - file stream pointer
+*    *buffer_ptr  - buffer pointer
+*    *offset_ptr  - offset into the buffer pointer
+*    *rd_len_ptr  - Read length pointer
+*
+*  OUTPUTS:       
+*    None.
+*
+*  RETURNS:        
+*    PMC_SUCCESS on Success, failure otherwise.
+*
+******************************************************************************/
+PUBLIC PMC_ERROR simulation_sys_file_read(FILE* f_ptr, UINT8* buffer_ptr, UINT32* offset_ptr, UINT8* rd_len_ptr)
+{
+    PMC_ERROR result = PMC_ERR_FAIL;
+    int op_ret;
+
+    PMC_ENTRY();
+
+    op_ret = fseek(f_ptr, *offset_ptr, SEEK_SET);
+
+    if (op_ret == 0) {
+
+        *rd_len_ptr = fread(buffer_ptr, 1, 4, f_ptr);
+        result = PMC_SUCCESS;
+    }
+    PMC_RETURN(result);
+} /* simulation_sys_file_read */
+
+/*****************************************************************************
+* pmc_mem_pool_create
+* ______________________________________________________________________________
+* 
+* DESCRIPTION:
+*   Creates a buffer pool for the specified number and size of buffers in the
+*   specified memory region, aligned on the specified byte boundary.
+*
+* INPUTS:
+*   pmc_sys_handle      - Pointer to sys handle
+*   buf_size            - Size of buffers in the pool. (All buffers in the 
+*                         same pool have the same size.)
+*   num_buf             - Number of buffers in the pool.
+*   mem_type            - Memory type (always 0)
+*   alignment           - Requested byte alignment of allocated buffers
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   pmc_mem_pool_handle - Handle to newly created memory pool.
+*
+* NOTES:
+* 
+*****************************************************************************/
+PUBLIC pmc_mem_pool_handle pmc_mem_pool_create(pmc_sys_handle_t pmc_sys_handle,
+                                               UINT32 buf_size, 
+                                               UINT32 num_buf, 
+                                               UINT16 mem_type,  
+                                               pmc_mem_align_enum alignment)
+{
+    PMC_ENTRY();
+    PMC_RETURN(NULL);
+}
+
+
+/*******************************************************************************
+* pmc_mem_ctxt_save
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   Save the context to an appropriate location.
+*
+* INPUTS:
+*   ctxt_ptr           - Reference to the context memory to be saved.
+*   ctxt_size          - Size of the context being saved.
+*   sys_handle         - Reference to the sys_handle for this DIGI instance.
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   PMC_SUCCESS               - Memory was successfully saved.
+*
+* NOTES:
+*
+*******************************************************************************/
+PUBLIC PMC_ERROR pmc_mem_ctxt_save(void *ctxt_ptr,
+                                   UINT32 ctxt_size,
+                                   pmc_sys_handle_t *sys_handle)
+{
+    PMC_ENTRY();
+    PMC_RETURN(PMC_SUCCESS);
+}
+
+
+/*******************************************************************************
+* pmc_mem_ctxt_restore
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   Restore the previously saved context.
+*
+* INPUTS:
+*   *ctxt_ptr       - Allocated block of memory to hold the previously
+*                     saved context.
+*   ctxt_size       - Size of the context..
+*   sys_handle      - Reference to the sys_handle for this DIGI instance.
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   PMC_SUCCESS               - Memory was successfully saved.
+*
+* NOTES:
+*
+*******************************************************************************/
+PUBLIC PMC_ERROR pmc_mem_ctxt_restore(void *ctxt_ptr,
+                                      UINT32 ctxt_size,
+                                      pmc_sys_handle_t *sys_handle)
+{
+    PMC_ENTRY();
+    PMC_RETURN(PMC_SUCCESS);
+}
+
+
+/*****************************************************************************
+* pmc_mem_pool_destroy_all
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   Destroy all memory pools.
+*
+* INPUTS:
+*   sys_handle - system handle.
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   None.
+*
+* NOTES:
+*
+*****************************************************************************/
+PUBLIC void pmc_mem_pool_destroy_all(pmc_sys_handle_t **sys_handle)
+{
+    PMC_ENTRY();
+    PMC_RETURN();
+}
+
+
+
+/*******************************************************************************
+* pmc_mem_pool_alloc
+* ______________________________________________________________________________
+* 
+* DESCRIPTION:
+*   Allocate from the specified pool a buffer of size buf_size. 
+*   buf_size must be <= buf_size specified in pool_create. Return 
+*   value is a pointer that can be used on host processor. Asserts on
+*   failure allocate
+*
+* INPUTS:
+*   pool        - Handle to previously created memory pool.
+*   buf_size    - Required buffer size. 
+*
+* RETURNS:
+*   void *pointer to buffer
+*   Assert and never return for all other failures to allocate buffer.
+*
+* NOTES:
+* 
+*******************************************************************************/
+PUBLIC void *pmc_mem_pool_alloc(pmc_mem_pool_handle pool, UINT32 buf_size)
+{
+    void *mem_pool_ptr = NULL;
+
+    PMC_ENTRY();
+
+    if (NULL == mem_pool_ptr)
+    {
+        mem_pool_ptr = PMC_CALLOC(buf_size);
+    }
+
+    PMC_RETURN(mem_pool_ptr);
+}
+
+
+/*********************************************************************
+* pmc_mem_pool_free
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   Free a memory buffer.  On successful free, the double pointer is
+*   set to NULL before being returned.
+*
+* INPUTS:
+*   pool     - Handle to previously created memory pool.
+*   buf_pptr - Pointer to pointer to buffer to be freed.
+*
+* OUTPUTS:
+*   buf_pptr - Pointer to buffer updated to NULL on successful free;
+*              unchanged if buffer free fails.
+*
+* RETURNS:
+*   None if successful; otherwise, assert and never return.
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void pmc_mem_pool_free(pmc_mem_pool_handle pool, void **buf_pptr)
+{
+    PMC_ENTRY();
+    if (NULL != buf_pptr)
+    {
+        PMC_FREE(buf_pptr);
+    }
+    PMC_RETURN();
+}
+
+
+/*********************************************************************
+* pmc_convert_mem_pool_addr_to_physical_addr
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function takes in a local_ptr to a block and returns 
+*   a physical address. This is primarily used to determine the base 
+*   addresses of the pools to pass to the device.\n 
+* 
+*   Note: this function may need to return a PMC_ADDR so that it can 
+*   be UINT32 or UINT64 depending on the customer system address size.
+*
+* INPUTS:
+*   pool      - Handle to previously created memory pool.
+*   local_ptr - pointer to a valid local memory address
+*
+* OUTPUTS:
+*   None.
+*
+* RETURNS:
+*   Physical address of the pointer; otherwise, assert and never return.
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC UINT64 pmc_convert_mem_pool_addr_to_physical_addr(pmc_mem_pool_handle pool, 
+                                                         void *local_ptr)
+{
+    UINT64  phys_addr;
+    
+    PMC_ENTRY();
+    
+    /* For simulation purposes return a fake physical address with 0's in lower 12 bits
+     * as this is a requirement for host messaging */
+     phys_addr = 0xC000;
+
+    PMC_RETURN(phys_addr);
+}
+#endif /* PMC_SW_SIMULATION */
+
+/*********************************************************************
+* pmc_atomic_create
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function create and return a mutex
+*   pthread is used for the implementation of the mutex.
+*
+* INPUTS:
+*   NONE
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*    A pointer to the created mutex
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void* pmc_atomic_create(void)
+{
+#ifdef DIGI_SW_SIMULATION_MUTEX
+    pthread_mutex_t *pmc_atomic_mutex_ptr; 
+    PMC_ENTRY();
+
+    /* initialize the mutex */
+    pmc_atomic_mutex_ptr = (pthread_mutex_t *) PMC_CALLOC(sizeof(pthread_mutex_t)); 
+    PMC_ASSERT(pthread_mutex_init(pmc_atomic_mutex_ptr, NULL)==0,PMC_ERR_FAIL,0,0);     
+    PMC_PRINT("PMC_SW_SIMULATION: DIGI_SW_SIMULATION_MUTEX is set so mutexes created.\n");    
+    PMC_RETURN( (void*) pmc_atomic_mutex_ptr );
+#else 
+    PMC_ENTRY();
+    PMC_RETURN(NULL);
+#endif
+} /* pmc_atomic_create */
+
+/*********************************************************************
+* pmc_atomic_delete
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function destroy an allocated mutex
+*   pthread is used for the implementation of the mutex.
+*
+* INPUTS:
+*   **mutex_pptr  -  An opaque pointer to a mutex object
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*    A pointer to the created mutex
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void pmc_atomic_delete(void **mutex_pptr)
+{
+    PMC_ENTRY();
+#ifdef DIGI_SW_SIMULATION_MUTEX    
+    PMC_ASSERT(pthread_mutex_destroy((pthread_mutex_t*)*mutex_pptr)==0,PMC_ERR_FAIL,0,0);     
+    PMC_FREE(mutex_pptr);
+#endif
+    PMC_RETURN();
+} /* pmc_atomic_delete */
+
+/*********************************************************************
+* pmc_atomic_start
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function unlock a mutex. 
+*   pthread is used for the implementation of the mutex.
+*
+* INPUTS:
+*   *mutex_ptr  -  An opaque pointer to a mutex object
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*    A pointer to the created mutex
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void pmc_atomic_start(void *mutex_ptr)
+{
+    PMC_ENTRY();
+#ifdef DIGI_SW_SIMULATION_MUTEX
+    PMC_ASSERT(pthread_mutex_lock((pthread_mutex_t*)(mutex_ptr))==0,PMC_ERR_FAIL,0,0);  
+#endif
+    PMC_RETURN();
+} /* pmc_atomic_start */
+
+/*********************************************************************
+* pmc_atomic_end
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function unlock a mutex. 
+*   pthread is used for the implementation of the mutex.
+*
+* INPUTS:
+*   *mutex_ptr  -  An opaque pointer to a mutex object
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*   None
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void pmc_atomic_end(void *mutex_ptr)
+{
+    PMC_ENTRY();
+#ifdef DIGI_SW_SIMULATION_MUTEX
+    PMC_ASSERT(pthread_mutex_unlock((pthread_mutex_t*)(mutex_ptr))==0, 
+               PMC_ERR_FAIL,0,0);    
+#endif
+    PMC_RETURN();
+} /* pmc_atomic_end */
+
+/*********************************************************************
+* pmc_thread_id_get
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   This function is used to get the unique thread id of the currently
+*   running thread.
+*   
+* INPUTS:
+*   sys_handle - pointer to system handle.
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*    UINT32 - unsigned thread id
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC UINT32 pmc_thread_id_get(pmc_sys_handle_t *sys_handle)
+{
+    PMC_ENTRY();
+
+    UINT32 thread_id = 0;
+
+#ifdef DIGI_SW_SIMULATION_MUTEX
+    thread_id = (UINT32)pthread_self();
+#endif
+
+    PMC_RETURN(thread_id);
+} /* pmc_thread_id_get() */
+
+/*******************************************************************************
+*  pmc_atomic_yield_is_allowed
+*  ___________________________________________________________________________
+*
+*  DESCRIPTION:   
+*    This function is used to indicate if yieldind is allowed. For example, it\n
+*    could be implemented based on a thread id or a prioriy system.
+*
+*  INPUTS:
+*   *sys_handle - system handle
+*
+*  OUTPUTS:
+*    none
+*
+*  RETURNS:        
+*    TRUE if yielding is allowed 
+*
+*  NOTES:
+*
+*******************************************************************************/
+PUBLIC BOOL pmc_atomic_yield_is_allowed(pmc_sys_handle_t *sys_handle)
+{    
+    BOOL result = FALSE;
+    PMC_ENTRY();      
+#ifdef DIGI_SW_SIMULATION_MUTEX
+    result = TRUE;
+#endif
+    PMC_RETURN(result);   
+} /* pmc_atomic_yield_is_allowed */
+
+
+/*********************************************************************
+* pmc_atoi
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*   Parses a string interpreting its content as a decimal 
+*   number, which is returned as an int value.
+*
+* INPUTS:
+*   *str  -   String to convert in decimal number
+*
+* OUTPUTS: 
+*   None
+*
+* RETURNS:
+*    UINT32 - converted decimal number.
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC UINT32 pmc_atoi(char *str)
+{
+    PMC_ENTRY();
+        
+    PMC_RETURN(atoi(str));
+} /* pmc_atoi */
+
+/*********************************************************************
+* pmc_is_logger_initialized
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*  Returns a boolean indicating whether or not the logger has already been
+*  initialized. If the boolean is FALSE, the first time called, then 
+*  initializes a pthread mutex used to synchronize access to the logger 
+*  string registration mechanism used by the various sub systems and blocks.
+*
+* INPUTS:
+*   None
+*
+* OUTPUTS: 
+*   None
+*
+* RETURNS:
+*   FALSE - Always
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC BOOL8 pmc_is_logger_initialized(void)
+{
+    /*
+     * Return FALSE to enable the logger initialization without any changes
+     * here. However this will not prevent pmc_log_init from executing 
+     * multiple times on the same host.
+     */
+    return FALSE;
+} /* pmc_is_logger_initialized */
+
+
+/*********************************************************************
+* pmc_logger_mutex_set
+* ____________________________________________________________________
+*
+* DESCRIPTION:
+*  Locks or unlocks the mutex depending on the value of the lock flag passed
+*  to the function. Returns if pmc_global_log_mutex_init is FALSE indicating
+*  pmc_log_init and pmc_is_logger_initialized was never called.
+*
+* INPUTS:
+*  lock - Whether mutex is to be locked or unlocked.
+*
+* OUTPUTS: 
+*  None
+*
+* RETURNS:
+*  None
+*
+* NOTES:
+* 
+**********************************************************************/
+PUBLIC void pmc_logger_mutex_set(BOOL8 lock)
+{
+    PMC_ENTRY();     
+
+    PMC_RETURN();
+} /*  pmc_logger_mutex_set */
+
+
+/*******************************************************************************
+* pmc_calc_timeval_diff
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   Calculates the time elapsed between two timeval values.  It is assumed that
+*   tv_start is earlier than tv_end.
+*
+* INPUTS:
+*   tv_start- The earlier time value.
+*   tv_end  - The later time value.
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*   The difference in microseconds.
+*
+* NOTES:
+*   Does not check assumptions.
+*
+*******************************************************************************/
+PRIVATE UINT64 pmc_calc_timeval_diff(struct timeval *tv_start, struct timeval *tv_end)
+{
+    UINT32 elapsed_seconds = tv_end->tv_sec - tv_start->tv_sec;
+    INT64 elapsed_micro = tv_end->tv_usec - tv_start->tv_usec;
+    if (elapsed_micro < 0)
+    {
+        --elapsed_seconds;
+        elapsed_micro += 1000000;
+    }
+    elapsed_micro += elapsed_seconds * 1000000;
+
+    return((UINT64) elapsed_micro);
+}
+
+
+/*******************************************************************************
+* pmc_usleep
+* ______________________________________________________________________________
+*
+* DESCRIPTION:
+*   A slightly more accurate version of usleep.  This version doesn't do a
+*   sleep, it blocks until the specified number of microseconds has passed.
+*
+* INPUTS:
+*   usec    - The number of microseconds to wait.
+*
+* OUTPUTS:
+*   None
+*
+* RETURNS:
+*   None.
+*
+* NOTES:
+*   None.
+*
+*******************************************************************************/
+PUBLIC void pmc_usleep(UINT64 usec)
+{
+    struct timeval tv_start;
+    struct timeval tv_end;
+
+
+    if (-1 == gettimeofday(&tv_start, NULL))
+    {
+        PMC_ASSERT(0, PMC_SHARED_ERR_CODE_ASSERT, 0, 0);
+    }
+
+    if (-1 == gettimeofday(&tv_end, NULL))
+    {
+        PMC_ASSERT(0, PMC_SHARED_ERR_CODE_ASSERT, 0, 0);
+    }
+    if (usec >= 100) {
+        usleep(usec);
+    }
+
+    while(pmc_calc_timeval_diff(&tv_start, &tv_end) < usec) {
+        if (-1 == gettimeofday(&tv_end, NULL))
+        {
+            PMC_ASSERT(0, PMC_SHARED_ERR_CODE_ASSERT, 0, 0);
+        }
+    }
+
+};

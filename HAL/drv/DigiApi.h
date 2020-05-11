@@ -1,0 +1,35 @@
+#ifndef _DIGI_API_H_
+#define _DIGI_API_H_
+
+#include "digi_api.h"
+#include "digi.h"
+#include "pmc_types.h"
+#include "pmc_handle.h"
+#include "pmc_err.h"
+#include "pmc_log.h"
+#include "pmc_sys.h"
+#include "digi_adpt.h"
+#include "digi_adpt_alm.h"
+#include "digi_adpt_api.h"
+#include "digi_adpt_basic_cfg.h"
+#include "digi_adpt_cbr.h"
+#include "digi_adpt_com.h"
+#include "digi_adpt_customer.h"
+#include "digi_adpt_datapath.h"
+#include "digi_adpt_debug.h"
+#include "digi_adpt_enet.h"
+#include "digi_adpt_gfp.h"
+#include "digi_adpt_interlaken.h"
+#include "digi_adpt_interrupt.h"
+#include "digi_adpt_loopback.h"
+#include "digi_adpt_otn.h"
+#include "digi_adpt_pmon.h"
+#include "digi_adpt_pv_cvt.h"
+#include "digi_adpt_sdh.h"
+#include "digi_adpt_serdes.h"
+#include "digi_adpt_datapath.h"
+#include "odu_struct.h"
+#include "digi_loc.h"
+
+#endif  // _DIGI_API_H_
+

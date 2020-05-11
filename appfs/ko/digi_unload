@@ -1,0 +1,9 @@
+#!/bin/sh
+module="digi"
+device="digi"
+
+/sbin/rmmod $module $* || exit 1
+
+rm -f /dev/digi0
+
+

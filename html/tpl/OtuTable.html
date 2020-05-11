@@ -1,0 +1,47 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Otu")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.FecModeEnum = {0:"Disabled",1:"GFEC",2:"I4",3:"I7",99:"INVALID"};
+    $scope.TestSignalTypeEnum = {0:"Disabled",1:"PRBS",99:"INVALID"};
+    $scope.TestSignalStatusEnum = {0:"Disabled",1:"InSync",2:"OutSync",3:"ErrorSync",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Otu Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>FecMode</th>
+            <th>TestSignalType</th>
+            <th>TestSignalStatus</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ FecModeEnum[x.FecMode] }}</td>
+            <td>{{ TestSignalTypeEnum[x.TestSignalType] }}</td>
+            <td>{{ TestSignalStatusEnum[x.TestSignalStatus] }}</td>
+            <td>
+              <a ui_sref="app.OtuView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,51 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/FileMgmt")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.ServerProtocolEnum = {2:"Tftp",99:"INVALID"};
+    $scope.ActionEnum = {0:"None",1:"ExportDatabase",2:"ImportDatabase",3:"UpgradeSoftware",99:"INVALID"};
+    $scope.StateEnum = {0:"None",1:"FileTransfer",2:"FileTransferFailed",3:"Execute",4:"ExecuteFailed",5:"Finished",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">FileMgmt Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>ServerIpAddress</th>
+            <th>ServerProtocol</th>
+            <th>FilePathName</th>
+            <th>Action</th>
+            <th>State</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.ServerIpAddress }}</td>
+            <td>{{ ServerProtocolEnum[x.ServerProtocol] }}</td>
+            <td>{{ x.FilePathName }}</td>
+            <td>{{ ActionEnum[x.Action] }}</td>
+            <td>{{ StateEnum[x.State] }}</td>
+            <td>
+              <a ui_sref="app.FileMgmtView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

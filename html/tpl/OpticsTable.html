@@ -1,0 +1,52 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Optics")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.LaserEnum = {0:"Off",1:"On",99:"INVALID"};
+    $scope.LosEnum = {0:"On",1:"Off",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Optics Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>Type</th>
+            <th>Laser</th>
+            <th>Los</th>
+            <th>TxPower</th>
+            <th>RxPower</th>
+            <th>Temp</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.Type }}</td>
+            <td>{{ LaserEnum[x.Laser] }}</td>
+            <td>{{ LosEnum[x.Los] }}</td>
+            <td>{{ x.TxPower }}</td>
+            <td>{{ x.RxPower }}</td>
+            <td>{{ x.Temp }}</td>
+            <td>
+              <a ui_sref="app.OpticsView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

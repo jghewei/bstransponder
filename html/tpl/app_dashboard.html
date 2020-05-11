@@ -1,0 +1,145 @@
+<script>
+'use strict';
+app.controller('DashCtrl', ['$scope', '$http', '$interval', function($scope, $http, $interval) {
+
+	$scope.barColor = {
+		cpu: $scope.app.color.success,
+		mem: $scope.app.color.warning,
+		disk: $scope.app.color.danger
+	};
+
+	var loadData = function () {
+		$http.get("/action/System")
+			.success(function (response) {$scope.System = response.aaData[0];});
+		$http.get("/action/Shelf")
+			.success(function (response) {$scope.Shelf = response.aaData[0];});
+		$http.get("/action/Card")
+			.success(function (response) {$scope.Card = response.aaData[0];});
+    };
+
+    loadData();
+
+	var autoRefresh = $interval(loadData, 1000, -1);
+
+	$scope.stopAutoRefresh = function () {
+        if (autoRefresh) {
+            $interval.cancel(autoRefresh);
+            autoRefresh = null;
+        }
+    };
+    
+    $scope.$on('$destroy', function (angularEvent, current, previous) {
+        $scope.stopAutoRefresh();
+    });	
+
+}]);
+</script>
+
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="DashCtrl">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+          <small class="text-muted">Welcome to the application</small>
+        </div>
+      </div>
+    </div>
+    <!-- / main header -->
+
+    <div class="wrapper-md">
+      <!-- Pie chat -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading font-bold">System Info</div>
+            <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+		      <thead>
+		        <tr>
+		          <th style="width:50%">Name</th>
+		          <th style="width:50%">Info</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <td>NE Name</td>
+		          <td>{{ System.Name }}</td>
+		        </tr>
+		        <tr>
+		          <td>DateTime</td>
+		          <td>{{ System.CurrentDateTime }}</td>
+		        </tr>
+		        <tr>
+		          <td>SwVersion</td>
+		          <td>{{ System.SwVersion }}</td>
+		        </tr>
+		      </tbody>
+		    </table>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading font-bold">System Info</div>
+            <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+		      <thead>
+		        <tr>
+		          <th style="width:50%">Name</th>
+		          <th style="width:50%">Info</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <td>UpTime</td>
+		          <td>{{ System.UpTime }} s</td>
+		        </tr>
+		        <tr>
+		          <td>CpuUsage</td>
+		          <td>{{ System.CpuUsage }} %</td>
+		        </tr>
+		        <tr>
+		          <td>MemUsage</td>
+		          <td>{{ System.MemUsage }} %</td>
+		        </tr>
+		      </tbody>
+		    </table>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="panel panel-default">
+            <div class="panel-heading font-bold">Temperature</div>
+            <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+		      <thead>
+		        <tr>
+		          <th style="width:30%">Key</th>
+		          <th style="width:40%">Name</th>
+		          <th style="width:30%">Degree</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <td>shelf-1</td>
+		          <td>InLet</td>
+		          <td>{{ Shelf.InletTemp }}</td>
+		        </tr>
+		        <tr>
+		          <td>shelf-1</td>
+		          <td>OutLet</td>
+		          <td>{{ Shelf.OutletTemp }}</td>
+		        </tr>
+		        <tr>
+		          <td>card-1</td>
+		          <td>Board</td>
+		          <td>{{ Card.BoardTemp }}</td>
+		        </tr>
+		      </tbody>
+		    </table>
+          </div>
+        </div>
+      </div>
+      <!-- / Pie chat -->
+    </div>
+  </div>
+  <!-- / main -->
+</div>

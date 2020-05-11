@@ -1,0 +1,198 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">Navigation</span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.dashboard">
+      <i class="glyphicon glyphicon-dashboard icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.SystemView">
+      <i class="glyphicon glyphicon-cog icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.SYSTEM">System</span>
+    </a>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-th-large icon"></i>
+      <span class="font-bold" translate="aside.nav.Equipment">Equipment</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span class="font-bold" translate="aside.nav.Equipment">Equipment</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+	    <a ui-sref="app.ShelfView">
+	      <span class="font-bold">Shelf</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.CardView">
+	      <span class="font-bold">Card</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.PsuTable">
+	      <span class="font-bold">Psu</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.FanTable">
+	      <span class="font-bold">Fan</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.OpticsTable">
+	      <span class="font-bold">Optics</span>
+	    </a>
+	  </li>
+    </ul>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.NetworkTable">
+      <i class="glyphicon glyphicon-wrench icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.NETWORK">Network</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.PortTable">
+      <i class="glyphicon glyphicon-list icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.PORT">Port</span>
+    </a>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-briefcase icon"></i>
+      <span class="font-bold" translate="aside.nav.service.SERVICE">Service</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span class="font-bold" translate="aside.nav.service.SERVICE">Service</span>
+        </a>
+      </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.EthTable">
+	      <span class="font-bold" translate="aside.nav.service.ETH">Eth</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.OtuTable">
+	      <span class="font-bold" translate="aside.nav.service.OTU">Otu</span>
+	    </a>
+	  </li>
+	  <li ui-sref-active="active">
+	    <a ui-sref="app.OchTable">
+	      <span class="font-bold" translate="aside.nav.service.OCH">Och</span>
+	    </a>
+	  </li>
+    </ul>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.InventoryTable">
+      <i class="glyphicon glyphicon-tags icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.INV">Inventory</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.AlarmTable">
+      <i class="glyphicon glyphicon-bell icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.AM">Alarm</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.CounterTable">
+      <i class="glyphicon glyphicon-time icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.PM">Counter</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.FileMgmt">
+      <i class="glyphicon glyphicon-open icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.FileMgmt">FileMgmt</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.UserAdminTable">
+      <i class="glyphicon glyphicon-user icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.UserAdmin">UserAdmin</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.Snmp">
+      <i class="glyphicon glyphicon-transfer icon text-info-dker"></i>
+      <span class="font-bold" translate="aside.nav.Snmp">Snmp</span>
+    </a>
+  </li>
+
+  <li class="line dk"></li>
+
+  <!--<li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.components.COMPONENTS">System</span>
+  </li>  
+  <li ng-class="{active:$state.includes('app.ui')}">
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-briefcase icon"></i>
+      <span translate="aside.nav.components.ui_kits.UI_KITS">UI Kits</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.components.ui_kits.UI_KITS">UI Kits</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.ui.buttons">
+          <span translate="aside.nav.components.ui_kits.BUTTONS">Buttons</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.ui.icons">
+          <b class="badge bg-info pull-right">3</b>
+          <span translate="aside.nav.components.ui_kits.ICONS">Icons</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.ui.grid">
+          <span translate="aside.nav.components.ui_kits.GRID">Grid</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.ui.bootstrap">
+          <b class="badge bg-primary pull-right">16</b>
+          <span translate="aside.nav.components.ui_kits.BOOTSTRAP">Bootstrap</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.ui.toaster">
+          <span>Toaster</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="line dk hidden-folded"></li>
+  <li>
+    <a ui-sref="app.docs">
+      <i class="icon-question icon"></i>
+      <span translate="aside.nav.your_stuff.DOCUMENTS">Documents</span>
+    </a>
+  </li>-->
+</ul>
+<!-- / list -->

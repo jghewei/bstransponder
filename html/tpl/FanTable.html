@@ -1,0 +1,46 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Fan")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.StateEnum = {0:"Normal",1:"Failure",2:"NotPresent",99:"INVALID"};
+    $scope.ForceSpeedEnum = {0:"Auto",1:"FullSpeed",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Fan Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>State</th>
+            <th>Speed</th>
+            <th>ForceSpeed</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ StateEnum[x.State] }}</td>
+            <td>{{ x.Speed }}</td>
+            <td>{{ ForceSpeedEnum[x.ForceSpeed] }}</td>
+            <td>
+              <a ui_sref="app.FanView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,173 @@
+<script>
+'use strict';
+app.controller('FormCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+    var loadData = function () {
+        $http.get('/action/System?id=' + $stateParams.id)
+        .success(function(data){$scope.formData = data.aaData[0];})
+    };
+    loadData();
+    $scope.refresh = function() { loadData(); };
+
+    $scope.processForm = function() {
+        $scope.message = "command inprogress";
+        $http({
+            method  : 'POST',
+            url     : '/action/System?id=' + $stateParams.id,
+            data    : $.param($scope.formData),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+        .success(function(data) {
+            //console.log(data);
+            if (!data.success) {
+                $scope.message = data.message;
+            } else {
+                $scope.message = data.message;
+            }
+        });
+    };
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">System View</h1>
+</div>
+<div class="wrapper-md" ng-controller="FormCtrl">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="form-horizontal" method="get" ng-submit="processForm()">
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Key</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Key" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Name</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Name">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Contact</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Contact">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Location</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Location">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Description</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.Description">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">UpTime</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.UpTime" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">CpuUsage</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.CpuUsage" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">MemUsage</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.MemUsage" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">CurrentDateTime</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.CurrentDateTime" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">SetDateTime</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.SetDateTime">
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-lg-2 control-label">SwVersion</label>
+          <div class="col-lg-10">
+            <input class="form-control" type="text" ng-model="formData.SwVersion" disabled>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Restart</label>
+          <div class="col-sm-10">
+            <select name="account" class="form-control m-b" ng-model="formData.Restart">
+              <option value="0">None</option>
+              <option value="1">Reboot</option>
+            </select>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Database</label>
+          <div class="col-sm-10">
+            <select name="account" class="form-control m-b" ng-model="formData.Database">
+              <option value="0">None</option>
+              <option value="1">Clear</option>
+            </select>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">LampTest</label>
+          <div class="col-sm-10">
+            <select name="account" class="form-control m-b" ng-model="formData.LampTest">
+              <option value="0">Off</option>
+              <option value="1">On</option>
+            </select>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <div class="form-group">
+          <div class="col-sm-4 col-sm-offset-2">
+            <!--<button type="submit" class="btn btn-default">Cancel</button>-->
+            <button type="submit" class="btn btn-primary" ng-click="submit()">Save changes</button>
+            <button type="button" class="btn btn-info" ng-click="refresh()">Refresh</button>
+          </div>
+        </div>
+        <!-- SHOW ERROR/SUCCESS MESSAGES xxDebug -->
+        <div id="messages" ng-show="message">{{ message }}</div>
+      </form>
+    </div>
+  </div>
+</div>
+

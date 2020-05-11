@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DOS_DB version="1">
+
+    <MOB name="System" single="true">
+        <string name="Name" persistent="true" />
+        <string name="Contact" persistent="true" />
+        <string name="Location" persistent="true" />
+        <string name="Description" persistent="true" />
+        
+        <int name="UpTime" readonly="true" />
+        <int name="CpuUsage" readonly="true" />
+        <int name="MemUsage" readonly="true" />
+        
+        <string name="CurrentDateTime" readonly = "true" desp="2017-09-12 22:50:30" />
+        <!--<enum name="NtpEnable">
+            <item value="0">Disabled</item>
+            <item value="1">Enabled</item>
+        </enum>
+        <string name="NtpServer" persistent="true" />-->
+        <string name="SetDateTime" desp="2017-09-12 22:50:30" />
+        <string name="SwVersion" readonly="true" desp="software version" />
+        <enum name="Restart">
+            <item value="0">None</item>
+            <item value="1">Reboot</item>
+            <!--<item value="2">Warm</item>-->
+        </enum>
+        <enum name="Database">
+            <item value="0">None</item>
+            <item value="1">Clear</item>
+        </enum>
+        <enum name="LampTest">
+            <item value="0">Off</item>
+            <item value="1">On</item>
+        </enum>
+    </MOB>
+
+    <MOB name="FileMgmt" single="true">
+        <string name="ServerIpAddress" persistent="false" />
+        <enum name="ServerProtocol" persistent="false">
+            <!--<item value="0">Ftp</item>
+            <item value="1">Sftp</item>-->
+            <item value="2">Tftp</item>
+        </enum>
+        <!--<string name="ServerUsername" persistent="false" />
+        <string name="ServerPassword" persistent="false" />-->
+        <string name="FilePathName" persistent="false" />        
+        <enum name="Action">
+            <item value="0">None</item>
+            <item value="1">ExportDatabase</item>
+            <item value="2">ImportDatabase</item>
+            <item value="3">UpgradeSoftware</item>
+            <!--<item value="4">UploadLogFiles</item>-->
+        </enum>
+        <enum name="State" readonly="true">
+            <item value="0">None</item>
+            <item value="1">FileTransfer</item>
+            <item value="2">FileTransferFailed</item>
+            <item value="3">Execute</item>
+            <item value="4">ExecuteFailed</item>
+            <item value="5">Finished</item>
+        </enum>
+    </MOB>
+
+    <MOB name="Shelf" single="true">
+        <int name="InletTemp" readonly="true" desp="Inlet Temperature" />
+        <int name="OutletTemp" readonly="true" desp="Outlet Temperature" />
+        <int name="TempLowThd" persistent="true" desp="Inlet Low Temperature Alarm Threshold" />
+        <int name="TempHighThd" persistent="true" desp="Inlet High Temperature Alarm Threshold" />
+        
+        <alarm name="TEMP_LT"    sa="false"   severity="MN"   desp="Low Temperature Alarm" />
+        <alarm name="TEMP_HT"    sa="false"   severity="CR"   desp="High Temperature Alarm" />
+    </MOB>
+    
+    <MOB name="Card" single="true">
+        <int name="BoardTemp" readonly="true" />
+        <int name="LowTempThd" persistent="true" desp="Low Temperature Alarm Threshold (Board)" />
+        <int name="HighTempThd" persistent="true" desp="High Temperature Alarm Threshold (Board)" />
+        <enum name="OperStatus" readonly="true" desp="系统运行状态表明系统是否故障.">
+            <item value="0">Normal</item>
+            <item value="1">Minor</item>
+            <item value="2">Major</item>
+            <item value="3">Critical</item>
+        </enum>
+        <alarm name="TEMP_LT"       sa="false"   severity="MN"   desp="LowTemp" />
+        <alarm name="TEMP_HT"    sa="false"   severity="CR"   desp="HighTemp" />
+    </MOB>
+
+    <MOB name="Psu">
+        <enum name="State" readonly="true">
+            <item value="0">Normal</item>
+            <item value="1">Failure</item>
+            <item value="2">NoPower</item>
+            <item value="3">NotPresent</item>
+        </enum>
+        <alarm name="PWR_FAULT" sa="false" severity="MJ" desp="Power Fault" />
+    </MOB>
+    
+    <MOB name="Optics">
+        <string name="Type" readonly="true" />
+        <enum name="Laser" readonly="true">
+            <item value="0">Off</item>
+            <item value="1">On</item>
+        </enum>
+        <enum name="Los" readonly="true">
+            <item value="0">On</item>
+            <item value="1">Off</item>
+        </enum>
+        <float name="TxPower" readonly="true" />
+        <float name="RxPower" readonly="true" />
+        <float name="Temp" readonly="true" />
+    </MOB>
+    
+    <MOB name="Fan">
+        <enum name="State" readonly="true">
+            <item value="0">Normal</item>
+            <item value="1">Failure</item>
+            <item value="2">NotPresent</item>
+        </enum>
+        <int name="Speed" readonly="true" desp="Fan Speed Percent" />
+        <enum name="ForceSpeed" readonly="false">
+            <item value="0">Auto</item>
+            <item value="1">FullSpeed</item>
+            <!--<item value="2">LowSpeed</item>-->
+        </enum>
+        
+        <alarm name="FAN_FAULT" sa="true" severity="CR" desp="Fan Fault" />
+    </MOB>
+
+    <MOB name="Network">
+        <string name="IpAddress" persistent="true" />
+        <string name="Netmask" persistent="true" />
+        <string name="Gateway" persistent="true" />
+        <enum name="Mode" readonly="true" persistent="true">
+            <item value="0">Route</item>
+            <item value="1">Bridge</item>
+        </enum>
+    </MOB>
+    
+    <MOB name="Port">
+        <string name="AliasName" readonly="false" persistent="true" />
+        <!--<enum name="PortType" readonly="false">
+            <item value="0">Unknown</item>
+            <item value="1">Client</item>
+            <item value="2">Line</item>
+        </enum>-->
+        <enum name="PortMode" readonly="false" persistent="true">
+            <item value="0">NONE</item>
+            <item value="1">ETH10G</item>
+            <item value="2">ETH100G</item>
+            <item value="3">STM64</item>
+            <!--<item value="4">OC192</item>-->
+            <item value="5">OTU2</item>
+            <item value="6">OTU2E</item>
+            <item value="7">OTU4</item>
+            <!--<item value="8">FC8G</item>
+            <item value="9">FC10G</item>-->
+            <item value="10">ETH10G_GFP</item>
+        </enum>
+        <enum name="AdminStatus" readonly="false" persistent="true">
+            <item value="0">Off</item>
+            <item value="1">On</item>
+            <!--<item value="2">Als</item>-->
+        </enum>
+        <enum name="OperStatus" readonly="true" persistent="false">
+            <item value="0">Off</item>
+            <item value="1">Up</item>
+            <item value="2">Down</item>
+        </enum>
+        <enum name="LoopbackType" readonly="false" persistent="true">
+            <item value="0">Disabled</item>
+            <item value="1">Facility</item>
+            <item value="2">Terminal</item>
+        </enum>
+    </MOB>
+    
+    <MOB name="Eth">
+        <!--<enum name="MappingMode">
+            <item value="0">UNKNOWN</item>
+            <item value="1">GMP</item>
+            <item value="2">GFP_F</item>
+            <item value="3">PREAMBLE</item>
+            <item value="4">BMP</item>
+        </enum>
+        <enum name="FecMode">
+            <item value="0">Disabled</item>
+            <item value="1">Enabled</item>
+        </enum>-->
+        
+        <alarm name="ETH_LOS"       sa="true"   severity="CR"   desp="Loss Of Signal" />
+        <alarm name="ETH_LOSYNC"    sa="true"   severity="CR"   desp="Loss Of Synchronization" />
+        <alarm name="ETH_LF"        sa="false"  severity="NA"   desp="Local Fault" />
+        <alarm name="ETH_RF"        sa="false"  severity="NA"   desp="Remote Fault" />
+        
+        <counter name="RxOctets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxUcastPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxMulticastPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxBroadcastPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts64Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts65to127Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts128to255Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts256to511Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts512to1023Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts1024to1518Octets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxPkts1519toMaxOctets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxCRCAlignErrors" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxUndersizePkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxOversizePkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxFragments" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="RxJabbers" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="TxOctets" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="TxPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="TxUcastPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="TxMulticastPkts" type="counter" data="uint64_t" unit="Packets" />
+        <counter name="TxBroadcastPkts" type="counter" data="uint64_t" unit="Packets" />
+    
+    </MOB>
+    
+    <MOB name="Otu">
+        <enum name="FecMode">
+            <item value="0">Disabled</item>
+            <item value="1">GFEC</item>
+            <item value="2">I4</item>
+            <item value="3">I7</item>
+        </enum>
+        <!--<enum name="StuffingEnabled">
+            <item value="0">Default</item>
+            <item value="1">True</item>
+            <item value="2">False</item>
+        </enum>-->
+        <!--<enum name="TimDefectMode">
+            <item value="0">Disabled</item>
+            <item value="1">SAPI</item>
+            <item value="2">DAPI</item>
+            <item value="3">OPER</item>
+            <item value="4">SAPI_DAPI</item>
+            <item value="5">SAPI_OPER</item>
+            <item value="6">DAPI_OPER</item>
+            <item value="7">SAPI_DAPI_OPER</item>
+        </enum>
+        <string name="TxSAPI" readonly="false" persistent="true" tableshow="false" />
+        <string name="TxDAPI" readonly="false" persistent="true" tableshow="false" />
+        <string name="TxOPER" readonly="false" persistent="true" tableshow="false" />
+        <string name="RxSAPI" readonly="true" persistent="false" tableshow="false" />
+        <string name="RxDAPI" readonly="true" persistent="false" tableshow="false" />
+        <string name="RxOPER" readonly="true" persistent="false" tableshow="false" />
+        <string name="ExpSAPI" readonly="false" persistent="true" tableshow="false" />
+        <string name="ExpDAPI" readonly="false" persistent="true" tableshow="false" />
+        <string name="ExpOPER" readonly="false" persistent="true" tableshow="false" />-->
+        <enum name="TestSignalType">
+            <item value="0">Disabled</item>
+            <item value="1">PRBS</item>
+        </enum>
+        <enum name="TestSignalStatus" readonly="true">
+            <item value="0">Disabled</item>
+            <item value="1">InSync</item>
+            <item value="2">OutSync</item>
+            <item value="3">ErrorSync</item>
+        </enum>
+        
+        <alarm name="OTU_LOS"       sa="true"   severity="CR"   desp="Loss Of Signal" />
+        <alarm name="OTU_LOL"       sa="true"   severity="CR"   desp="Loss Of Lock" />
+        <alarm name="OTU_LOF"       sa="true"   severity="CR"   desp="Loss Of Frame - OTU" />
+        <alarm name="OTU_LOM"       sa="true"   severity="CR"   desp="Loss of MultiFrame - OTU" />
+        <alarm name="OTU_TIM"       sa="false"  severity="MN"   desp="Trace Identifier Mismatch on OTU" />
+        <alarm name="OTU_BDI"       sa="false"  severity="NR"   desp="BackWard Defect Indication - OTU" />
+        <alarm name="OTU_BERSD"     sa="false"  severity="MN"   desp="Bit Error Rate Signal Degrade - OTU" />
+        
+        <counter name="CorrectBits" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="UncorrectBits" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="FrameCount" type="counter" data="uint64_t" unit="Frames" />
+        <counter name="Bip8" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="Bei" type="counter" data="uint64_t" unit="Bits" />
+    
+    </MOB>
+
+    <MOB name="Och">
+        <enum name="FecMode" persistent="true">
+            <item value="0" desp="Low latency enhanced SDFEC">SDFEC_ENHANCE</item>
+            <item value="1" desp="AC100 100GLH-MSA compatible SDFEC">SDFEC_COMP</item>
+            <item value="2" desp="OTU G.709 FEC">GFEC</item>
+            <item value="3" desp="OTU4 Transparent mode">Transparent</item>
+        </enum>
+        <int name="ChanNum" persistent="true" desp="Selected channel number"/>
+
+        <string name="MinLaserFreq" readonly="true" desp="Minimum TX/RX laser frequency, unit: MHZ"/>
+        <string name="MaxLaserFreq" readonly="true" desp="Maximum TX/RX laser frequency, unit: MHZ"/>
+        <string name="GridSpacing" readonly="true" desp="Laser Tuning Capabilitie, Grid Spacing, unit: MHZ"/>
+        <string name="MaxChans" readonly="true" desp="Laser Tuning Capabilitie, Maximum number of channels"/>
+        <string name="CurTxLaserFreq" readonly="true" tableshow="false" desp="Current TX/RX laser frequency, unit: MHZ"/>
+        <string name="CurRxLaserFreq" readonly="true" tableshow="false" desp="Current TX/RX laser frequency, unit: MHZ"/>
+        <string name="DGD" readonly="true" tableshow="false" desp="unit: ps"/>
+        <string name="CD" readonly="true" tableshow="false" desp="unit: ps/nm"/>
+        <string name="OSNR" readonly="true" tableshow="false" desp="unit: dB"/>
+        <string name="Qfactor" readonly="true" tableshow="false" desp="unit: dB"/>
+
+        <counter name="CorrectBits" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="UncorrectBits" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="Bip8" type="counter" data="uint64_t" unit="Bits" />
+        <counter name="Bei" type="counter" data="uint64_t" unit="Bits" />
+    </MOB>
+    
+    <MOB name="Stm">
+        <alarm name="STM_LOS"       sa="true"   severity="CR"   desp="Loss Of Signal" />
+        <alarm name="STM_LOF"       sa="true"   severity="CR"   desp="Loss Of Frame" />
+        <alarm name="STM_TIM_R"     sa="false"  severity="MN"   desp="TIM" />
+        <alarm name="STM_AIS_L"     sa="true"   severity="CR"   desp="AIS" />
+        <alarm name="STM_RFI_L"     sa="true"   severity="MN"   desp="RFI" />
+    </MOB>
+
+    <!--message SetOchConfig {
+    optional float tx_filter_roll_off   = 3;
+    optional float rx_attenuation       = 4;                // Rx VOA, unit dB
+    optional float preemphasis          = 5;
+}
+message OchCounter {
+    required OtnId id                           = 1;
+
+    optional FecStatistic fec                   = 2;
+    optional uint32 dgd                         = 3;    // Differential Group Delay  ps
+    optional int32 cd                           = 4;    // Chrom Dispersion          ps/nm
+    optional float osnr                         = 5;    // Optical Signal Noise Ratio db
+    optional float q_factor                     = 6;    // Optical Q db
+    optional float opr                          = 7;    // Optical Power Received dBm
+    optional float opt                          = 8;    // Optical Power Transmit dBm
+    optional float pdl                          = 9;    // Current Pol Depend Loss
+    optional float pdl_min                      = 10;
+    optional float pdl_max                      = 11;
+    optional float pdl_avg                      = 12;
+    optional uint32 tx_frequency                = 13;
+    optional uint32 rx_frequency                = 14;
+}-->
+    
+    <!--<MOB name="Odu">
+        <enum name="TimDefectMode">
+            <item value="0">Disabled</item>
+            <item value="1">SAPI</item>
+            <item value="2">DAPI</item>
+            <item value="3">OPER</item>
+            <item value="4">SAPI_DAPI</item>
+            <item value="5">SAPI_OPER</item>
+            <item value="6">DAPI_OPER</item>
+            <item value="7">SAPI_DAPI_OPER</item>
+        </enum>
+        <string name="TxSAPI" readonly="false" persistent="true" />
+        <string name="TxDAPI" readonly="false" persistent="true" />
+        <string name="TxOPER" readonly="false" persistent="true" />
+        <string name="RxSAPI" readonly="true" persistent="false" />
+        <string name="RxDAPI" readonly="true" persistent="false" />
+        <string name="RxOPER" readonly="true" persistent="false" />
+        <string name="ExpSAPI" readonly="false" persistent="true" />
+        <string name="ExpDAPI" readonly="false" persistent="true" />
+        <string name="ExpOPER" readonly="false" persistent="true" />
+        <enum name="TestSignalType">
+            <item value="0">Disabled</item>
+            <item value="1">PRBS</item>
+        </enum>
+        <enum name="TestSignalStatus" readonly="true">
+            <item value="0">Disabled</item>
+            <item value="1">InSync</item>
+            <item value="2">OutSync</item>
+            <item value="3">ErrorSync</item>
+        </enum>
+        
+        <alarm name="ODU_BERSD"     sa="false"  severity="MN"   desp="Bit Error Rate Signal Degrade - ODU" />
+        <alarm name="ODU_LCK"       sa="false"  severity="MN"   desp="Locked" />
+        <alarm name="ODU_OCI"       sa="false"  severity="MN"   desp="Open Connection Indication" />
+        <alarm name="ODU_AIS"       sa="false"  severity="NA"   desp="Alarm Indication Signal - ODU" />
+        <alarm name="ODU_BDI"       sa="false"  severity="NR"   desp="BackWard Defect Indication - ODU" />
+        <alarm name="ODU_TIM"       sa="false"  severity="MN"   desp="Trace Identifier Mismatch on ODU" />
+        <alarm name="ODU_PLM"       sa="true"   severity="CR"   desp="Payload Label Mismatch - ODU" />
+        <alarm name="ODU_LOOMFI"    sa="true"   severity="CR"   desp="Loss of OPU MultiFrame Identifier" />
+        <alarm name="ODU_MSIM"      sa="true"   severity="CR"   desp="Multiplex Structure Identifier Mismatch" />
+        <alarm name="ODU_LOFLOM"    sa="true"   severity="CR"   desp="Loss of Frame and Loss of MultiFrame" />
+        <alarm name="OPU_CSF"       sa="false"  severity="NA"   desp="Client Signal Fail - Optical Payload Unit" />
+    </MOB>-->
+    
+    <MOB name="Inventory">
+        <enum name="Present" readonly="true">
+            <item value="0">No</item>
+            <item value="1">Yes</item>
+        </enum>
+        <string name="ModuleType" readonly="true" />
+        <string name="PartNumber" readonly="true" />
+        <string name="SerialNumber" readonly="true" />
+        <string name="HwVersion" readonly="true" tableshow="false" />
+        <string name="VendorName" readonly="true" />
+        <string name="ProduceDate" readonly="true" />
+        <string name="FwVersion" readonly="true" tableshow="false" />
+    </MOB>
+    
+    <MOB name="UserAdmin">
+        <string name="UserName" persistent="true" />
+        <string name="Password" persistent="true" />
+        <enum name="Privilege" persistent="true">
+            <item value="0">Administrator</item>
+            <item value="1">Service</item>
+            <item value="2">Monitor</item>
+        </enum>
+    </MOB>
+
+    <MOB name="Snmp" single="true">
+        <enum name="Enable">
+            <item value="0">No</item>
+            <item value="1">Yes</item>
+        </enum>
+        <string name="GetCommunity" persistent="true" />
+        <string name="SetCommunity" persistent="true" />
+        <string name="TrapReceiver1" persistent="true" />
+        <string name="TrapReceiver2" persistent="true" />
+        <string name="TrapReceiver3" persistent="true" />
+    </MOB>
+
+</DOS_DB>

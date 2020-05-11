@@ -1,0 +1,92 @@
+
+--
+-- alarm table
+--
+alarm OBJECT IDENTIFIER ::= { mxp 100 }
+
+alarmTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF AlarmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarm 1 }
+
+alarmEntry OBJECT-TYPE
+    SYNTAX AlarmEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION ""
+    INDEX { instance }
+    ::= { alarmTable 1 }
+
+AlarmEntry ::=
+    SEQUENCE {
+        alarmKey DisplayString,
+        alarmName DisplayString,
+        alarmType DisplayString,
+        alarmSeverity DisplayString,
+        alarmTime DisplayString,
+        alarmDesp DisplayString,
+    }
+
+alarmKey OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 1 }
+
+alarmName OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 2 }
+
+alarmType OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 3 }
+
+alarmSeverity OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 4 }
+
+alarmTime OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 5 }
+
+alarmDesp OBJECT-TYPE
+    SYNTAX DisplayString
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION ""
+    ::= { alarmEntry 6 }
+
+--
+-- counter table
+--
+
+
+
+
+--
+--alarm notifications
+--
+trap OBJECT IDENTIFIER ::= { mxp 200 }
+
+alarmTrap NOTIFICATION-TYPE
+     OBJECTS{ alarmKey, alarmName, alarmType, alarmSeverity, alarmTime, alarmDesp}
+     STATUS current
+     DESCRIPTION ""
+     ::= { trap 1 }
+
+END

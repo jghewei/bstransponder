@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/mnt/active/bin/dtach -a /tmp/dtach-APP
+

@@ -1,0 +1,76 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', '$interval', '$stateParams', function($scope, $http, $interval, $stateParams) {
+	var loadData = function () {
+		$http.get('/action/Counter?id=' + $stateParams.id)
+			.success(function(data) {$scope.aaData = data.aaData;})
+    };
+    loadData();
+
+    var autoRefresh = $interval(loadData, 1000, -1);
+
+	$scope.stopAutoRefresh = function () {
+        if (autoRefresh) {
+            $interval.cancel(autoRefresh);
+            autoRefresh = null;
+        }
+    };
+    
+    $scope.$on('$destroy', function (angularEvent, current, previous) {
+        $scope.stopAutoRefresh();
+    });
+	
+	$scope.clearCounter = function() {
+		$http({
+	        method  : 'POST',
+	        url     : '/action/Counter?id=' + $stateParams.id,
+	        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+		})
+        .success(function(data) {
+            console.log(data);
+            if (!data.success) {
+                $scope.message = data.message;
+            } else {
+                $scope.message = data.message;
+            }
+        });
+	};
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Counter View</h1>
+</div>
+<div class="wrapper-md" ng-controller="TableCtrl">
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th style="width:5%">#</th>
+            <th style="width:10%">Key</th>
+            <th style="width:15%">Name</th>
+            <th style="width:10%">Unit</th>
+            <th style="width:15%">1 min</th>
+            <th style="width:15%">15 min</th>
+            <th style="width:15%">1 hour</th>
+            <th style="width:15%">24 hour</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.Name }}</td>
+            <td>{{ x.Unit }}</td>
+            <td>{{ x.Data1m }}</td>
+            <td>{{ x.Data15m }}</td>
+            <td>{{ x.Data1h }}</td>
+            <td>{{ x.Data24h }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button class="btn btn-success" ng-click="clearCounter()">Clear Counter</button>
+</div>

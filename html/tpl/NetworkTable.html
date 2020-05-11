@@ -1,0 +1,47 @@
+<script>
+'use strict';
+app.controller('TableCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get("/action/Network")
+    .success(function (response) {$scope.aaData = response.aaData;});
+
+    $scope.ModeEnum = {0:"Route",1:"Bridge",99:"INVALID"};
+
+}]);
+</script>
+
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Network Table</h1>
+</div>
+<div class="wrapper-md">
+  <div class="panel panel-default">
+    <div class="table-responsive" ng-controller="TableCtrl">
+      <table class="table table-bordered table-striped"> <!-- table-condensed table-hover -->
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>IpAddress</th>
+            <th>Netmask</th>
+            <th>Gateway</th>
+            <th>Mode</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in aaData">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ x.Key }}</td>
+            <td>{{ x.IpAddress }}</td>
+            <td>{{ x.Netmask }}</td>
+            <td>{{ x.Gateway }}</td>
+            <td>{{ ModeEnum[x.Mode] }}</td>
+            <td>
+              <a ui_sref="app.NetworkView({id:{{ x.id }}})" class="text-info">View & Edit</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

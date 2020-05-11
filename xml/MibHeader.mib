@@ -1,0 +1,24 @@
+DANRIVER-MXP-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, NOTIFICATION-TYPE, enterprises, Counter64, Unsigned32
+        FROM SNMPv2-SMI    -- http://www.ietf.org/rfc/rfc2578.txt
+    TEXTUAL-CONVENTION, DateAndTime, DisplayString, TruthValue, RowStatus,RowPointer
+        FROM SNMPv2-TC;    -- http://www.ietf.org/rfc/rfc2579.txt
+
+danriver MODULE-IDENTITY
+    LAST-UPDATED ""
+    ORGANIZATION ""
+    CONTACT-INFO ""
+    DESCRIPTION  ""
+    REVISION     ""
+    ::= {enterprises 19293 }
+
+mxp MODULE-IDENTITY
+    LAST-UPDATED ""
+    ORGANIZATION ""
+    CONTACT-INFO ""
+    DESCRIPTION  ""
+    REVISION     ""
+::= { danriver 2 }
+
