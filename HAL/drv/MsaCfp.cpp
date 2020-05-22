@@ -77,6 +77,7 @@ uint16_t MsaCfp::read(uint16_t reg)
 
 void MsaCfp::InitCold()
 {
+		int maxTry = 5;
     SetModRst(true);
     SetModLowPwr(true);
     SetTxDis(true);
@@ -85,6 +86,24 @@ void MsaCfp::InitCold()
     SetModRst(false);
     sleep(3);
     UpdateInventory();
+    if((strncmp(mPartNumber.c_str(), "AC100", 5) != 0)&&(strncmp(mVendorName.c_str(), "eWAVE", 5) != 0))
+		{
+				while(maxTry >= 0)
+				{
+					usleep(50000);
+					mVendorName.resize(VENDOR_NAME_LEN, ' ');
+			    for(uint8_t i = 0; i < VENDOR_NAME_LEN; i++)
+			    {
+			        mVendorName[i] = CheckPrint(read(0x8021 + i));
+			    }
+			    if(strncmp(mVendorName.c_str(), "eWAVE", 5) == 0)
+			    {
+			    		break;
+			    }
+			    maxTry--;
+		  	}
+		}
+		APP_LOG("MsaCfp maxTry value is %d", maxTry);
     Dump();
     mState = GetModuleState();
     if (strncmp(mPartNumber.c_str(), "AC100", 5) == 0)

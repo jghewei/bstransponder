@@ -30,3 +30,6 @@
 #*.exe
 #*.out
 #*.app
+build_target
+build_x86
+*.bak
