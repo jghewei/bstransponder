@@ -1,0 +1,40 @@
+如下为SDK下载链接及其使用说明，附件中是8308文档说明。
+
+SDK的压缩包：
+链接：http://pan.baidu.com/s/1nvsCjgt 密码：iqpz
+
+昨晚本来更新了个文档，关于怎么用它，但是忘了带过来。我这里简单的描述一下，回头再把文档发给你
+这个压缩包，是基于vmware的 centos5， SDK就安装在centos5上面：
+
+1. centos的登录用户名： leonhe 和密码：123456
+2. 从控制台进入开发目录：
+    $cdbuild
+3. 开始编译
+    $./ltib -c
+4. 结果文件
+    根文件系统镜像：rootfs.ext2.gz.uboot
+    内核镜像：rootfs/boot/uImage
+
+    上述镜像可以在uboot里，通过tftp下载到RAM里面运行，或者进一步烧到NORflash的相关分区，从而flash启动。
+    注意：uboot镜像并不是从本sdk编译出来的，所以请不用更新uboot
+
+
+NXP
+===============
+注册好了：
+账号：feng@danriver.com.cn
+密码：danriver100
+
+
+PMC
+===============
+这是我们在pmc的账号，如果需要查看PMC芯片相关的资料可以登录：
+https://pmcs.com/myPMC//
+feng@danriver.com.cn
+@Info100
+
+Topic
+* HW verication, jitter/wander, all the HW stuff
+* GUI mib define, XC?
+* high level application design, DB, service, molib
+* Client CFP test

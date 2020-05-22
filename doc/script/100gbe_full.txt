@@ -1,0 +1,13 @@
+// 100GBE - OTU4
+hw digi x adpt_traffic_mode_cfg 1012 0 0x10000 3 80 1
+hw digi x adpt_serdes_tx_refclk_div_cfg 1012 0 0x3ff 1
+hw digi x adpt_serdes_start_adaptation 1012 1 0x3ff 0
+hw cfp 0 i
+
+hw digi x adpt_traffic_mode_cfg 1012 1 0x1000002 0 80 1
+hw digi x adpt_serdes_tx_refclk_div_cfg 1012 1 0x3ff 1
+hw digi x adpt_client_map_cfg 1012 1 19 0 1 
+hw digi x adpt_packet_switch 1012 0 0 1 1 
+hw digi x adpt_packet_switch 1012 0 1 0 1
+hw digi x adpt_serdes_start_adaptation 1012 0 0x3ff 0
+hw cfp 1 i

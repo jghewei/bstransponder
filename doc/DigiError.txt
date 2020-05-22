@@ -1,0 +1,270 @@
+DIGI_LOG_CODE_DEBUG,                            "DIGI: Log debug
+DIGI_ERR_CODE_ASSERT,                           "DIGI: Err assert
+DIGI_LOG_CODE_LOG,                              "DIGI: Log logging code
+DIGI_LOG_IBN_LEN_SEQ_NUM,                       "DIGI: info status get inbound_msg_len and inbound_seq_num
+DIGI_LOG_LCLK_SETUP_IBN_LEN_SEQ_NUM,            "DIGI: subsystem LCLK setup inbound_msg_len and inbound_seq_num
+DIGI_LOG_OBND_DATA,                             "DIGI: outbound data
+DIGI_LOG_LCLK_SETUP,                            "DIGI: lclk setup data index and data
+DIGI_LOG_LCLK_CFG_ERR,                          "DIGI: digi_pmon_lck_cfg error
+DIGI_LOG_COLLECTION_MODE_CFG,                   "DIGI: config collection mode inbound_msg_len and inbound_seq_num
+DIGI_LOG_COLLECTION_MODE_DATA_MSG,              "DIGI: config collection mode setup data index and data
+DIGI_LOG_CONFIG_COLLECTION_MODE_ERR,            "DIGI: config collection mode error
+DIGI_LOG_COLLECTION_MODE_OBN_DATA,              "DIGI: config collection mode data index and data received
+DIGI_LOG_WORK_ORDER_SEND,                       "DIGI: work order send inbound len and sequence number
+DIGI_LOG_WORK_ORDER_SEND_IDX_DATA,              "DIGI: work order send data index and data
+DIGI_LOG_WORK_ORDER_SEND_ERR,                   "DIGI: work order send error
+DIGI_ERR_NULL_HANDLE,                           "DIGI: NULL device handle
+DIGI_ERR_INVALID_ARG,                           "DIGI: Invalid argument
+DIGI_ERR_BCW_CHANNEL_INUSE,                     "DIGI: BCW Channel is already configured
+DIGI_ERR_UNKNOWN,                               "DIGI: Unknown error
+DIGI_ERR_SERDES_CANNOT_UNINIT,                  "DIGI: Cannot uninitialize serdes port otherwise no datapath could be provisioned against it later.
+DIGI_ERR_SERDES_CAGE_ALREADY_PROV,              "DIGI: A cage with this id has already been provisioned
+DIGI_ERR_SERDES_ALL_CAGE_ALREADY,               "DIGI: A cage has already been provisioned on this IF type.
+DIGI_ERR_SERDES_PORT_NOT_PROV,                  "DIGI: A SERDES port is not provisioned against this sub system
+DIGI_ERR_SERDES_PORT_ALREADY_PROV,              "DIGI: A SERDES port with this id has already been provisioned
+DIGI_ERR_SERDES_ALL_PORTS_PROV,                 "DIGI: All SERDES ports have already been provisioned
+DIGI_ERR_SERDES_CAGE_STILL_PROV,                "DIGI: Serdes port is associated to provisioned cage. Cannot deprovision serdes rate.
+DIGI_ERR_SERDES_NO_SFI51_CAGE_PROV,             "DIGI: It is not necessary to provision a cage on the SFI 5.1 interface.
+DIGI_ERR_SERDES_INVALID_NUM_PINS_PER_PORT_PROV, "DIGI: The number of pins configured on this port is not valid
+DIGI_ERR_SERDES_SYS_PIN_ALREADY_PROV,           "DIGI: The SERDES System pin has already been provisioned
+DIGI_ERR_SERDES_SYS_NO_PIN_PROV,                "DIGI: Could not find any System pins provisioned
+DIGI_ERR_SERDES_SFI51_BUS_ALREADY_PROV,         "DIGI: The SERDES SFI51 bus has already been provisioned
+DIGI_ERR_SERDES_SFI51_NO_BUS_PROV,              "DIGI: Could not find the bus to provision.
+DIGI_ERR_SERDES_XFI_PIN_ALREADY_PROV,           "DIGI: The SERDES XFI pin has already been provisioned
+DIGI_ERR_SERDES_XFI_NO_PIN_PROV,                "DIGI: Could not find any XFI pins provisioned
+DIGI_ERR_SERDES_LOS_PIN_ALREADY_USED,           "DIGI: The specified LOS pin is already in use.
+DIGI_ERR_SERDES_PORT_UID_NOT_FOUND,             "DIGI: The specified port uid cannot be found.
+DIGI_ERR_SERDES_INVALID_S16_CLK_CFG,            "DIGI: The specified s16 clock configuratgion is not valid.
+DIGI_ERR_100G_3_X_40G_CFP_CARD_CFG_ERR,         "DIGI: This card application requires 1x100G or 3x40G serdes defined.
+DIGI_ERR_100G_3_X_40G_CFP_CARD_SERDES_UNINIT,   "DIGI: Cannot deprovision serdes port for 100G_3_X_40G_CFP_CARD application.
+DIGI_ERR_SERDES_NO_SYSTEM_SERDES_DEFINED,       "DIGI: This card application requires that system serdes are defined.
+DIGI_ERR_SERDES_SYSTEM_SERDES_DEFINED,          "DIGI: This card application requires that no system serdes are defined.
+DIGI_ERR_MAPPER_RESOURCE_NOT_AVAILABLE,         "DIGI: Insufficient mapper resources available.
+DIGI_ERR_MAPPER_FCS_INSERTION_NOT_ALLOWED,      "DIGI: FCS insertion is not allowed.
+DIGI_ERR_MAPPER_EXT_HDR_GEN_NOT_ALLOWED,        "DIGI: Extension header generation is not allowed.
+DIGI_ERR_MAPPER_CHNL_NOT_AVAIL,                 "DIGI: Mapper Channel is not available.
+DIGI_ERR_ILKN_IS_ACTIVE,                        "DIGI: ILKN is active. Cannot provision channel.
+DIGI_ERR_ILKN_CHNL_IN_USE,                      "DIGI: ILKN Channel is already in use.
+DIGI_ERR_ILKN_1_CHNL_NOT_AVAIL,                 "DIGI: ILKN 1 Channel is not available.
+DIGI_ERR_ILKN_2_CHNL_NOT_AVAIL,                 "DIGI: ILKN 2 Channel is not available.
+DIGI_ERR_ILKN_CHNL_UNCONFIG,                    "DIGI: ILKN Channel is not configured.
+DIGI_ERR_ILKN_CHNL_ALREADY_PROV,                "DIGI: ILKN Channel is already provisioned.
+DIGI_ERR_ILKN_CHNL_NOT_PROV,                    "DIGI: ILKN Channel is not provisioned.
+DIGI_ERR_ILKN_IN_WRONG_MAJ_MODE,                "DIGI: ILKN is set in the wrong major mode.
+DIGI_ERR_ILKN_CPB_INTF_NOT_EN,                  "DIGI: ILKN CPB interfaces is not enabled.
+DIGI_ERR_ILKN_ODUKSW_INTF_NOT_EN,               "DIGI: ILKN ODUKSW interfaces is not enabled.
+DIGI_ERR_ILKN_CPB_PROV,                         "DIGI: ILKN is provisionned on CPB interface.
+DIGI_ERR_ILKN_CPB_NOT_SUPPORT_ENET_PMON_DIGI60, "DIGI: ILKN CPB interface does not support ENET PMON on a DIGI60 device.
+DIGI_ERR_ILKN_IN_WRONG_HEADER_MODE,             "DIGI: ILKN is set in the wrong header mode.
+DIGI_ERR_ILKN_CHNL_PROV_INCOMPATIBLE_TARGET,    "DIGI: Incompatible target: Cannot provision channel on CPB and ODUKSW in the same time.
+DIGI_ERR_ENET_LINE_RESOURCE_NOT_AVAILABLE,      "DIGI: Insufficient ENET LINE resources available.
+DIGI_ERR_ENET_SYS_RESOURCE_NOT_AVAILABLE,       "DIGI: Insufficient ENET SYS resources available.
+DIGI_ERR_ENET_COULD_NOT_PROV,                   "DIGI: Could not provision the requested ENET datapath
+DIGI_ERR_ENET_ONLY_TRANSPARENT_MODES_SUPPORTED, "DIGI: ENET Line only supports transparent modes in muxponder application.") \
+DIGI_ERR_ENET_SYS_UNAVAILABLE_IN_CARD_MODE,     "DIGI: ENET SYS may not be provisioned in this card application.") \
+DIGI_ERR_PORT_PROV_RATE_FAIL,                   "DIGI: SERDES port rate does not match provisioned application
+DIGI_ERR_PORT_PROV_CAGE_FAIL,                   "DIGI: SERDES port incompatible with cage size
+DIGI_ERR_SERDES_NO_CAGE_PROV,                   "DIGI: No cage has been configured at this pin location
+DIGI_ERR_NO_DSI_ALLOC_PROV,                     "DIGI: NO DSI Lane allocation has occurred for this port
+DIGI_ERR_POST_MLD_DSI_LANE_NOT_FOUND,           "DIGI: Cannot find post-mld dsi lane
+DIGI_ERR_CPB_CHNL_NOT_PROV,                     "DIGI: Cannot map at CPB as this resource is not provisioned.
+DIGI_ERR_CPB_NOT_MAPPED,                        "DIGI: Cannot activate as this resource is not mapped at CPB.
+DIGI_ERR_CPB_ALREADY_MAPPED,                    "DIGI: Cannot map at CPB as this resource has already been mapped.
+DIGI_ERR_CPB_ALREADY_ACTIVE,                    "DIGI: Cannot activate as this resource is already active at CPB.
+DIGI_ERR_CPB_STILL_ACTIVE,                      "DIGI: Cannot demap as this resource is still active at CPB.
+DIGI_ERR_CPB_STILL_MAPPED,                      "DIGI: Cannot deprovision as this resource is still mapped at CPB.
+DIGI_ERR_CPB_NOT_ACTIVE,                        "DIGI: Cannot proceed as this resource is not active at CPB.
+DIGI_ERR_CPB_INCOMPATIBLE_RATE,                 "DIGI: CPB Requested rate is incompatible for these input and output ports.") \
+DIGI_ERR_CPB_INCOMPATIBLE_MAPPING,              "DIGI: CPB Mapping is not supported for these input and output ports.") \
+DIGI_ERR_MAPPER_NOT_MAPPED,                     "DIGI: Cannot deprovision as this resource is not mapped.
+DIGI_ERR_MAPPER_STILL_MAPPED,                   "DIGI: Cannot deprovision as this resource is still mapped.
+DIGI_ERR_MAPPER_ALREADY_MAPPED,                 "DIGI: Cannot map as this resource has already been mapped.
+DIGI_ERR_MAPPER_ENET_LINE_RESOURCE_IN_USE,      "DIGI: Cannot map: required ENET resource is already in use.
+DIGI_ERR_MAPPER_CANNOT_MODIFY,                  "DIGI: This map modification is not supported in this mode.
+DIGI_ERR_ODUKSW_CHNL_NOT_PROV,                  "DIGI: Cannot map at ODUKSW as this resource is not provisioned.
+DIGI_ERR_ODUKSW_NOT_MAPPED,                     "DIGI: Cannot activate as this resource is not mapped at ODUK.
+DIGI_ERR_ODUKSW_ALREADY_MAPPED,                 "DIGI: Cannot map at ODUKSW as this resource has already been mapped.
+DIGI_ERR_ODUKSW_ALREADY_ACTIVE,                 "DIGI: Cannot activate at ODUKSW as this resource is already active.
+DIGI_ERR_ODUKSW_STILL_ACTIVE,                   "DIGI: Cannot demap at ODUKSW as this resource is still active.
+DIGI_ERR_ODUKSW_STILL_MAPPED,                   "DIGI: Cannot deprovision as this resource is still mapped at ODUKSW.
+DIGI_ERR_ODUKSW_NOT_ACTIVE,                     "DIGI: Cannot deactivate as this resource is not active at ODUKSW.
+DIGI_ERR_ODUKSW_INCOMPATIBLE_RATE,              "DIGI: ODUKSW Requested rate is incompatible for these input and output ports.") \
+DIGI_ERR_OOM,                                   "DIGI: Out of memory error
+DIGI_ERR_MAX_BWTH_PROV,                         "DIGI: The maximum bandwidth already provisioned for this device
+DIGI_ERR_PRIMARY_UNABLE_TO_DEACTIVATE,          "DIGI: Deactivate Non-primary readers before the primary reader
+DIGI_ERR_ODU0_INSUFFICIENT_RESOURCES_AVAILABLE, "DIGI: Insufficient ODU0 resources available
+DIGI_ERR_SCHD_INSUFFICIENT_RESOURCES_AVAILABLE, "DIGI: Insufficient resources available in scheduler
+DIGI_ERR_SCHD_RESOURCE_NOT_AVAILABLE,           "DIGI: Scheduler resource is not available
+DIGI_ERR_INVALID_CTXT_STATE,                    "DIGI: Invalid device context state detected
+DIGI_ERR_INVALID_ODU_CHNL_CTXT,                 "DIGI: Invalid ODU channel context state detected
+DIGI_ERR_INVALID_ODU_CHNL_DEPROV,               "DIGI: ODU channel cannot be deprovisioned
+DIGI_ERR_INVALID_PTR,                           "DIGI: Invalid pointer
+DIGI_ERR_INVALID_DATA_KEY,                      "DIGI: Invalid channel handle data key
+DIGI_ERR_FW_UNAVAILABLE,                        "DIGI: Firmware unavailable
+DIGI_ERR_FW_BOOT_PCIE_INIT_FAIL,                "DIGI: Firmware boot PCIE initialization failure
+DIGI_ERR_FW_BOOT_NOT_DONE,                      "DIGI: Firmware has not finished booting
+DIGI_ERR_FW_BOOT_FAIL,                          "DIGI: Firmware has failed to boot
+DIGI_ERR_FW_FAILED_TO_SHUTDOWN,                 "DIGI: Firmware failed to shutdown
+DIGI_ERR_FW_DOWNLOAD_FAIL,                      "DIGI: Firmware failed to download
+DIGI_ERR_FW_SPRAM_PCIE_WRITE_FAIL,              "DIGI: Firmware write to SPRAM from PCIe failed
+DIGI_ERR_FW_SPRAM_UNLOCK_FAIL,                  "DIGI: SPRAM Unlock Failed
+DIGI_ERR_FW_IS_NOT_RUNNING,                     "DIGI: Firmware is not running
+DIGI_ERR_ENET_PMON_RESOURCE_UNAVAILABLE,        "DIGI: The requested ENET PMON resource is unavailable
+DIGI_ERR_ENET_PMON_NOT_SUPPORTED,               "DIGI: ENET PMON is not supported in this mode
+DIGI_ERR_ENET_CANNOT_MODIFY,                    "DIGI: This ENET modification is not supported in this mode.
+DIGI_ERR_SERDES_PIN_ALLOC_COLLISION,            "DIGI: More than one resource allocated a Serdes pin
+DIGI_ERR_SERDES_CSU_MULTIRATE_REQUEST,          "DIGI: More than one rate assigned to a common backplane CSU
+DIGI_ERR_SERDES_COULD_NOT_PROV,                 "DIGI: Could not provision the SERDES
+DIGI_ERR_SERDES_COULD_NOT_SHUTDOWN,             "DIGI: Could not shutdown the SERDES
+DIGI_ERR_PGMRCLK_COULD_NOT_UNCONFIG,            "DIGI: Could not unconfigure the PGMCLK
+DIGI_ERR_NO_SW_CONTENT,                         "DIGI: Temporary return code during development
+DIGI_ERR_PGMRCLK_DIV_BY_ZERO,                   "DIGI PGMRCLK: Division by 0
+DIGI_ERR_INVALID_LOOPBACK_MODE,                 "DIGI: Invalid loopback mode
+DIGI_ERR_LOOPBACK_NOT_PROV,                     "DIGI: Loopback is not provisioned
+DIGI_ERR_LOOPBACK_ALREADY_PROV,                 "DIGI: Loopback already provisioned
+DIGI_ERR_LOOPBACK_STILL_ACTIVE,                 "DIGI: Cannot deprovision as this resource has an active loopback
+DIGI_ERR_LOOPBACK_INVALID_PORT_PROV,            "DIGI: Loopback invalid SERDES Port provisioning state
+DIGI_ERR_LOOPBACK_INVALID_PORT_UID,             "DIGI: Loopback invalid SERDES Port UID
+DIGI_ERR_PRBS_ALREADY_PROV,                     "DIGI: PRBS already provisioned
+DIGI_ERR_PRBS_NOT_PROV,                         "DIGI: PRBS NOT provisioned
+DIGI_ERR_PRBS_MON_STILL_ACTIVE,                 "DIGI: Cannot deprovision as this resource has an active prbs monitor
+DIGI_ERR_PRBS_GEN_STILL_ACTIVE,                 "DIGI: Cannot deprovision as this resource has an active prbs generator" )\
+DIGI_ERR_INT_MUST_REG_CB_BEFORE_ENABLE,         "DIGI: Interrupt handling callback must be registered before enabling interrupts
+DIGI_ERR_MORE_THAN_ONE_PIN_SELECTED,            "DIGI: Only one serdes pin shall be selected
+DIGI_ERR_INT_ONLY_CHNL_TYPE_ALLOWED,            "DIGI: This interrupt function only supports channel interrupt types
+DIGI_ERR_INT_ONLY_AGG_TYPE_ALLOWED,             "DIGI: This interrupt function only supports aggregate interrupt types
+DIGI_ERR_INT_CHNL_NOT_PROV,                     "DIGI: Chnl must be prov before interrupts can be retrieved
+DIGI_ERR_INT_TCM_NUM_NOT_PROV,                  "DIGI: TCM NUM must be prov before interrupts can be enabled
+DIGI_ERR_INT_PRBS_NOT_PROV,                     "DIGI: PRBS chnl must be prov before interrupts can be enabled
+DIGI_ERR_INT_FILTER_TABLE_IS_NULL,              "DIGI: Filter table must be provided to API
+DIGI_ERR_INT_SUMMARY_ODU_LEVEL_NOT_AVAIL,       "DIGI: ODU Level was not provided in interrupt summary table.
+DIGI_ERR_INT_SUMMARY_ODU_LEVEL_MISMATCH,        "DIGI: ODU level provided in interrupt summary table does not match requested operation
+DIGI_ERR_INT_REV_A_LATCH_ALL_ONLY,              "DIGI: Rev A must latch all RFRMs simultaneously. Must use COREOTN_LATCH_DEFECT_ALL arg.") \
+DIGI_ERR_IPI_BIT_IS_NOT_FW_DONE,                "DIGI: IPI bit is not set to FW_DONE") \
+DIGI_ERR_ACTIVE_INT_FOUND,                      "DIGI: Active interrupt has been found
+DIGI_ERR_STATUS_CHNL_NOT_PROV,                  "DIGI: Chnl must be prov before status can be retrieved
+DIGI_ERR_PMON_CHNL_NOT_PROV,                    "DIGI: Chnl must be prov before PMON can be retrieved
+DIGI_ERR_PMON_IPI_BIT_NOT_READY,                "DIGI: IPI BITS indicates shared mem is not available
+DIGI_ERR_RI_RCP_CHNL_NOT_PROV,                  "DIGI: Cannot activate Remote Information Ring Control Port function as this channel is not provisionned
+DIGI_ERR_INVALID_MAPPING_MODE,                  "DIGI: Invalid mapping mode
+DIGI_ERR_DI_RCP_PDU_NOT_PROCESSED,              "DIGI: DI RCP PDU cannot be processed") \
+DIGI_ERR_CBR_INCORRECT_SERDES,                  "DIGI: CBR only supports LINE and SYS serdes") \
+DIGI_ERR_CBR_INCORRECT_SERDES_FOR_PROD_APP,     "DIGI: Incorrect CBR serdes chosen for product application") \
+DIGI_ERR_INVALID_PORT_TYPE,                     "DIGI: Invalid handle port type") \
+DIGI_ERR_VLAN_ID_OUT_OF_RANGE,                  "DIGI: VLAN ID value is out of range: [0..4095].") \
+DIGI_ERR_VLAN_TYPE_NOT_SUPPORTED,               "DIGI: VLAN type not supported.") \
+DIGI_ERR_HANDLE_NOT_INIT,                       "DIGI: DIGI handle not initialized.")  \
+DIGI_ERR_DEVICE_NOT_INIT,                       "DIGI: DIGI device not initialized.")  \
+DIGI_ERR_DEVICE_INIT_UNCOMPLETE,                "DIGI: DIGI device initialization uncomplete.")  \
+DIGI_ERR_MCPB_CHNL_STILL_PROV,                  "DIGI: MCPB channels still provisioned.") \
+DIGI_ERR_MGMT_FEGE_ALREADY_INIT,                "DIGI: MGMT_FEGE already initialized.") \
+DIGI_OTN_ODU_PID_OUT_OF_RANGE,                  "DIGI: TCM PID out of range.") \
+DIGI_ERR_MGMT_FEGE_NOT_INIT,                    "DIGI: MGMT_FEGE not initialized.")  \
+DIGI_ERR_GE_SERDES_ALREADY_CFG,                 "DIGI: GE interface already in enabled or disabled.") \
+DIGI_ERR_GE_SERDES_NOT_PROV,                    "DIGI: GE interface serdes not provisioned.") \
+DIGI_ERR_ODU_LEVEL_NOT_VALID,                   "DIGI: Chnl ODU level not valid for this operation.") \
+DIGI_ENET_RX_FLOW_CONTROL_ENABLED,              "DIGI: Cannot executed operation when ENET RX link flow control enabled.") \
+DIGI_ERR_INVALID_PAUSE_QUANTA_THRES,            "DIGI: ENET link flow control pause quanta threshold shall be set to more than the half of the provided pause quanta value.") \
+DIGI_ERR_ENET_LINE_SYS_CHNL_MISMATCH,           "DIGI: Mismatch of ENET LINE/SYS API and ENET LINE/SYS channel") \
+DIGI_ERR_INCORRECT_HANDLE_FOR_ENH_PMON,         "DIGI: Incorrect channel handle for enhanced PMON. Must be a mapper or ilkn handle.") \
+DIGI_ERR_NO_ENH_PMON,                           "DIGI: Enhanced PMON was not found on this handle") \
+DIGI_ERR_INVALID_SERDES_RATE,                   "DIGI: Invalid serdes rate.") \
+DIGI_ERR_SERDES_ADAPT_PARAMS_NOT_FOUND,         "DIGI: Serdes adaptation parameters not found.") \
+DIGI_ERR_SERDES_TX_SWING_LEVELS_NOT_FOUND,      "DIGI: Serdes adaptation parameters not found.") \
+DIGI_ERR_SERDES_ADAPT_ON_RESET,                 "DIGI: Trying to run adaptation on Serdes in reset.") \
+DIGI_ERR_SERDES_PARAMS_NOT_SAVED_IN_CTXT,       "DIGI: Serdes configuration parameters were not saved in context.") \
+DIGI_ERR_SERDES_ADAPT_FAILED,                   "DIGI: Serdes adaptation failed for one or multiple serdes.") \
+DIGI_ERR_SERDES_PRBS_FAIL,                      "DIGI: Serdes PRBS error") \
+DIGI_ERR_SERDES_STILL_IN_USE,                   "DIGI: Serdes still in use by a sub system.") \
+DIGI_ERR_SERDES_CANNOT_UNINIT_SFI51,            "DIGI: SFI 5.1 Serdes may not be uninitialized.") \
+DIGI_ERR_ENET_PKT_GEN_LINK,                     "DIGI: Enet Pkt Gen enabled on differnt link.") \
+DIGI_ERR_D8_SERDES_CONFIG,                      "DIGI: D8 SERDES debug")  \
+DIGI_ERR_C8_SERDES_CONFIG,                      "DIGI: C8 SERDES debug")  \
+DIGI_ERR_T8_SERDES_CONFIG,                      "DIGI: T8 SERDES debug")  \
+DIGI_ERR_S16_SERDES_CONFIG,                     "DIGI: S16 SERDES debug") \
+DIGI_ERR_ATOMIC_KEEP_LOCK_MODE_ALREADY_SET,     "DIGI: digi_atomic_keep_lock has been previously called")\
+DIGI_ERR_ENET_LINE_TIMING_MODE_NOT_CONFIG,      "DIGI: Ethernet Line Timing ressources are not configured")\
+DIGI_ERR_ACTIVE_ENET_LINE_TIMING_LINK,          "DIGI: They are active ethernet links using DIGI_M1 rate monitor")\
+DIGI_ERR_ENET_CANNOT_CHANGE_TIMING_MODE,        "DIGI: Cannot change tx timing mode on transparently mapped ENET datapath")\
+DIGI_ERR_ENET_CANNOT_SET_THROUGH_TIMING_MODE,   "DIGI: Through timing mode is not a valid mode for MAC terminated datapath")\
+DIGI_ERR_ENET_LINK_NOT_MAC,                     "DIGI: The specified ENET link is not MAC terminated.")\
+DIGI_ERR_ENET_LINK_NOT_TRANSPARENT,             "DIGI: The specified ENET link is not a transparent mode.")\
+DIGI_ERR_ENET_LINK_NOT_10G,                     "DIGI: The specified ENET link is not 10G.")\
+DIGI_ERR_CONTEXT_INCOHERENT,                    "DIGI: Context and Register Space Incoherent")\
+DIGI_ERR_ENET_INVALID_DATAPATH,                 "DIGI: Invalid ENET datapath")\
+DIGI_ERR_SYSOTN_UNSUPPORTED,                    "DIGI: API is not supported on SYSOTN")\
+DIGI_ERR_MCPB_INVALID_PORT,                     "DIGI: Invalid MCPB port")\
+DIGI_ERR_OTN_NO_STG4_FRAMER,                    "DIGI: Channel does not have a stage 4 framer")\
+DIGI_ERR_OTN_NO_SCHEDULE,                       "DIGI: Channel does not have a schedule")\
+DIGI_ERR_NO_OPERATIONAL_DATAPATH,               "DIGI: No Operational Datapath in Crash Restart Scenario") \
+DIGI_ERR_NO_SWITCH_DATA,                        "DIGI: Specified resource is not connected to a switch")   \
+DIGI_ERR_PMON_SHARED_MEM_NOT_INIT,              "DIGI: PMON Shared Memory not initialized yet. See digi_pmon_collection_mode_cfg")\
+DIGI_ERR_COREOTN_DMX_INVALID_DUMMY_CTXT,        "DIGI: Invalid dummy scheduling context") \
+DIGI_ERR_TRIB_SLOT_ASYMMETRIC,                  "DIGI: Tributary slot locations do not match between TX and RX") \
+DIGI_ERR_MAPPING_NOT_SUPPORTED,                 "DIGI: Mapping mode not supported for in datapath") \
+DIGI_ERR_LATENCY_S_EXCEEDED,                    "DIGI: Latency_s parameter setting exceeded") \
+DIGI_ERR_DDEG_NOT_CONFIGURED,                   "DIGI: Specified dDEG mode is not configured
+DIGI_ERR_HW_DDEG_ODU_RCP_DI_ONLY,               "DIGI: Only hardware dDEG mode is supported when ODU RCP DI port is enabled
+DIGI_ERR_ODU_RCP_DI_HW_DDEG_ONLY,               "DIGI: ODU RCP DI port cannot be enabled when dDeg mode is not hardware
+DIGI_ERR_ENH_DDEG_NOT_ENABLED,                  "DIGI: Enhanced dDEG monitoring is not enabled
+DIGI_ERR_HW_DDEG_NOT_ENABLED,                   "DIGI: Hardware dDEG monitoring shall be properly setup at OTU and ODU level
+DIGI_ERR_SIFD_INCOMPATIBLE_HEADER_TYPE,         "DIGI: rx_type_header must be set to true for this mapping mode") \
+DIGI_ERR_CPB_MUST_NOT_BE_ACTIVE,                "DIGI: This function must be called before calling digi_cpb_chnl_activate") \
+DIGI_ERR_INVALID_REVISION,                      "DIGI: Retrieved revision is neither A or B")   \
+DIGI_ERR_UNSUPPORTED_REV_A_FEATURE,             "DIGI: This feature is not supported in revision A")   \
+DIGI_ERR_PROD_APP_NOT_SUPPORTED_CALL,           "DIGI: Action not supported with this product application")   \
+DIGI_ERR_RGFP_EFCS_TO_COPI_ILLEGAL,             "DIGI: Cannot map MAPPER vs COPI when eFCS monitoring is enabled.") \
+DIGI_ERR_RGFP_EFCS_TO_PKT_10GE_7_3_GFP_ILLEGAL, "DIGI: Cannot map MAPPER vs 10GE GSUP_7_3 ENET when eFCS monitoring is enabled (or vice versa).") \
+DIGI_ERR_INVALID_ODUFLEX_CBR_CLIENT_BITRATE,    "DIGI: Invalid ODUFlex CBR client bitrate.") \
+DIGI_ERR_INVALID_HO_ODU_PAYLOAD_FORMAT,         "DIGI: Cannot add LO ODU to a unchannelized HO ODU") \
+DIGI_ERR_ENET_INVALID_MIRROR_MODE,              "DIGI: Enet line mirror port only supports 10GE and 40GE MAC modes") \
+DIGI_ERR_OHP_INVALID_EXTRACT_MASK,              "DIGI: Invalid OHP extract mask - exactly 10 bits must be set to one")   \
+DIGI_ERR_ETRANS_INVALID_CHNL_HANDLE,            "DIGI: Invalid handle - MAPOTN handle expected")   \
+DIGI_ERR_ENET_INVALID_CHNL_HANDLE,              "DIGI: Invalid handle - ENET handle expected")   \
+DIGI_ERR_INVALID_ODU_PAYLOAD_FORMAT,            "DIGI: Invalid ODU payload format")   \
+DIGI_ERR_HO_MO_CONN_TO_ODUKSW,                  "DIGI: HO or MO channel connected to ODUKSW.")   \
+DIGI_USE_ASSOCIATED_ENET_MODE_RX_PMON,          "DIGI: Use associated ENET_RX_PMON mode to broadcast data to RX PMON")   \
+DIGI_ERR_MAPOTN_CHNL_HNDL_NO_ENET,              "DIGI: No ENET provisioned as part of MAPOTN channel handle.  Feature not supported.")   \
+DIGI_ERR_OTN_OTU_MAINT_SIG,                     "DIGI: TX OTN OTU maint sig requires that a HO ODU segment has been provisioned first using digi_otn_server_ho_prov()") \
+DIGI_ERR_OTN_ODU_SUB_CHNL_CNT_MISMATCH,         "DIGI: Incorrect number of LO channels in the HO ODU channel") \
+DIGI_SDK_ERR_BUF_ADDR_ERROR,                    "DIGI: Shared memory buffer address error ") \
+DIGI_SDK_ERR_BUF_ADDR_NULL,                     "DIGI: Shared memory address is null ") \
+DIGI_SDK_ERR_BUF_INIT_ERROR,                    "DIGI: Shared memory initialization error ") \
+DIGI_ERR_INVALID_LO_ODUK_TYPE,                  "DIGI: Invalid LO ODUk type.") \
+DIGI_ERR_ENET_EPMM_MODE_ONLY,                   "DIGI: For ENET EMAC faults, use: digi_enet_tx_mac_fault_insert_ctrl ") \
+DIGI_ERR_PKT_SIZE_CHANGE,                       "DIGI: No support for pkt size change across ODUKSW for demapped clients that broadcast/multicast across the DCPB ") \
+DIGI_ERR_PGMRCLK_RATE_NOT_SUPPORTED,            "DIGI PGMRCLK: Rate not supported.
+DIGI_ERR_INVALID_HO_PAYLOAD_FORMAT,             "DIGI: Bulk LO provisioning is invalid because HO is unchannelized
+DIGI_PGMRCLK_ERR_CONTEXT_INCOHERENT,            "DIGI PGMRCLK: Context and Register Space Incoherent")\
+DIGI_PGMRCLK_ERR_CONTEXT_CLEANUP,               "DIGI PGMRCLK: Register Space needs to be cleaned")\
+DIGI_DCSU_ERR_CONTEXT_INCOHERENT,               "DIGI DCSU: Context and Register Space Incoherent")\
+DIGI_DCSU_ERR_CONTEXT_CLEANUP,                  "DIGI DCSU: Register Space needs to be cleaned")\
+DIGI_ERR_INCORRECT_MAX_MUXING_LEVEL,            "DIGI: The maximum level of multiplexing is incorrectly initialized")\
+DIGI_ERR_INCORRECT_ODU_PROV_MODE,               "DIGI: Incorrect ODU provisioning mode")\
+DIGI_ERR_STG3B_NOT_PRESENT,                     "DIGI: Stage 3B is not present on this channel. Use lowest order channel for stage 3b.")\
+DIGI_ERR_PROV_ALL_NOT_AVAILABLE,                "DIGI: Bulk provisioning mode not available")\
+DIGI_ERR_GSUP43_7_3_INVALID_DATAPATH,           "DIGI: Invalid Mapping mode - expected a GSUP43 7.3 datapath")   \
+DIGI_ERR_GSUP43_7_3_NOT_EPMM,                   "DIGI: Invalid Mapping mode - expected a GSUP43 7.3 transparent datapath")   \
+DIGI_ERR_GSUP43_7_3_INVALID_UPI,                "DIGI: Invalid GSUP43 7.3 UPI value")   \
+DIGI_ERR_MCPB_PATH_STILL_CONNECTED,             "DIGI: MCPB Paths Still Provisioned Against ENET Subsystem")   \
+DIGI_ERR_CHNL_NOT_MAPPED,                       "DIGI: Channel must be mapped before calling this function")   \
+DIGI_ERR_EPMM_INVALID_OP_LEGACY_MODE,           "DIGI: Invalid operation in GSUP43 7.3 legacy mode")   \
+DIGI_ERR_SERDES_10G_PORT_CAGE_INVALID,          "DIGI: 10G Serdes port can only be mapped to 1- or 4-pin cage
+DIGI_ERR_PTP_PKT_FILTER_RESOURCE_EXCEEDED,      "DIGI: Requested configuration exceeds resources available.
+DIGI_ERR_HO_ODU_STILL_PROVISIONED,              "DIGI: HO ODU channel associated with LINEOTN channel is still provisioned
+DIGI_ERR_FW_RESTART_NOT_SUPPORTED,              "DIGI: Firmware cannot be reload on the current active firmware version
+DIGI_ERR_OTN_ODU_RX_MAINT_SIG,                  "DIGI: For RFRMs at the egress of the ODUKSW, it's illegal to provision a maintenance signal before an ODUKSW connection is made") \
+DIGI_ERR_NOT_PROVISONED,                        "DIGI: Runtime API cannot on this handle since it is not provisioned state.") \
+DIGI_ERR_BACKUP_STILL_PROV,                     "DIGI: Inbound Fault Replacement Still Provisioned
+DIGI_SW_FW_DEPENDANCY,                          "DIGI: Current SW version requires a more recent FW version") \
+DIGI_ERR_INVALID_PATTERN_CFG,                   "DIGI: Unexpected pattern type configuration") \
+DIGI_ERR_MPMA_NOT_ACTIVATED,                    "DIGI: MPMA startup procedure not complete, feature configuration not available.") \
+DIGI_ERR_FAULT_ACTIVATED,                       "DIGI: ENET Fault insertion activated, need to turn off before deprovision") \
+DIGI_ERR_EMPTY_CONTEXT,                         "DIGI: Basic Context information is missing. Possible error reading in context") \
+DIGI_ERR_TX_BCW_CHANNEL_ID_AMBIGUOUS,           "DIGI: The Tx BCW Channel ID is used by more than one channel and is not supported in the flow control calendar") \
+DIGI_ERR_NO_LO_ODU_PROVISIONED,                 "DIGI: No provisioned LO ODU channels in the HO") \
+DIGI_ERR_UNUSED_TRIBSLOT,                       "DIGI: Provided tributary slots are not in use") \
+DIGI_ERR_CHANNEL_ID_UNASSIGNED,                 "DIGI: Channel ID unassigned for this tributary slot") \
+DIGI_ERR_MCPB_10GE_LARGE_FIFO_ALLOCATED,        "DIGI:  Only one large FIFO may be specified per direction.
+DIGI_ERR_PGMRCLK_FPI_NOT_SYNCHRONIZED,          "DIGI PGMRCLK: FPI Generator not synchronized to the reference pulse.
+    

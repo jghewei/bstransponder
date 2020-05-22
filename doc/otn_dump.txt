@@ -1,0 +1,173 @@
+HAL> hw digi x adpt_dump_otn_cfg 1012 0
+
+=================================================================================
+ fec_type fec_en fec_err_ins tim_mode tim_act bdi_ins mt_so mt_sk deg_m deg_th
+  [G709]    [1]    [0 0 0]    [ OFF]    [1]     [0]  [NOR ] [NOR ] [8]   [64]
+ Tx_GCC0 Rx_GCC0 GCC0_ins Tx_RES(1_10) Rx_RES RES_ins Tx_RES(1_13) Rx_RES RES_ins
+ [0x0000][0x0000]   [1]      [0x00]    [0x00]   [1]      [0x00]    [0x00]   [1]
+ Tx_RES(1_14) Rx_RES RES_ins Tx_BDI Tx_BEI Tx_IAE Tx_BIP8 Tx_MFAS    Tx_FAS
+    [0x00]    [0x00]   [1]   [0 1]  [0 1]  [0 1]   [0 1] [0 0] [0xf6f6f6282828 0 0]
+ tx_aps_pcc rx_aps_pcc aps_ins dci_chnl frm_num
+ [0xf60c57b9] [0x00000000] [0]    [0]     [6]
+ -------------------------------------LINE---------------------------------------
+ Tx_PT  Exp_PT Rx_PT  Tx_GCC1  Rx_GCC1 GCC1_ins Tx_GCC2  Rx_GCC2 GCC2_ins LTC_ACT
+ [N/A]  [N/A]  [N/A]  [0x98ea] [0x0000]   [0]   [0x2207] [0x0000]   [0]     [1]
+ AIS_ACT OCI_ACT LCK_ACT PLM_SSF CSF_SSF MSIM_SSF LOOMFI_SSF LOFLOM_A Tx_EXP Rx_EXP
+   [1]     [1]     [1]     [0]     [0]      [1]      [0]      [1]  [0x05e2][0x0000]
+ EXP_ins Tx_RES(2_1) Rx_RES RES_ins Tx_RES(2_2) Rx_RES RES_ins Tx_RES(2_3) Rx_RES
+   [0]      [0x61]   [0x00]   [0]      [0x61]   [0x00]   [0]      [0x01]   [0x00]
+ RES_ins Tx_RES(4_9) Rx_RES RES_ins Tx_RES(4_10) Rx_RES RES_ins Tx_RES(4_11) Rx_RES
+   [0]      [0xc3]   [0x00]   [0]      [0xa2]    [0x00]   [0]      [0xb7]    [0x00]
+ RES_ins Tx_RES(4_12) Rx_RES RES_ins Tx_RES(4_13) Rx_RES RES_ins Tx_RES(4_14) Rx_RES
+   [0]      [0x75]    [0x00]   [0]      [0x39]    [0x00]   [0]      [0x7f]    [0x00]
+ RES_ins Tx_TCM_ACT Rx_TCM_ACT TCM_ACT_ins FTFL_ins prbs_en prbs_mode dlss null_sig
+   [0]      [0xc6]    [0x00]       [0]        [0]    [0 0]      [0]    [0]    [0]
+ DEG_mode DEG_loc PM_Sk TCM1_Sk TCM2_Sk TCM3_Sk TCM4_Sk TCM5_Sk TCM6_Sk PM_So
+  [ HW ]  [LINE] [PRI6]  [PRI5]  [PRI4]  [PRI3]  [PRI2]  [PRI1]  [PRI0] [PRI0]
+ TCM1_So TCM2_So TCM3_So TCM4_So TCM5_So TCM6_So ts_type
+  [PRI1]  [PRI2]  [PRI3]  [PRI4]  [PRI5]  [PRI6]  [UCHL]
+ --------------------------------------------------------------------------------
+ Tx_FTFL[45 233 69 177 23 75 99 75 48 215 209 170 154 6 235 127 37 62 121 250]
+ Rx_FTFL[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ --------------------------------------------------------------------------------
+ seg_id tim_mode tim_act ltc_act tx_stat rx_stat mt_sig_so mt_sig_sk deg_m deg_th
+   PM    [ OFF]    [1]     [0]     [0]     [1]    [NOR ]    [N/A ]    [2]   [15]
+ tcm_mode_so tcm_mode_sk ais_act enh_inv enh_deg_th tx_aps_pcc   rx_aps_pcc
+    [N/A]       [N/A]      [0]    [  N/A]     [0] [0x134b8d06] [0x00000000]
+ aps_ins tx_bdi bw_act dm_mode tsd_act tsf_act
+   [0]    [0]     [0]   [N/A ]   [1]     [1]
+ -------------------------------------SYS----------------------------------------
+ mt_sig_so mt_sig_sk FTFL_ins dci_chnl frm_num
+  [NOR ]    [NOR ]      [0]      [0]     [4]
+ --------------------------------------------------------------------------------
+ Tx_FTFL[189 25 131 181 73 135 7 10 28 63 129 125 251 244 237 242 227 75 78 228]
+ Rx_FTFL[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ --------------------------------------------------------------------------------
+ seg_id tim_mode tim_act ltc_act tx_stat rx_stat mt_sig_so mt_sig_sk deg_m deg_th
+   PM    [ OFF]    [1]     [0]     [0]     [7]    [NOR ]    [N/A ]    [2]   [15]
+ tcm_mode_so tcm_mode_sk ais_act enh_inv enh_deg_th tx_aps_pcc   rx_aps_pcc
+    [N/A]       [N/A]      [0]    [  N/A]     [0] [0x134b8d06] [0x00000000]
+ aps_ins tx_bdi bw_act dm_mode tsd_act tsf_act
+   [0]    [0]     [0]   [N/A ]   [1]     [1]
+=================================================================================
+ret = 0x00000000
+
+
+
+
+
+
+
+HAL> hw digi x adpt_dump_otn_cfg 1012 1
+
+=================================================================================
+ fec_type fec_en fec_err_ins tim_mode tim_act bdi_ins mt_so mt_sk deg_m deg_th
+  [G709]    [1]    [0 0 0]    [ OFF]    [1]     [0]  [NOR ] [NOR ] [8]   [64]
+ Tx_GCC0 Rx_GCC0 GCC0_ins Tx_RES(1_10) Rx_RES RES_ins Tx_RES(1_13) Rx_RES RES_ins
+ [0x0000][0x0000]   [1]      [0x00]    [0x00]   [1]      [0x00]    [0x00]   [1]
+ Tx_RES(1_14) Rx_RES RES_ins Tx_BDI Tx_BEI Tx_IAE Tx_BIP8 Tx_MFAS    Tx_FAS
+    [0x00]    [0x00]   [1]   [0 1]  [0 1]  [0 1]   [0 1] [0 0] [0xf6f6f6282828 0 0]
+ tx_aps_pcc rx_aps_pcc aps_ins dci_chnl frm_num
+ [0x46e09b04] [0xffffffff] [0]    [0]     [1]
+ -------------------------------------LINE---------------------------------------
+ Tx_PT  Exp_PT Rx_PT  Tx_GCC1  Rx_GCC1 GCC1_ins Tx_GCC2  Rx_GCC2 GCC2_ins LTC_ACT
+ [N/A]  [N/A]  [N/A]  [0x40f9] [0xffff]   [0]   [0xb5ad] [0xffff]   [0]     [1]
+ AIS_ACT OCI_ACT LCK_ACT PLM_SSF CSF_SSF MSIM_SSF LOOMFI_SSF LOFLOM_A Tx_EXP Rx_EXP
+   [1]     [1]     [1]     [0]     [0]      [0]      [0]      [1]  [0x76f7][0xffff]
+ EXP_ins Tx_RES(2_1) Rx_RES RES_ins Tx_RES(2_2) Rx_RES RES_ins Tx_RES(2_3) Rx_RES
+   [0]      [0xf8]   [0xff]   [0]      [0x67]   [0xff]   [0]      [0x00]   [0x01]
+ RES_ins Tx_RES(4_9) Rx_RES RES_ins Tx_RES(4_10) Rx_RES RES_ins Tx_RES(4_11) Rx_RES
+   [0]      [0xcf]   [0xff]   [0]      [0xee]    [0xff]   [0]      [0x6f]    [0xff]
+ RES_ins Tx_RES(4_12) Rx_RES RES_ins Tx_RES(4_13) Rx_RES RES_ins Tx_RES(4_14) Rx_RES
+   [0]      [0x56]    [0xff]   [0]      [0x32]    [0xff]   [0]      [0x66]    [0xff]
+ RES_ins Tx_TCM_ACT Rx_TCM_ACT TCM_ACT_ins FTFL_ins prbs_en prbs_mode dlss null_sig
+   [0]      [0x17]    [0xff]       [0]        [0]    [0 0]      [0]    [0]    [0]
+ DEG_mode DEG_loc PM_Sk TCM1_Sk TCM2_Sk TCM3_Sk TCM4_Sk TCM5_Sk TCM6_Sk PM_So
+  [ HW ]  [LINE] [PRI6]  [PRI5]  [PRI4]  [PRI3]  [PRI2]  [PRI1]  [PRI0] [PRI0]
+ TCM1_So TCM2_So TCM3_So TCM4_So TCM5_So TCM6_So ts_type
+  [PRI1]  [PRI2]  [PRI3]  [PRI4]  [PRI5]  [PRI6]  [UCHL]
+ --------------------------------------------------------------------------------
+ Tx_FTFL[2 59 41 23 228 208 64 196 255 76 251 51 165 212 17 41 82 198 120 169]
+ Rx_FTFL[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ --------------------------------------------------------------------------------
+ seg_id tim_mode tim_act ltc_act tx_stat rx_stat mt_sig_so mt_sig_sk deg_m deg_th
+   PM    [ OFF]    [1]     [0]     [0]     [7]    [NOR ]    [N/A ]    [2]   [15]
+ tcm_mode_so tcm_mode_sk ais_act enh_inv enh_deg_th tx_aps_pcc   rx_aps_pcc
+    [N/A]       [N/A]      [0]    [  N/A]     [0] [0xf44320c2] [0xffffffff]
+ aps_ins tx_bdi bw_act dm_mode tsd_act tsf_act
+   [0]    [0]     [0]   [N/A ]   [1]     [1]
+ -------------------------------------SYS----------------------------------------
+ mt_sig_so mt_sig_sk FTFL_ins dci_chnl frm_num
+  [NOR ]    [NOR ]      [0]      [0]     [2]
+ --------------------------------------------------------------------------------
+ Tx_FTFL[31 84 239 32 169 124 56 233 175 189 29 1 121 126 16 254 232 153 129 254]
+ Rx_FTFL[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ --------------------------------------------------------------------------------
+ seg_id tim_mode tim_act ltc_act tx_stat rx_stat mt_sig_so mt_sig_sk deg_m deg_th
+   PM    [ OFF]    [1]     [0]     [0]     [1]    [NOR ]    [N/A ]    [2]   [15]
+ tcm_mode_so tcm_mode_sk ais_act enh_inv enh_deg_th tx_aps_pcc   rx_aps_pcc
+    [N/A]       [N/A]      [0]    [  N/A]     [0] [0xf44320c2] [0xffffffff]
+ aps_ins tx_bdi bw_act dm_mode tsd_act tsf_act
+   [0]    [0]     [0]   [N/A ]   [1]     [1]
+=================================================================================
+ret = 0x00000000
+
+
+
+
+
+HAL> hw digi x adpt_dump_otn_cfg 1008 0
+
+=================================================================================
+ fec_type fec_en fec_err_ins tim_mode tim_act bdi_ins mt_so mt_sk deg_m deg_th
+  [G709]    [1]    [0 0 0]    [ OFF]    [1]     [0]  [NOR ] [NOR ] [8]   [64]
+ Tx_GCC0 Rx_GCC0 GCC0_ins Tx_RES(1_10) Rx_RES RES_ins Tx_RES(1_13) Rx_RES RES_ins
+ [0x0000][0x0000]   [1]      [0x00]    [0x00]   [1]      [0x00]    [0x00]   [1]
+ Tx_RES(1_14) Rx_RES RES_ins Tx_BDI Tx_BEI Tx_IAE Tx_BIP8 Tx_MFAS    Tx_FAS
+    [0x00]    [0x00]   [1]   [0 1]  [0 1]  [0 1]   [0 1] [0 0] [0xf6f6f6282828 0 0]
+ tx_aps_pcc rx_aps_pcc aps_ins dci_chnl frm_num
+ [0x795bf3b9] [0xffffffff] [0]    [0]     [6]
+ -------------------------------------LINE---------------------------------------
+ Tx_PT  Exp_PT Rx_PT  Tx_GCC1  Rx_GCC1 GCC1_ins Tx_GCC2  Rx_GCC2 GCC2_ins LTC_ACT
+ [0x21] [0x21] [0xff] [0xdfa8] [0xffff]   [0]   [0xbce4] [0xffff]   [0]     [1]
+ AIS_ACT OCI_ACT LCK_ACT PLM_SSF CSF_SSF MSIM_SSF LOOMFI_SSF LOFLOM_A Tx_EXP Rx_EXP
+   [1]     [1]     [1]     [0]     [0]      [1]      [0]      [1]  [0x6601][0xffff]
+ EXP_ins Tx_RES(2_1) Rx_RES RES_ins Tx_RES(2_2) Rx_RES RES_ins Tx_RES(2_3) Rx_RES
+   [0]      [0x19]   [0xff]   [0]      [0x78]   [0xff]   [0]      [0x00]   [0x01]
+ RES_ins Tx_RES(4_9) Rx_RES RES_ins Tx_RES(4_10) Rx_RES RES_ins Tx_RES(4_11) Rx_RES
+   [0]      [0x9a]   [0xff]   [0]      [0xb8]    [0xff]   [0]      [0x67]    [0xff]
+ RES_ins Tx_RES(4_12) Rx_RES RES_ins Tx_RES(4_13) Rx_RES RES_ins Tx_RES(4_14) Rx_RES
+   [0]      [0x2f]    [0xff]   [0]      [0x4c]    [0xff]   [0]      [0x33]    [0xff]
+ RES_ins Tx_TCM_ACT Rx_TCM_ACT TCM_ACT_ins FTFL_ins prbs_en prbs_mode dlss null_sig
+   [0]      [0x4e]    [0xff]       [0]        [0]    [0 0]      [0]    [0]    [0]
+ DEG_mode DEG_loc PM_Sk TCM1_Sk TCM2_Sk TCM3_Sk TCM4_Sk TCM5_Sk TCM6_Sk PM_So
+  [ HW ]  [LINE] [PRI6]  [PRI5]  [PRI4]  [PRI3]  [PRI2]  [PRI1]  [PRI0] [PRI0]
+ TCM1_So TCM2_So TCM3_So TCM4_So TCM5_So TCM6_So ts_type
+  [PRI1]  [PRI2]  [PRI3]  [PRI4]  [PRI5]  [PRI6]  [1G25]
+ --------------------------------------------------------------------------------
+ Tx_FTFL[22 15 43 229 222 62 254 125 148 119 64 224 243 143 241 188 87 243 59 146]
+ Rx_FTFL[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ Tx_MSI[0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0x88 
+        0x90 0x90 0x90 0x90 0x90 0x90 0x90 0x90 0x98 0x98 0x98 0x98 0x98 0x98 0x98 0x98 
+        0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 
+        0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 
+        0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 ]
+ Exp_MSI[0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0x88 
+         0x90 0x90 0x90 0x90 0x90 0x90 0x90 0x90 0x98 0x98 0x98 0x98 0x98 0x98 0x98 0x98 
+         0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa0 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 0xa8 
+         0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb0 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 0xb8 
+         0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc0 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 0xc8 ]
+ Rx_MSI[0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+        0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff ]
+ --------------------------------------------------------------------------------
+ seg_id tim_mode tim_act ltc_act tx_stat rx_stat mt_sig_so mt_sig_sk deg_m deg_th
+   PM    [ OFF]    [1]     [0]     [1]     [7]    [NOR ]    [N/A ]    [2]   [15]
+ tcm_mode_so tcm_mode_sk ais_act enh_inv enh_deg_th tx_aps_pcc   rx_aps_pcc
+    [N/A]       [N/A]      [0]    [  N/A]     [0] [0xffccb6f3] [0xffffffff]
+ aps_ins tx_bdi bw_act dm_mode tsd_act tsf_act
+   [0]    [0]     [0]   [LOOP]   [1]     [1]
+=================================================================================
+ret = 0x00000000

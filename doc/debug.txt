@@ -1,0 +1,640 @@
+user
+su
+!dev@sh17
+echo "app"; /mnt/active/bin/app
+echo "upgrade"; cd /tmp/; tftp -g -l mxp_load.tgz -r mxp_load.tgz 192.168.1.2; tar zxvf mxp_load.tgz -C /mnt/appfs; sync;
+hw max1668 dump
+hw adt7470 set 80
+echo "rerun"; ps -A | grep APP.bin | awk '{print $1}' | xargs kill -9; /mnt/appfs/pre_start.sh; /mnt/active/app_start.sh
+
+
+./configure --host=arm-linux --target=arm-linux --build=i686-linux  --with-cc=arm-linux-gnueabi-gcc-4.9 --with-ar=arm-linux-gnueabi-gcc-ar-4.9 --prefix=/usr/local/net-snmp --disable-shared --disable-scripts --with-endianness=little -enable-mini-agent --disable-ipv6 --disable-manuals  --disable-ucd-snmp-compatibility --enable-as-needed --disable-embedded-perl
+
+// X86
+./configure --prefix=/root/share/mxp/src/3rdParty/net-snmp-5.7.3_x86_64 --disable-scripts -enable-mini-agent --disable-ipv6 --disable-manuals --disable-ucd-snmp-compatibility --enable-as-needed --disable-embedded-perl --with-default-snmp-version="2" --with-sys-contact="" --with-sys-location="" --with-persistent-directory="/tmp/snmp" --with-logfile="/tmp/snmp/snmpd.log"
+
+// PPC OK
+CC=powerpc-e300c3-linux-gnu-gcc \
+./configure --with-out-mib-modules="mibII" --disable-ucd-snmp-compatibility --enable-minimalist --disable-agent \
+--disable-applications --disable-manuals --disable-scripts --disable-mibs --disable-mib-loading --disable-ipv6  \
+--with-default-snmp-version="2" --with-sys-contact="" --with-sys-location="" --disable-embedded-perl --without-perl-modules \
+--target=powerpc-linux --host=powerpc-linux --with-persistent-directory="/tmp/snmp" --with-logfile="/tmp/snmp/snmpd.log" \
+--prefix=/root/share/mxp/src/3rdParty/net-snmp-5.7.3_ppc
+
+// PPC test OK
+./configure --with-out-mib-modules="mibII" --disable-ucd-snmp-compatibility --enable-minimalist --disable-agent \
+--disable-applications --disable-manuals --disable-scripts --disable-mibs --disable-mib-loading --disable-ipv6  \
+--with-default-snmp-version="2" --with-sys-contact="" --with-sys-location="" --disable-embedded-perl --without-perl-modules \
+--target=powerpc-linux --host=powerpc-linux --with-persistent-directory="/tmp/snmp" --with-logfile="/tmp/snmp/snmpd.log" \
+--prefix=/root/share/mxp/src/3rdParty/net-snmp-5.7.3_ppc \
+--with-cc=powerpc-e300c3-linux-gnu-gcc --with-linkcc=powerpc-e300c3-linux-gnu-gcc --with-ar=powerpc-e300c3-linux-gnu-ar --with-endianness=big
+
+// PPC test
+./configure --with-out-mib-modules="mibII" --disable-ucd-snmp-compatibility --enable-minimalist --disable-agent \
+--disable-applications --disable-manuals --disable-scripts --disable-mibs --disable-mib-loading --disable-ipv6  \
+--with-default-snmp-version="2" --with-sys-contact="" --with-sys-location="" --disable-embedded-perl --without-perl-modules \
+--target=powerpc-linux --host=powerpc-linux --with-persistent-directory="/tmp/snmp" --with-logfile="/tmp/snmp/snmpd.log" \
+--prefix=/root/share/mxp/src/3rdParty/net-snmp-5.7.3_ppc \
+--with-cc=powerpc-e300c3-linux-gnu-gcc --with-ar=powerpc-e300c3-linux-gnu-ar
+
+
+[root@localhost net-snmp-5.7.3]# ./configure --help
+
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --disable-as-needed             Link libperl against applications rather
+                                  than Net-SNMP libraries. Use only if the other
+                                  way doesn't work.
+  --enable-silent-libtool         Pass --silent to libtool.
+
+  --disable-agent                 Do not build the agent (snmpd).
+  --disable-applications          Do not build the apps (snmpget, ...).
+  --disable-manuals               Do not install the manuals.
+  --disable-scripts               Do not install the scripts (mib2c, ...).
+  --disable-mibs                  Do not install the mib files.
+  --enable-mib-config-checking    Turns on extra checks during configuration
+                                  of mib modules. Any conflicts will cause
+                                  configure to abort (default is to issue a
+                                  warning and continue.)
+  --enable-mib-config-debug       Turns on verbose output during mib module
+                                  configure processing.
+  --enable-new-features   Compile in new MIB modules and other experimental
+                          features which are due to be included in future
+                          releases.
+  --enable-old-features   Compile in old MIB modules and other deprecated
+                          features which were replaced in the default build of
+                          this release.
+  --enable-ucd-snmp-compatibility Install ucd-snmp look-alike headers and libs.
+
+  --disable-mib-loading           Do not include code that parses and
+                                  manipulates the mib files.
+  --disable-des                   Do not support DES encryption.
+  --disable-privacy               Don't compile in support for privacy (encryption).
+  --disable-md5                   Do not support MD5 authentication.
+  --enable-internal-md5           Use the internal MD5 support.
+  --enable-ipv6                   Generate IPv6 ready version.
+  --disable-snmpv1                Do not include code that implements SNMPv1.
+  --disable-snmpv2c               Do not include code that implements SNMPv2c.
+  --enable-debugging              Outputs extra debugging information at all
+                                  times.  Normally, you should not enable this,
+                                  but instead use the -D flag of the commands,
+                                  which toggles debuging output at runtime.
+  --disable-debugging             Disallows debugging code to be built in.
+                                  This might provide some speed benefits.
+  --enable-developer              Turns on super-duper-extra-compile-warnings
+                                  when using gcc.
+  --enable-testing-code           Enables some code sections that should
+                                  only be used for testing of certain
+                                  SNMP functionalities.  This should *not*
+                                  be turned on for production use.  Ever.
+  --enable-reentrant              Enables locking functions that protect
+                                  library resources in some multi-threading
+                                  environments.  This does not guarantee
+                                  thread-safe operation.
+                                  Currently an experimental setting.
+  --disable-deprecated            Don't compile in deprecated functions.
+  --disable-set-support           Do not allow SNMP set requests.
+  --enable-local-smux             Restrict SMUX connections to localhost (by default).
+  --enable-agentx-dom-sock-only   Disable UDP/TCP transports for agentx.
+  --disable-snmptrapd-subagent    Disable agentx subagent code in snmptrapd.
+  --enable-minimalist             Remove all non-essential code features.
+  --enable-notify-only            Build tools that can only send notifications.
+  --enable-no-listen              Build tools that can't listen to ports.
+  --enable-read-only              Remove all SET support from the code.
+  --enable-mini-agent             Build a minimal agent.
+  --enable-mfd-rewrites           Use new MFD rewrites of mib modules,
+                                  where available. (default is to use
+                                  original mib module code).
+  --disable-embedded-perl         Disable embedded Perl in the SNMP agent and
+                                  snmptrapd. enabled by default
+  --disable-perl-cc-checks        Disable configure checks for whether Perl's
+                                  C Compiler is compatible with ours when
+                                  embedded Perl is enabled.
+  --enable-shared[=PKGS]  build shared libraries [default=yes]
+  --enable-static[=PKGS]  build static libraries [default=yes]
+  --enable-fast-install[=PKGS]
+                          optimize for fast installation [default=yes]
+  --disable-libtool-lock  avoid locking (might break parallel builds)
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+
+Compiler Options:
+  --with-cc=CC                    use CC to compile (default=gcc).
+
+  --with-linkcc=CC                use CC to link (default=gcc).
+  --with-ar=AR                    use AR as the archiver.
+  --with-endianness=big|little    define endianness of target platform when
+                                  cross-compiling.
+  --with-cflags=CFLAGS            use CFLAGS as compile time arguments.
+  --with-ldflags=LDFLAGS          use LDFLAGS as link time arguments to ld.
+  --with-libs=LIBS                use LIBS as link time arguments to ld.
+  --with-dmalloc=PATH     Use dmalloc library (www.dmalloc.com)
+  --with-efence                   Look for and use libefence (malloc).
+  --with-rsaref=PATH              Look for librsaref in PATH/lib.
+  --with-openssl=PATH             Look for openssl in PATH/lib,
+                                  or PATH may be "internal" to build with
+                                  minimal copied OpenSSL code for USM only.
+
+  --with-pkcs=PATH                Look for pkcs11 in PATH/lib.
+  --with-krb5=PATH                Look for krb5 in PATH/lib.
+  --with-dnssec-local-validation Enable local DNSSEC validation using libval (no)
+  --without-rpm                   Don't include support for the RPM package
+                                  management system when building the host MIB
+                                  module.
+  --with-install-prefix=PATH      Just for installing, prefix all
+                                  directories with PATH.  This is known not
+                                  to work on some systems with shared
+                                  libraries (eg, HPUX)
+  --with-features-of=version
+                          Compile in MIB modules and other features as if this
+                          was release "version" (default is 5.7.3).
+
+Miscellaneous:
+  --with-defaults         Use defaults for prompted values.
+  --with-mibdirs="dir1:dir2:"   Default directories to look for mibs.
+                                  (Default: \$HOME/.snmp/mibs:DATADIR/snmp/mibs)
+  --with-mibs="item1:item2:"    Default mib IDs to read.
+                                  (The default list is
+                                   "SNMPv2-MIB:IF-MIB:IP-MIB:TCP-MIB:UDP-MIB"
+                                  with the addition of any mibs used
+                                  by the mib modules the agent is
+                                  configured with)
+  --with-mibfiles="file1:file2" Default mib files to load.
+                                  (Default:  none.  uses IDs above instead.)
+  --without-opaque-special-types  Don't use special opaque encodings.
+                                  SNMP normally cannot handle
+                                  floating numbers, nor large 64 bit
+                                  integers well.  By default, the
+                                  net-snmp package compiles in
+                                  support for these extra datatypes
+                                  (in a legal way)
+  --with-logfile="location"       Default log file location for snmpd.
+  --with-persistent-directory="directory"
+                                  Default directory for persistent data storage.
+  --with-persistent-mask="mask"  Default mask for persistent data storage.
+                                  (Default: 077)
+  --with-copy-persistent-files="no" Don't copy persistent files
+                                     (or use "yes" to copy them).
+                                     (Default: yes)
+  --with-temp-file-pattern=PATTERN  Pattern of temporary files (Default: /tmp/snmpdXXXXXX)
+  --with-default-snmp-version="3" Default version of SNMP to use.
+                                    (Default: 3)
+                                    Legal values: 1, 2 (for SNMPv2c) or 3.
+  --with-transports="t1 t2 ..."   Compile in the given SNMP transport
+                                    modules (space or comma separated list).
+  --with-out-transports="t1 ..."  Exclude listed SNMP transports
+                                    (space or comma separated list).
+
+  Available SNMP transport modules are:
+
+    UDP         support for SNMP over UDP/IP.
+                This transport is always compiled in.
+    UDPIPv6     support for SNMP over UDP/IPv6.
+                This transport is available for Linux, Solaris and
+                FreeBSD at least.
+                This transport is compiled in by default if IPv6 support is enabled.
+    TCPIPv6     support for SNMP over UDP/IPv6.
+                This transport is available for Linux, Solaris and
+                FreeBSD at least.
+                This transport is compiled in by default if IPv6 support is enabled.
+    TCP         support for SNMP over TCP/IP.
+                This transport is compiled in by default, but may be omitted.
+    Unix        support for SNMP over Unix domain protocols.
+                This transport is compiled in by default except on Win32
+                platforms, and may be omitted.
+    Callback    support for SNMP over an internal locally connected pair
+                of snmp_sessions.
+    Alias       The alias transport simply lets you define more complex
+                transport strings and alias them to simple names in
+                the snmp.conf file.
+    AAL5PVC     support for SNMP over AAL5 PVCs.
+                This transport is presently only available for Linux,
+                is never compiled in by default and may be omitted.
+    IPX         support for SNMP over IPX per RFC 1420.
+                This transport is presently only available for Linux,
+                is never compiled in by default and may be omitted.
+    DTLSUDP     support for tunneling SNMP over DTLS/UDP
+    TLSTCP      support for tunneling SNMP over TLS/TCP
+    SSH         (alpha) support for tunneling SNMP over SSH
+
+  --with-security-modules="s1 s2 ..."   Compile in the given SNMP security
+                                    module services (space separated list).
+
+  Available SNMP security services:
+
+        usm                support for user based SNMP security
+        ksm                support for kerberos based SNMP security
+        tsm                support for the Transport-based security
+                           (for use with the SSH, DTLSUDP and TLSTCP transports)
+
+  --with-out-security-modules="s1 s2 ..."   Removes the given SNMP security
+                                    module services from the default list.
+
+
+Configuring the agent:
+  --without-root-access           The snmpd agent won't require root access to
+                                  run it.  The information it returns in the
+                                  mib-II tree may not be correct, however.
+  --without-kmem-usage            Do not include any code related to the use
+                                  of kmem.
+  --with-dummy-values             Provide 'placeholder' dummy values where
+                                  the necessary information is not available.
+                                  This is technically not compliant with the
+                                  SNMP specifications, but was how the agent
+                                  operated for versions < 4.0.
+  --with-sys-contact="who@where"  Default system contact.
+                                    (Default: LOGIN@DOMAINNAME)
+  --with-sys-location="location"  Default system location.
+                                    (Default: Unknown)
+  --with-agentx-socket=FILE         AgentX socket (Default: /var/agentx/master as specified in RFC2741)
+  --with-features="feat1 feat2"   Request extra features to be turned on.
+                                   (only useful with --enable-minimalist)
+  --with-out-features="feat1..."  Remove specific features.
+                                   (implies --enable-minimalist)
+  --with-mib-modules="item1 ..."  Compile with additional mib modules
+                                    (Space separated list).
+  --with-out-mib-modules="list"   Compile without these mib modules.
+
+  Default mib modules compiled into the agent (which can be removed):
+
+    mibII                  support for the mib-II tree.
+    snmpv3mibs             support for the snmpv3 mib modules.
+    ucd_snmp               UCD-SNMP-MIB specific extensions.
+    agent_mibs             NET-SNMP-AGENT-MIB extensions
+    agentx                 AgentX support (see below)
+    notification           mibs supporting specification of trap destinations.
+    target                 Support for the SNMP WGs TARGET-MIB.
+    utilities              general agent configuration utilities.
+    disman/event           support for the DISMAN-EVENT-MIB
+                             (supports self monitoring and notification
+                              delivery when error conditions are found)
+    disman/schedule        support for the DISMAN-SCHEDULE-MIB
+                             (trigger SET requests at specified times)
+    host                   host resources mib support.
+                             (only on major supported platforms)
+
+  Optional mib modules that can be built into the agent include:
+    smux                   smux support to allow subagents to attach to snmpd.
+    mibII/mta_sendmail     Sendmail statistics monitoring (MTA-MIB)
+    ucd-snmp/diskio        Table of io-devices and how much data they have
+                           read/written.  (only tested on Solaris, Linux)
+    disman/old-event-mib   previous implementation of the DISMAN-EVENT-MIB
+
+  Optional modules for specific platforms
+    Linux
+      ucd-snmp/lmSensors   hardware monitoring (LM-SENSORS-MIB)
+      ip-mib/ipv4InterfaceTable  (experimental)
+      ip-mib/ipv6InterfaceTable  (experimental)
+      tunnel               Linux TUNNEL-MIB support (ifTable extension)
+      mibII/interfaces     (old ifTable implementation)
+      misc/ipfwacc         accounting rules IP firewall information
+      ipfwchains/ipfwchains  firewall chains under ipfw
+                             (See agent/mibgroup/ipfwchains/README)
+      sctp-mib             support for the SCTP-MIB
+      etherlike-mib        support for the EtherLike-MIB
+
+    Solaris
+      ucd-snmp/lmSensors   hardware monitoring (LM-SENSORS-MIB)
+      if-mib               IF-MIB rewrite (add --enable-mfd-rewrites)
+      tcp-mib              TCP-MIB rewrite (tcpConnectionTable and
+                             tcpListenerTable; add --enable-mfd-rewrites)
+      udp-mib              UDP-MIB rewrite (udpEndpointTable;
+                             add --enable-mfd-rewrites)
+
+    FreeBSD/OpenBSD
+      if-mib               IF-MIB rewrite (add --enable-mfd-rewrites)
+
+  AgentX support:
+    agentx/subagent        allows the agent to run as either a snmp agent
+                           or as an agentX sub-agent.
+    agentx/master          makes the agent run as an agentX master agent
+                           as well as a normal snmp agent.
+    agentx                 includes both agentx/master and agentx/client.
+
+
+
+
+// enable tx clk
+hw fpga w 0x141 0x1
+// fpga loopback
+hw fpga w 0x220004 0x0
+
+// enable P2 MII PHY
+hw 88e6321 w 0x16 0x00 0x0
+hw 88e6321 w 0x12 0x00 0x0
+hw 88e6321 w 0x15 0x01 0x083d
+hw 88e6321 w 0x12 0x01 0x083d
+
+## Mvl counter
+// read P1 in Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc40
+hw 88e6321 r 0x1b 0x1e 2
+// read P0 in Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc20
+hw 88e6321 r 0x1b 0x1e 2
+
+// read P1 out Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc4E
+hw 88e6321 r 0x1b 0x1e 2
+// read P0 out Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc2E
+hw 88e6321 r 0x1b 0x1e 2
+
+// read P5 in Good packet
+hw 88e6321 w 0x1b 0x1d 0xccc0
+hw 88e6321 r 0x1b 0x1e 2
+// read P5 out Good packet
+hw 88e6321 w 0x1b 0x1d 0xcccE
+hw 88e6321 r 0x1b 0x1e 2
+
+// read P2 in Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc60
+hw 88e6321 r 0x1b 0x1e 2
+// read P2 out Good packet
+hw 88e6321 w 0x1b 0x1d 0xcc6E
+hw 88e6321 r 0x1b 0x1e 2
+
+
+hw 88e6321 w 0x1b 0x1d 0xccdd
+hw 88e6321 r 0x1b 0x1e 2
+
+
+// enable OHP
+hw digi x adpt_cvt_otn_ohp_en_set 1008 0 1 0 0 6 0 0 1
+hw digi x adpt_cvt_otn_ohp_en_set 1008 1 3 0 0 4 0 0 1
+hw digi x adpt_cvt_otn_ohp_en_set 1008 2 2 0 0 5 0 0 1
+hw digi w 0xe8508c 0x0810
+hw digi w 0xe85098 0x0000
+hw digi w 0xe8508c 0x0811
+hw digi w 0xe8d08c 0x0810
+hw digi w 0xe8d098 0x0000
+hw digi w 0xe8d08c 0x0811
+hw digi w 0xe9508c 0x0810
+hw digi w 0xe95098 0x0000
+hw digi w 0xe9508c 0x0811
+hw digi x adpt_otn_ohp_cfg 1008 1 0 2 0xf87c 0
+hw digi x adpt_otn_ohp_cfg 1008 1 0 2 0xf87c 1
+hw digi x adpt_otn_ohp_cfg 1008 0 0 2 0xf87c 0
+hw digi x adpt_otn_ohp_cfg 1008 0 0 2 0xf87c 1
+hw digi x adpt_otn_ohp_cfg 1008 11 1 2 0xf87c 0
+hw digi x adpt_otn_ohp_cfg 1008 11 1 2 0xf87c 1
+
+// FPGA OHP serdes loopback toward Digi
+hw fpga w 0x8e22 0x6
+hw fpga w 0x9222 0x6
+hw fpga w 0x9622 0x6
+
+// check digi ohp pmon
+hw digi x adpt_dump_port_pmon 1008 2
+hw digi x adpt_dump_port_pmon 1008 3
+hw digi x adpt_dump_port_pmon 1008 4
+
+// check FPGA rx status
+hw fpga r 0x8e03
+hw fpga r 0x9203
+hw fpga r 0x9603
+
+
+
+
+hw 88e6321 r 0x10 0x3
+hw 88e6321 r 0x11 0x3
+hw 88e6321 r 0x12 0x3
+hw 88e6321 r 0x15 0x3
+
+
+
+!dev@sh17
+
+ifconfig eth1 down
+ifconfig eth1 hw ether 00:0C:18:EF:FF:DD
+ifconfig eth1 192.168.2.10 netmask 255.255.255.0 up
+ping -c 1 192.168.2.1
+ping -c 1 192.168.2.2
+ifconfig eth1
+
+
+## program fpga
+tftp -g -l fpga.bin -r fpga.bin 192.168.1.1
+hw gpio s 15 0
+hw spiflash i fpga
+hw spiflash program /mnt/appfs/fpga.bin
+hw spiflash program /mnt/appfs/lisa_top_v006_20170118.bin
+hw gpio s 15 1
+
+## program digi
+hw spiflash i digi
+hw spiflash e chip
+hw spiflash program /mnt/appfs/boot_loader.mem
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+先按800mv swing
+hw digi x adpt_serdes_s16_tx_swing_set 1008 0 0 43 2 2
+// SYS eye
+hw digi x adpt_serdes_vert_eye_opening 1008 1 0x3ff 1 0
+// LINE eye
+hw digi x adpt_serdes_vert_eye_opening 1008 0 0xf 1 0
+
+tftp -g -l /tmp/mxp_load.tgz -r mxp_load.tgz 192.168.1.2
+tar zxvf /tmp/mxp_load.tgz -C /mnt/appfs/
+rm -rf /mnt/sysfs/*; sync
+
+
+// client cfp facility
+hw digi x adpt_loopback_set 1012 1 1
+
+hw digi x adpt_loopback_set 1012 1 2
+hw digi x adpt_loopback_set 1012 1 0
+
+
+// SYS eye
+hw digi x adpt_serdes_vert_eye_opening 1012 1 0x3ff 1 0
+// LINE eye
+hw digi x adpt_serdes_vert_eye_opening 1012 0 0x3ff 1 0
+
+// SYS eye
+hw digi x adpt_serdes_vert_eye_opening 1008 1 0x3ff 1 0
+
+
+ifconfig eth0 down; ifconfig eth0 hw ether 00:0C:18:EF:FF:ED; ifconfig eth0 192.168.1.11 up
+
+
+///////////////////////////////////////////////////////////////
+// Program Nor Flash
+///////////////////////////////////////////////////////////////
+
+Creating 7 MTD partitions on "fc000000.nor":
+0x000000000000-0x000000080000 : "NOR (RW)  sys configure info 512K"		// uboot cfg
+0x000000080000-0x000000100000 : "NOR (RW) flash 512K dtb"				// dtb
+0x000000100000-0x000000400000 : "NOR (RW) flash 3M kernel"				// kernel
+0x000000400000-0x000001f00000 : "NOR (RW) flash 27M squahfs"			// rootfs
+0x000001f00000-0x000002300000 : "NOR (RO) flash 4M sysfs jffs"			// cfg
+0x000002300000-0x000003f00000 : "NOR (RO) flash 28M appfs jffs"			// appfs
+0x000003f00000-0x000004000000 : "NOR (RO) flash 1M boot"				// u-boot
+
+cat /dev/mtdblock0 > /tmp/mxp_mtd0.img
+cat /dev/mtdblock1 > /tmp/mxp_mtd1.img
+cat /dev/mtdblock2 > /tmp/mxp_mtd2.img
+cat /dev/mtdblock3 > /tmp/mxp_mtd3.img
+cat /dev/mtdblock4 > /tmp/mxp_mtd4.img
+cat /dev/mtdblock5 > /tmp/mxp_mtd5.img
+cat /dev/mtdblock6 > /tmp/mxp_mtd6.img
+
+cat /dev/mtdblock0 > /tmp/mxp_mtd.img
+cat /dev/mtdblock1 >> /tmp/mxp_mtd.img
+cat /dev/mtdblock2 >> /tmp/mxp_mtd.img
+cat /dev/mtdblock3 >> /tmp/mxp_mtd.img
+cat /dev/mtdblock4 >> /tmp/mxp_mtd.img
+cat /dev/mtdblock5 >> /tmp/mxp_mtd.img
+cat /dev/mtdblock6 >> /tmp/mxp_mtd.img
+
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd.img /tmp/mxp_mtd.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd0.img /tmp/mxp_mtd0.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd1.img /tmp/mxp_mtd1.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd2.img /tmp/mxp_mtd2.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd3.img /tmp/mxp_mtd3.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd4.img /tmp/mxp_mtd4.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd5.img /tmp/mxp_mtd5.img
+ftpput -u ftp -p ftp 192.168.1.1 mxp_mtd6.img /tmp/mxp_mtd6.img
+	
+// burn ramfs, mxp_mtd3.img
+set ipaddr 192.168.1.10; set netmask 255.255.255.0; set serverip 192.168.1.2
+tftp 0x2000000 rootfs.ext2.gz.uboot
+erase 0xfc400000 0xfdefffff
+cp.b 0x2000000 0xfc400000 $filesize
+
+// burn all without uboot
+tftp 0x2000000 mxp_mtd.img
+erase 0xfc400000 0xfdefffff
+cp.b 0x2000000 0xfc400000 $filesize
+
+// burn dtb file
+tftp 0x2000000 mpc8308.dtb
+erase 0xfc080000 0xfc09ffff
+cp.b 0x2000000 0xfc080000 $filesize
+
+// erase appfs
+erase 0xfe300000 0xffefffff
+
+// update u-boot RCW
+cp.b 0xfc000000 0x02000000 0x20000
+cmp.b 0xfc000000 0x02000000 0x20000
+mw.b 0x02000030 0x00 8
+md 0x02000000
+md 0xfc000000
+erase 0xFC000000 0xFC01FFFF
+cp.b 0x02000000 0xfc000000 0x20000
+
+ 
+hw pca9535 0 setpin 0 0
+hw pca9535 0 setpin 1 0
+hw pca9535 0 setpin 2 0
+hw pca9535 0 setpin 3 0
+hw pca9535 0 setpin 4 0
+hw pca9535 0 setpin 5 0
+hw pca9535 0 setpin 6 0
+hw pca9535 0 setpin 7 0
+
+hw pca9535 0 setpin 10 0
+hw pca9535 0 setpin 11 0
+hw pca9535 0 setpin 12 0
+hw pca9535 0 setpin 13 0
+hw pca9535 0 setpin 14 0
+hw pca9535 0 setpin 15 0
+hw pca9535 0 setpin 16 0
+hw pca9535 0 setpin 17 0
+
+hw pca9535 1 setpin 0 0
+hw pca9535 1 setpin 1 0
+hw pca9535 1 setpin 2 0
+hw pca9535 1 setpin 3 0
+hw pca9535 1 setpin 4 0
+hw pca9535 1 setpin 5 0
+hw pca9535 1 setpin 6 0
+hw pca9535 1 setpin 7 0
+
+hw pca9535 1 setpin 10 0
+hw pca9535 1 setpin 11 0
+hw pca9535 1 setpin 12 0
+hw pca9535 1 setpin 13 0
+hw pca9535 1 setpin 14 0
+hw pca9535 1 setpin 15 0
+hw pca9535 1 setpin 16 0
+hw pca9535 1 setpin 17 0
+
+hw pca9535 2 setpin 0 0
+hw pca9535 2 setpin 1 0
+hw pca9535 2 setpin 2 0
+hw pca9535 2 setpin 3 0
+hw pca9535 2 setpin 4 0
+hw pca9535 2 setpin 5 0
+hw pca9535 2 setpin 6 0
+hw pca9535 2 setpin 7 0
+
+hw pca9535 2 setpin 10 0
+hw pca9535 2 setpin 11 0
+hw pca9535 2 setpin 12 0
+hw pca9535 2 setpin 13 0
+hw pca9535 2 setpin 14 0
+hw pca9535 2 setpin 15 0
+hw pca9535 2 setpin 16 0
+hw pca9535 2 setpin 17 0
+
+hw pca9535 2 setpin 0 1
+hw pca9535 2 setpin 1 1
+hw pca9535 2 setpin 2 1
+hw pca9535 2 setpin 3 1
+
+
+
+hw fpga r 0x20000
+hw fpga w 0x20005 0x1
+hw fpga w 0x20001 0x0002
+hw fpga w 0x20002 0x3
+hw fpga r 0x20000
+hw fpga r 0x20004
+
+hw fpga r 0x20000
+hw fpga w 0x20005 0x1
+hw fpga w 0x20001 0x0002
+hw fpga w 0x20003 0xaa
+hw fpga w 0x20002 0x1
+
+
+TGLAN_FRAME_STD = DIGI_LINE_10GE_MAC;
+TGLAN_PREAMBLE = DIGI_LINE_10GE_GSUP43_7_3_RX_PMON;
+TGLAN_LINE_FS = DIGI_LINE_10GE_TRANSPARENT_RX_PMON;
+enum MappingMode {
+	NA              = 0;
+	GMP             = 1;    // 40GE
+	GFP_F           = 2;    // 40GE 10GE
+	G40BMP_ODU2E    = 3;    // 40GE
+	PREAMBLE        = 4;    //      10GE
+	BMP_FixedStuff  = 5;    //      10GE
+}
+
+hw fpga w 0x08 0x00
+hw fpga w 0x06 0x07
+hw fpga w 0x08 0x07
+
+hw cfp 0 w 0xB011 0x1006
+hw cfp 0 w 0xB012 0x1006
+hw cfp 0 w 0xB011 0x1007
+hw cfp 0 w 0xB012 0x1007
+hw cfp 0 w 0x90a4 0x0002
+hw cfp 0 w 0x9020 0x1a00
+hw cfp 0 w 0x9080 0x000b
+hw cfp 0 w 0xb00b 0x3000
+hw cfp 0 w 0x901E 0x0006
+hw cfp 0 w 0xB410 0x00C8
+hw cfp 0 w 0x900b
+
+hw fpga w 0x08 0x05
+hw fpga w 0x08 0x04
+

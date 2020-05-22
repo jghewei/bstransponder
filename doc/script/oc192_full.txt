@@ -1,0 +1,85 @@
+# init system and cfp
+hw digi x adpt_traffic_mode_cfg 1008 0 0x10000 3 80 1
+hw digi x adpt_serdes_tx_refclk_div_cfg 1008 0 0x3ff 1
+hw digi x adpt_serdes_start_adaptation 1008 1 0x3ff 0
+hw cfp 0 i
+
+# init line port 1
+hw digi x adpt_traffic_mode_cfg 1008 0x0000001 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x0000001 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 11 4 1 1 0x000000ff 0 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x0000001 11 1
+hw digi x adpt_packet_switch 1008 0 11 0x0000001 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x1 0
+
+# init line port 2
+hw digi x adpt_traffic_mode_cfg 1008 0x1000002 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x1000002 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 12 4 1 1 0x0000ff00 0 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x1000002 12 1
+hw digi x adpt_packet_switch 1008 0 12 0x1000002 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x2 0
+
+# init line port 3
+hw digi x adpt_traffic_mode_cfg 1008 0x2000003 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x2000003 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 13 4 1 1 0x00ff0000 0 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x2000003 13 1
+hw digi x adpt_packet_switch 1008 0 13 0x2000003 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x4 0
+
+# init line port 4
+hw digi x adpt_traffic_mode_cfg 1008 0x3000004 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x3000004 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 14 4 1 1 0xff000000 0 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x3000004 14 1
+hw digi x adpt_packet_switch 1008 0 14 0x3000004 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x8 0
+
+# init line port 5
+hw digi x adpt_traffic_mode_cfg 1008 0x4000005 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x4000005 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 15 4 1 1 0 0x000000ff 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x4000005 15 1
+hw digi x adpt_packet_switch 1008 0 15 0x4000005 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x10 0
+
+# init line port 6
+hw digi x adpt_traffic_mode_cfg 1008 0x5000006 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x5000006 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 16 4 1 1 0 0x0000ff00 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x5000006 16 1
+hw digi x adpt_packet_switch 1008 0 16 0x5000006 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x20 0
+
+# init line port 7
+hw digi x adpt_traffic_mode_cfg 1008 0x6000007 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x6000007 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 17 4 1 1 0 0x00ff0000 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x6000007 17 1
+hw digi x adpt_packet_switch 1008 0 17 0x6000007 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x40 0
+
+# init line port 8
+hw digi x adpt_traffic_mode_cfg 1008 0x7000008 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x7000008 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 18 4 1 1 0 0xff000000 0 1 0
+hw digi x adpt_packet_switch 1008 0 0x7000008 18 1
+hw digi x adpt_packet_switch 1008 0 18 0x7000008 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x80 0
+
+# init line port 9
+hw digi x adpt_traffic_mode_cfg 1008 0x8000009 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x8000009 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 19 4 1 1 0 0 0x000000ff 1 0
+hw digi x adpt_packet_switch 1008 0 0x8000009 19 1
+hw digi x adpt_packet_switch 1008 0 19 0x8000009 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x100 0
+
+# init line port 10
+hw digi x adpt_traffic_mode_cfg 1008 0x900000a 0x2000002 0 8 1
+hw digi x adpt_client_map_cfg 1008 0x900000a 36 8 1
+hw digi x adpt_cvt_odu_mux_cfg 1008 0 20 4 1 1 0 0 0x0000ff00 1 0
+hw digi x adpt_packet_switch 1008 0 0x900000a 20 1
+hw digi x adpt_packet_switch 1008 0 20 0x900000a 1
+hw digi x adpt_serdes_start_adaptation 1008 0 0x200 0

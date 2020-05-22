@@ -1,0 +1,2463 @@
+DANRIVER-MIB	DEFINITIONS ::= BEGIN
+
+IMPORTS
+	enterprises, OBJECT-TYPE, NetworkAddress, IpAddress,
+	Counter, Gauge, TimeTicks
+	FROM RFC1155-SMI
+	ipAdEntAddr, ipRouteDest, tcpConnLocalAddress,
+	tcpConnLocalPort, tcpConnRemAddress, tcpConnRemPort
+	FROM RFC1213-MIB 
+  	IANAifType   FROM IANAifType-MIB  
+	RowStatus, TruthValue, TimeInterval, DateAndTime,  PhysAddress
+   	FROM SNMPv2-TC;         	
+ 	
+danriver	MODULE-IDENTITY
+	LAST-UPDATED "201604100000Z"       
+	ORGANIZATION "Danriver Technologies Corp."
+	CONTACT-INFO
+		"	Danriver Technologies Corp.
+
+		Postal: 
+
+		   Tel: +86 021-56336050
+
+		E-mail: "
+	DESCRIPTION
+		"The Structure of Management Information for the
+		Danriver enterprise."
+	REVISION      "201604100000Z"
+	DESCRIPTION
+		"New oid assignments for Danriver olp MIB and others."
+	REVISION      "201604100000Z"
+	DESCRIPTION
+		"Initial version of this MIB module."
+	::= {enterprises 19293 }
+
+DisplayString ::= OCTET STRING
+    
+
+--olp            OBJECT IDENTIFIER ::= { danriver 1 }
+
+	system  				OBJECT IDENTIFIER ::= { danriver 1 } 
+    mxp                     OBJECT IDENTIFIER ::= { danriver 2 }   -- 业务板卡    
+   	mgmtPortConfig			OBJECT IDENTIFIER ::= { danriver 3 }  
+	snmpConfig              OBJECT IDENTIFIER ::= { danriver 4 }    --trapSink 
+	ftp						OBJECT IDENTIFIER ::= { danriver 5 }  
+	ctxAlarms               OBJECT IDENTIFIER ::= { danriver 6 }
+    trap					OBJECT IDENTIFIER ::= { danriver 7 }
+	
+	ctxChassisinfo 			OBJECT IDENTIFIER ::= { system 1 }
+	ctxNodeinfo				OBJECT IDENTIFIER ::= { system 2 }  
+ 
+	mxpBasicinfo			OBJECT IDENTIFIER ::= { mxp 1 }    --板卡信息
+	ctxPortManage  			OBJECT IDENTIFIER ::= { mxp 2 }    --端口   
+    ctxOpticInfo   			OBJECT IDENTIFIER ::= { mxp 3 }    --光模块    
+    otn						OBJECT IDENTIFIER ::= { mxp 4 }  
+    pm                      OBJECT IDENTIFIER ::= { mxp 5 }         
+    
+--
+--SeriveType
+--
+ServiceType ::= TEXTUAL-CONVENTION
+    STATUS         current
+    DESCRIPTION    "The type of service."
+    SYNTAX         INTEGER {
+							otu4(1),											--100G OTN
+							gbe100lan(2),										--100G以太网
+							gbe10lan(3),										--10G以太网
+							oc192(4),											--10G Sonet
+							stm64(5),											--10G SDH
+							gbe10wan(6),										--10G WAN
+							otu2(7),											--10G OTN
+							otu2e(8),											--10G OTN
+							fc8g(9),											--8G FC光纤通道
+							fc10g(10)											--10G FC光纤通道
+    }                 
+    
+IfIndex ::= TEXTUAL-CONVENTION
+    DISPLAY-HINT "d"
+    STATUS       current
+    DESCRIPTION
+            "A unique value, greater than zero, for each interface or
+            interface sub-layer in the managed system. "
+    SYNTAX       Integer32 (1..2147483647)
+    
+AlarmType ::= TEXTUAL-CONVENTION
+    STATUS         current
+    DESCRIPTION    "The type of ctxAlarm."
+    SYNTAX         INTEGER {
+				psuFailure(1),
+				psuInserted(2),
+				psuPlugged(3),
+				psuLowVolt(4),
+				chassisTemp(5),
+				fanCardPlugged(6),
+				fanCardInserted(7),
+				fanFailure(8),
+				swUpgFailure(9),
+				sntpFailure(10),
+				lofsonetAlarm(11),
+				aisLineSonetAlarm(12),
+				rfiLineSonetAlarm(13),
+				ethConfigLinkFail(14),
+				ethConfigPcsLossSync(15),				
+				fcBxPortLossOfSync(16),
+				portLinkUp(17),
+				portLinkDown(18),
+				opticModuleRxOverload(19),
+				opticModuleRxLow(20),
+				opticModuleLossOfInputPower(21),
+				opticModuleTxTooLow(22),
+				opticModuleTxTooHigh(23),
+				opticModuleTemp(24),
+				opticModuleTxBiasCurrent(25),
+				opticModuleRemoved(26),
+				opticModuleBitRateMismatch(27),
+				opticModuleLossOfLock(28),
+				opticModuleBlock(29),
+				opticModuleTxLossOfLock(30),				
+				otnFecExc(31),
+				otnFecDeg(32),
+				otnOtuDeg(33), 
+				otnLos(34),
+				otnLof(35),
+				otnLom(36),
+				otuAis(37),
+				otuBdi(38),
+				otuTtim(39),
+				otnOtuEXC(40),
+				oduAis(41),
+				oduLofLom(42),
+				oduOci(43),
+				oduLck(44),
+				oduBdi(45),
+				oduTtim(46),
+				otnOduDeg(47), 
+				oduPtm(48),
+				otnOduEXC(49)							
+    }                  
+--	
+--Chassisinfo
+--
+ctxChassisinfoTable OBJECT-TYPE
+	SYNTAX SEQUENCE OF CtxChassisinfoEntry
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION
+   		"机框信息表."
+	::= { ctxChassisinfo 1 }     
+		
+ctxChassisinfoEntry OBJECT-TYPE
+	SYNTAX CtxChassisinfoEntry 
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION
+   		"An entry in the table.  "
+	INDEX { chassisIndex }
+	::= { ctxChassisinfoTable 1 }
+	
+CtxChassisinfoEntry ::=
+	SEQUENCE { 
+		chassisIndex 
+			INTEGER,
+		ctxPN 
+			DisplayString,
+		ctxchassisID 
+			INTEGER,
+		ctxPSU1 
+			INTEGER,
+		ctxPSU2 
+			INTEGER,
+		ctxTEMP 
+			INTEGER,
+		ctxLowTempAlmThreshold 
+			INTEGER,
+		ctxHighTempAlmThreshold 
+			INTEGER,
+		ctxFAN 
+			INTEGER
+	 }
+
+chassisIndex OBJECT-TYPE
+	SYNTAX INTEGER
+	MAX-ACCESS  not-accessible
+	STATUS  current
+	DESCRIPTION
+ 			"Chassis index." 
+	::=  { ctxChassisinfoEntry 1 }
+	
+ctxPN  OBJECT-TYPE
+	SYNTAX  DisplayString    
+	MAX-ACCESS read-only
+	STATUS     current
+	DESCRIPTION
+	    " 机箱型号Part Number CTX2000"
+  	::= { ctxChassisinfoEntry 2 }
+  
+ctxchassisID   OBJECT-TYPE 
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "机箱编号"
+	  ::= { ctxChassisinfoEntry 3 }		
+  
+ctxPSU1  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+	                normal(1),
+					failure(2),
+					exist(3),
+					notexist(4),
+					inserted(5),
+					plugged(6)	            }    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " 电源1"
+	  ::= { ctxChassisinfoEntry 4 }		
+  
+ctxPSU2  OBJECT-TYPE
+  SYNTAX  INTEGER{
+                normal(1),
+				failure(2),
+				exist(3),
+				notexist(4),
+				inserted(5),
+				plugged(6)
+        }        
+  MAX-ACCESS read-only
+  STATUS     current
+  DESCRIPTION
+      "电源2"
+  ::= { ctxChassisinfoEntry 5 }		
+
+ctxTEMP  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+	                emp(1),
+					high(2),
+					low(3)
+	            }           
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "机箱温度Celsius"
+	  ::= { ctxChassisinfoEntry 6 }		
+
+ctxLowTempAlmThreshold  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "机箱内低温告警门限"
+	  ::= { ctxChassisinfoEntry 7 }		
+
+ctxHighTempAlmThreshold  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "机箱内高温告警门限"
+	  ::= { ctxChassisinfoEntry 8 }		
+  
+ctxFAN  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+	                normal(1),
+					plugged(2),
+					inserted(3),
+					fan1fault(4),
+					fan2fault(5),
+					fan3fault(6)
+         }           
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "风扇"
+	  ::= { ctxChassisinfoEntry 9 }		
+
+--
+--Nodeinfo
+--
+ctxMgmtIPAddress OBJECT-TYPE
+		SYNTAX  IpAddress
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"RW	Mgmt IP address电口以太网管理端口（MGMT），gateway, subnetmask."
+		::= { ctxNodeinfo 1 }   
+		
+oscIPAddr OBJECT-TYPE
+		SYNTAX  IpAddress
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"OSC管理IP, gateway, subnetmask."
+		::= { ctxNodeinfo 2 }   
+		
+mgmtNetworkMode  OBJECT-TYPE
+		SYNTAX  INTEGER{
+				route(1),
+				bridge(2)
+			}
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"三个管理端口MGMT, OSC1,OSC2:
+			1- layer 3 routing between lan and osc
+			2- layer 2 bridging between lan and osc
+			(single ip subnetwork, only single ip
+			address is assigned to the node)."
+		::= { ctxNodeinfo 3 }
+
+nodeTrapEnable   OBJECT-TYPE
+		SYNTAX  INTEGER{
+					enable(1),
+					disable(2)
+		}
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"打开关闭trap功能."
+		::= { ctxNodeinfo 4 }       
+		
+mgmtRstpEnable   OBJECT-TYPE
+		SYNTAX  INTEGER{
+					enable(1),
+					disable(2)
+		}
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"Enable/Disable the RSTP protocol."
+		::= { ctxNodeinfo 5 }    		
+	
+sntpServerIpAddress OBJECT-TYPE
+		SYNTAX  IpAddress
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"This variable configured for users to sync the system clock with sntp 
+			server."
+		::= { ctxNodeinfo 6 }
+	
+sysSNTPTimeZone OBJECT-TYPE
+		SYNTAX  IpAddress
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"系统时区."
+		::= { ctxNodeinfo 7 }	 
+		
+sysDateTime OBJECT-TYPE
+		SYNTAX  DisplayString
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"日期和时间."
+		::= { ctxNodeinfo 8 }
+		
+sysBackupCfg OBJECT-TYPE
+		SYNTAX  INTEGER
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"备份配置."
+		::= { ctxNodeinfo 9 }		             
+		
+sysRestoreCfg OBJECT-TYPE
+		SYNTAX  INTEGER
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"恢复默认配置."
+		::= { ctxNodeinfo 10 }		
+	
+sysRestart OBJECT-TYPE
+		SYNTAX  INTEGER{  
+					coldRestart(1),
+					warmRestart(2),                                                                                                                                                                                                                                                                            
+					restoreToFactory(3)
+		}
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"重启设备."
+		::= { ctxNodeinfo 11 }
+		    
+nodeInventroy OBJECT-TYPE
+		SYNTAX  DisplayString
+		ACCESS  read-only
+		STATUS  current
+		DESCRIPTION
+			"节点设备清单."
+		::= { ctxNodeinfo 12 }	    
+		
+upgFirmware OBJECT-TYPE
+		SYNTAX  INTEGER{  
+					inprogress(1),
+					finished(2),                                                                                                                                                                                                                                                                            
+					failed(3)
+		}
+		ACCESS  read-only
+		STATUS  current
+		DESCRIPTION
+			"升级软件//系统维护类：in progress，finished, failed."
+		::= { ctxNodeinfo 13 }    
+		
+
+	    		
+ 
+--
+--mxpBasicinfo
+--
+mxpPN  OBJECT-TYPE
+	  SYNTAX  OCTET STRING    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " MXP板卡型号."
+	  ::= { mxpBasicinfo 1 }
+  
+mxpSN  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "MXP板卡系列号."
+	  ::= { mxpBasicinfo 2 }		
+
+mxpVersion  OBJECT-TYPE
+	  SYNTAX  DisplayString   
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " MXP板卡软件，硬件版本."
+	  ::= { mxpBasicinfo 3 }
+	  
+operationalStatus  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " 系统运行状态表明系统是否故障."
+	  ::= { mxpBasicinfo 4 }		
+  
+cpuUsage  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " CPU使用率."
+	  ::= { mxpBasicinfo 5 }		
+
+memUsage  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " 内存使用率."
+	  ::= { mxpBasicinfo 6 }		
+
+sysMode  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				muxponder(1),
+				transponder(2),
+				regenerator(3)
+	  }    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      " MXP模式."
+	  ::= { mxpBasicinfo 7 }		
+
+alarmsMask  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "告警屏蔽，写入1或0.
+	      	bit0:电源告警
+			bit1:风扇告警
+			bit2..光口LOS
+			bit3:others"
+	  ::= { mxpBasicinfo 8 }		
+  
+--
+--Optic Ports 
+--
+ctxPortConfigTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF CtxPortConfigEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+	   		" MXP port table."
+		::= { ctxPortManage 1 }
+	
+ctxPortConfigEntry OBJECT-TYPE
+		SYNTAX CtxPortConfigEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"An entry in the table.  "
+		INDEX { ctxPortIndex }
+		::= { ctxPortConfigTable 1 }
+		
+CtxPortConfigEntry ::=
+		SEQUENCE { 
+			ctxPortIndex
+				IfIndex,
+			ctxPortType 
+				DisplayString,
+			ctxPortRate 
+				DisplayString,
+			ctxAdminStatus 
+				INTEGER,
+			ctxOperationalStatus 
+				INTEGER,   
+			ctxPortOptics
+			    INTEGER,   
+			ctxServiceType 
+				ServiceType,   
+			ctxPortDataFlow
+				INTEGER,				
+			ctxGccInband 
+				INTEGER,
+			ctxPortAlias 
+				DisplayString 
+}
+
+ctxPortIndex  OBJECT-TYPE
+	  SYNTAX  IfIndex       
+	  MAX-ACCESS not-accessible
+	  STATUS     current
+	  DESCRIPTION
+	      "端口号."
+	  ::= { ctxPortConfigEntry 1 }		
+
+ctxPortType  OBJECT-TYPE
+	  SYNTAX  DisplayString
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "端口类型."
+	  ::= { ctxPortConfigEntry 2 }		
+
+ctxPortRate   OBJECT-TYPE
+	  SYNTAX  DisplayString    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "端口速率."
+	  ::= { ctxPortConfigEntry 3 }		
+
+ctxAdminStatus    OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				on(1),
+				off(2),
+				als(3)
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "端口管理状态."
+	  ::= { ctxPortConfigEntry 4 }		
+
+ctxOperationalStatus  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				up(1),
+				down(2),
+				off(3)
+		}        
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "端口运行状态."
+	  ::= { ctxPortConfigEntry 5 }		
+
+ctxPortOptics OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				exist(1),
+				noexist(2)
+		}    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "端口光模块存在与否."
+	  ::= { ctxPortConfigEntry 6 }		
+
+ctxServiceType   OBJECT-TYPE
+	  SYNTAX  ServiceType
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "用户业务类型."
+	  ::= { ctxPortConfigEntry 7 }
+	  
+ctxPortDataFlow OBJECT-TYPE
+	  SYNTAX  INTEGER
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "端口流量（单位Mbps或Gbps）."
+	  ::= { ctxPortConfigEntry 8 }				
+
+ctxGccInband    OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "GCC in-band管理."
+	  ::= { ctxPortConfigEntry 9 }		
+
+ctxPortAlias   OBJECT-TYPE
+	  SYNTAX  DisplayString    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "端口别名."
+	  ::= { ctxPortConfigEntry 10 }
+
+--
+--Diagnostic and Test
+--
+ctxPortDiagnosticTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF CtxPortDiagnosticEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"Diagnostic and Test table."
+		::= { ctxPortManage 2 }
+	
+ctxPortDiagnosticEntry OBJECT-TYPE
+		SYNTAX CtxPortDiagnosticEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"	An entry in the table.  "
+		INDEX { opticPortNum }
+		::= { ctxPortDiagnosticTable 1 }
+		
+CtxPortDiagnosticEntry ::=
+		SEQUENCE { 
+			ctxPortNum 
+				IfIndex,
+			ctxLoopTestDuration 
+				INTEGER,
+			ctxLoopTestStatus 
+				INTEGER,
+			ctxLoopTestType 
+				INTEGER,
+			ctxLoopTestMode 
+				INTEGER,
+			ctxLoopTestErrors 
+				INTEGER,
+			ctxLoopTestResults 
+				INTEGER,
+			ctxLoopTestPassSecond 
+				INTEGER
+}
+
+ctxPortNum  OBJECT-TYPE
+	  SYNTAX  IfIndex    
+	  MAX-ACCESS not-accessible
+	  STATUS     current
+	  DESCRIPTION
+	      "端口号."
+	  ::= { ctxPortDiagnosticEntry 1 }		
+
+ctxLoopTestDuration  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      " "
+	  ::= { ctxPortDiagnosticEntry 2 }		
+
+ctxLoopTestStatus  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				start(1),
+				stop(2),
+				fail(3)
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "Start or Stop a test."
+	  ::= { ctxPortDiagnosticEntry 3 }		
+
+ctxLoopTestType   OBJECT-TYPE
+	  SYNTAX  INTEGER{
+						erminal(1),
+						facility(2),
+						prbs(3),
+						otnPrbs(4)
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "Configure the type of the test( device)."
+	  ::= { ctxPortDiagnosticEntry 4 }		
+
+ctxLoopTestMode   OBJECT-TYPE
+	  SYNTAX  INTEGER{
+						timeout(1),
+						toggle(2)
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "Configure the loopback mode."
+	  ::= { ctxPortDiagnosticEntry 5 }		
+
+ctxLoopTestErrors  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "The PRBS errors."
+	  ::= { ctxPortDiagnosticEntry 6 }		
+
+ctxLoopTestResults   OBJECT-TYPE
+	  SYNTAX  INTEGER{
+						success(1),
+						fail(2)
+		}        
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "The PRBS test results."
+	  ::= { ctxPortDiagnosticEntry 7 }		
+  
+ctxLoopTestPassSecond    OBJECT-TYPE
+		SYNTAX  INTEGER
+		MAX-ACCESS read-only
+		STATUS     current
+		DESCRIPTION
+		    "Number of seconds passed since the test start."
+		::= { ctxPortDiagnosticEntry 8 }		
+  
+--
+--ctx Optic 光模块                                                                   
+--
+ctxOpticInfoTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF CtxOpticInfoEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"光模块信息."
+		::= { ctxOpticInfo 1 }
+	
+ctxOpticInfoEntry OBJECT-TYPE
+		SYNTAX CtxOpticInfoEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"An entry in the table."
+		INDEX { ctxOpticPortNum }
+		::= { ctxOpticInfoTable 1 }
+	
+CtxOpticInfoEntry ::=
+		SEQUENCE { 
+			ctxOpticPortNum 
+				IfIndex,
+			ctxOpticInfoString 
+				DisplayString,
+			ctxOpticTxOutputPower 
+				INTEGER,
+			ctxOpticRxInputPower 
+				INTEGER,
+			ctxOpticTemp 
+				INTEGER,
+			ctxOpticCapability 
+				INTEGER,
+			ctxOpticHighRxPowerThreshold 
+				INTEGER,
+			ctxOpticLowRxPowerThreshold 
+				INTEGER,     
+			ctxOpticTuningSupported
+			    INTEGER,     
+			ctxOpticWLchannel 
+				INTEGER,
+			ctxOpticSpacing 
+				INTEGER,
+			ctxOpticCD 
+				INTEGER,
+			ctxOpticCurrentOSNR 
+				INTEGER,
+			ctxOpticAverageONSR 
+				INTEGER,   
+			ctxOpticFecCfg
+			    INTEGER,   
+			ctxOpticunauthorized 
+				INTEGER
+		 }
+
+ctxOpticPortNum OBJECT-TYPE
+		SYNTAX IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  current
+		DESCRIPTION
+  			"Optic port number." 
+		::=  { ctxOpticInfoEntry 1 }
+	
+ctxOpticInfoString  OBJECT-TYPE
+	  SYNTAX  DisplayString    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      " 光模块信息."
+	  ::= { ctxOpticInfoEntry 2 }
+  
+ctxOpticTxOutputPower   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "光模块Tx功率(dBm)."
+	  ::= { ctxOpticInfoEntry 3 }		
+    
+ctxOpticRxInputPower OBJECT-TYPE 
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "光模块Rx功率(dBm)."
+	  ::= { ctxOpticInfoEntry 4 }		
+      
+ctxOpticTemp  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "测出的温度(Celsius)."
+	  ::= { ctxOpticInfoEntry 5 }		
+      
+ctxOpticCapability  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "支持业务能力."
+	  ::= { ctxOpticInfoEntry 6 }		
+      
+ctxOpticHighRxPowerThreshold    OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "设置Rx接收最高功率门限."
+	  ::= { ctxOpticInfoEntry 7 }		
+      
+ctxOpticLowRxPowerThreshold   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "设置Rx接收最低功率门限."
+	  ::= { ctxOpticInfoEntry 8 }		
+      
+ctxOpticTuningSupported   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "Indicate CFP tuning support,模块类型."
+	  ::= { ctxOpticInfoEntry 9 }		
+      
+ctxOpticWLchannel   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "设置N Tx/Rx DWDM channel(N=Number of Channels), only for Coherent CFP."
+	  ::= { ctxOpticInfoEntry 10 }		
+      
+ctxOpticSpacing   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "读取波长通道间隔, only Coherent CFP."
+	  ::= { ctxOpticInfoEntry 11 }		
+      
+ctxOpticCD   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "读取色散容限only Coherent CFP."
+	  ::= { ctxOpticInfoEntry 12 }		
+      
+ctxOpticCurrentOSNR   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "当前OSNR,only for Coherent CFP."
+	  ::= { ctxOpticInfoEntry 13 }		
+      
+ctxOpticAverageONSR  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "在一定的时间段的平均OSNR."
+	  ::= { ctxOpticInfoEntry 14 }		
+	  
+ctxOpticFecCfg  OBJECT-TYPE
+	  SYNTAX  INTEGER{        
+				interHDFEC(1),
+				interSD-FEC1(2),
+				interSD-FEC2(3),
+				interSD-FEC3(4),
+				noInterFecEnabled(5)
+	  }    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "Coherent CFP模块内部FEC配置，该功能对Coherent CFP有效。."
+	  ::= { ctxOpticInfoEntry 15 }		
+	  
+ctxOpticunauthorized  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "非认证模块，Tx关断*."
+	  ::= { ctxOpticInfoEntry 16 }	
+      
+--
+--OTN
+--
+otnInterfaceConfigTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF OtnInterfaceConfigEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"光模块信息."
+		::= { otn 1 }
+	
+otnInterfaceConfigEntry OBJECT-TYPE
+		SYNTAX OtnInterfaceConfigEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"An entry in the table."
+		INDEX { otnLineIndex }
+		::= { otnInterfaceConfigTable 1 }
+	
+OtnInterfaceConfigEntry ::=
+		SEQUENCE { 
+			otnLineIndex 
+				IfIndex,
+			otnOperationMode
+				INTEGER,
+			otnFecEnabled
+				INTEGER,
+			otnStuffingEnabled
+				TruthValue,
+			otnSectionTIMenable
+				TruthValue,
+			otnSectionDAPITx
+				 OCTET STRING,
+			otnSectionDAPIExpected
+				 OCTET STRING,
+			otnSectionDAPIRx
+				 OCTET STRING,
+			otnSectionSAPITx
+				 OCTET STRING,
+			otnSectionSAPIExpected
+				 OCTET STRING,
+			otnSectionSAPIRx
+				 OCTET STRING,
+			otnPathDAPIEnabled
+				TruthValue,
+			otnPathDAPITx
+				OCTET STRING,
+			otnPathDAPIExpected
+				OCTET STRING,
+			otnPathDAPIRx
+				OCTET STRING,
+			otnPathSAPITx
+				OCTET STRING,
+			otnPathSAPIExpected
+				OCTET STRING,
+			otnPathSAPIRx
+				OCTET STRING
+		 }
+
+otnLineIndex OBJECT-TYPE
+		SYNTAX IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  current
+		DESCRIPTION
+  			" " 
+		::=  { otnInterfaceConfigEntry 1 }
+	
+otnOperationMode  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+						async(1),
+						sync(2),
+						enDecoderBypass(3),
+						trueBypass(4)  
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      " async(1) - G.709 Async mapping with FEC
+					sync(2) - G.709 Sync mapping with FEC
+					enDecoderBypass(3) – encoder/Decoder bypass
+					trueBypass(4)= the FECs are completely bypassed. This offers maximum latency reduction."
+	  ::= { otnInterfaceConfigEntry 2 }
+	  
+otnFecEnabled  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+						disable(1),
+						g709fec(2),
+						idot4(3),
+						idot7(4),
+						swizzleFEC(5)
+	  }    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "配置FEC模式."
+	  ::= { otnInterfaceConfigEntry 3 }
+
+otnStuffingEnabled  OBJECT-TYPE
+	  SYNTAX  TruthValue
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      " Byte stuffing."
+	  ::= { otnInterfaceConfigEntry 4 }
+	  
+otnSectionTIMenable  OBJECT-TYPE
+	  SYNTAX  TruthValue
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Trace Identifier Mismatch (TIM)  Detection Enabled."
+	  ::= { otnInterfaceConfigEntry 5}   
+	  
+otnSectionDAPITx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Destination Identifier to transmit."
+	  ::= { otnInterfaceConfigEntry 6}
+   
+otnSectionDAPIExpected  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Destination Identifier to expect."
+	  ::= { otnInterfaceConfigEntry 7}			
+
+otnSectionDAPIRx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Source Identifier to expect."
+	  ::= { otnInterfaceConfigEntry 8}			
+
+otnSectionSAPITx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Source Identifier to transmit."
+	  ::= { otnInterfaceConfigEntry 9}			
+
+otnSectionSAPIExpected  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Source Identifier to expect."
+	  ::= { otnInterfaceConfigEntry 10}			
+
+otnSectionSAPIRx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OTU Received Source Identifier."
+	  ::= { otnInterfaceConfigEntry 11}			
+
+otnPathDAPIEnabled  OBJECT-TYPE
+	  SYNTAX  TruthValue
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Trace Identifier Mismatch (TIM) Detection Enable."
+	  ::= { otnInterfaceConfigEntry 12}			
+
+otnPathDAPITx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Destination Identifier to transmit."
+	  ::= { otnInterfaceConfigEntry 13}			
+
+otnPathDAPIExpected  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Destination Identifier to expect."
+	  ::= { otnInterfaceConfigEntry 14}
+	  
+otnPathDAPIRx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Received Destination Identifier."
+	  ::= { otnInterfaceConfigEntry 15}						
+
+otnPathSAPITx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Source Identifier to transmit."
+	  ::= { otnInterfaceConfigEntry 16}			
+
+otnPathSAPIExpected  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Source Identifier to expect."
+	  ::= { otnInterfaceConfigEntry 17}			
+
+otnPathSAPIRx  OBJECT-TYPE
+	  SYNTAX  OCTET STRING
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "ODU Received Source Identifier."
+	  ::= { otnInterfaceConfigEntry 18}			
+			
+--
+--PM on client port
+--       
+pmInterval   OBJECT-TYPE
+		SYNTAX  INTEGER{
+					oneToFifteenMinute(1),
+					oneDays(2)
+		}
+		ACCESS  read-write
+		STATUS  current
+		DESCRIPTION
+			"间隔时间."
+		::= { pm 1 }      
+
+ctxPmTable OBJECT-TYPE
+		SYNTAX  SEQUENCE OF CtxPmEntry
+		MAX-ACCESS  		not-accessible
+		STATUS  			current
+		DESCRIPTION
+				"Ctx PM statistics."
+		::= { pm 2 }
+
+ctxPmEntry OBJECT-TYPE
+		SYNTAX  		CtxPmEntry
+		MAX-ACCESS  	not-accessible
+		STATUS  		current
+		DESCRIPTION
+				"An entry in the table."
+		INDEX   { ctxPmIndex }
+		::= { ctxPmTable 1 }
+
+CtxPmEntry ::=
+	SEQUENCE {
+		ctxPmIndex									IfIndex,  
+		ctx100gbeLanCVEs							INTEGER,         
+		ctx10gbeLanCVEs								INTEGER,
+		ctxOC192SectionB1ErrCnt						INTEGER,
+		ctx10gfcCVEs								INTEGER,
+		ctx8gfcCVEs									INTEGER,
+		ctxSTM64SectionB1ErrCnt						INTEGER,
+		ctxOTU2Bip8ErrCnt							INTEGER,
+		ctnOTU2FecCorrErrCnt						INTEGER,
+		ctxOTU2FecUncorrErrCnt						INTEGER,
+		ctxPmIntervalESs 							INTEGER,
+		ctxPmIntervalSEs 							INTEGER,
+		ctxPmIntervalUASs 							INTEGER,
+		ctxPmValid 									INTEGER,
+		ctxPmSonetSEFS 								INTEGER,
+		ctxPmSDHOutOfFrameSecond 					INTEGER,
+		ctxOpticsTxPwr   							INTEGER,      
+		ctxOpticsRxPwr   							INTEGER      
+	}
+
+ctxPmIndex OBJECT-TYPE
+		SYNTAX  	IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  	current
+		DESCRIPTION
+				" ."
+		::= { ctxPmEntry 1 }
+
+ctx100gbeLanCVEs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"100GbE-LAN service: The number of 64B/66B coding violation errors ,在时间间隔内."
+		::= { ctxPmEntry 2 }			
+		
+ctx10gbeLanCVEs						OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"10GbE-LAN service: The number of 64B/66B coding violation errors."
+		::= { ctxPmEntry 3 }					
+			
+ctxOC192SectionB1ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OC-192 (SONET) service:The number of Section B1 errors detected ."
+		::= { ctxPmEntry 4 }			
+			
+ctx10gfcCVEs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"10G FC: The number of 64B/66B coding violation errors detected."
+		::= { ctxPmEntry 5 }			
+			
+ctx8gfcCVEs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"18G FC/FICON service: The number of 8B/10B coding violation errors detected."
+		::= { ctxPmEntry 6 }			
+				
+ctxSTM64SectionB1ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"STM-64 (SDH) service:The number of Section B1 errors detected. Background Block Errors (SDH)."
+		::= { ctxPmEntry 7 }			
+			
+ctxOTU2Bip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OTU2 service: The number of BIP8 errors."
+		::= { ctxPmEntry 8 }			
+			
+ctnOTU2FecCorrErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OTU2 service: FEC corrected errors."
+		::= { ctxPmEntry 9 }			
+
+ctxOTU2FecUncorrErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OTU2 service: FEC uncorrected errors."
+		::= { ctxPmEntry 10 }			
+			
+ctxPmIntervalESs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"The number of  Errored Seconds encountered  in the PM interval."
+		::= { ctxPmEntry 11 }			
+			
+ctxPmIntervalSEs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"The number of Severely Errored Seconds encountered in the PM interval, Not for OTN FEC."
+		::= { ctxPmEntry 12 }			
+			
+ctxPmIntervalUASs            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Count the number of 10 consecutive Severely Errored Seconds , Not for OTN FEC."
+		::= { ctxPmEntry 13 }			
+			
+ctxPmValid            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"间隔时间性能监视是否完成或准确的."
+		::= { ctxPmEntry 14 }			
+			
+ctxPmSonetSEFS            OBJECT-TYPE
+	SYNTAX  	INTEGER
+	MAX-ACCESS  read-only
+	STATUS  	current
+	DESCRIPTION
+		"Severely Errored Frame Seconds (SONET),10 consecutive."
+	::= { ctxPmEntry 15 }			
+			
+ctxPmSDHOutOfFrameSecond            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Out of Frame Seconds (SDH)."
+		::= { ctxPmEntry 16 }			
+
+ctxOpticsTxPwr            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"时间间隔测试Tx功率."
+		::= { ctxPmEntry 17 }			
+			
+ctxOpticsRxPwr            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"时间间隔测试Rx功率."
+		::= { ctxPmEntry 18 }			
+--
+--OTN PM
+--
+otnPmTable OBJECT-TYPE
+		SYNTAX  SEQUENCE OF OtnPmEntry
+		MAX-ACCESS  		not-accessible
+		STATUS  			current
+		DESCRIPTION
+				"OTN PM statistics."
+		::= { pm 3 }
+
+otnPmEntry OBJECT-TYPE
+		SYNTAX  		OtnPmEntry
+		MAX-ACCESS  	not-accessible
+		STATUS  		current
+		DESCRIPTION
+				"An entry in the OTN table."
+		INDEX   { ontPmIndex }
+		::= { otnPmTable 1 }
+
+OtnPmEntry ::=
+	SEQUENCE {
+		ontPmIndex							IfIndex,
+		otnFecCorrectedErr					INTEGER,         
+		otnFecCorrectedErrMan				INTEGER,
+		otnFecCorrectedErrExp				INTEGER,
+		otnFecCorrectedErrValid			TruthValue,
+	--	otnFecCorrectedErrMan				INTEGER,
+		otnFecCorrectedErrExpFar		INTEGER,
+		otnFecCorrectedErrValidFar	TruthValue,
+		otnFecReset									INTEGER,
+		otnSmBip8ErrCnt							INTEGER,
+		otnarSmBip8ErrCnt						INTEGER,
+		otnPmBip8ErrCnt							INTEGER,
+		otnPmFarBip8ErrCnt					INTEGER,
+		ctxPmIntervalESs 						Gauge32,
+		ctxPmIntervalSEs 						Gauge32,
+		ctxPmIntervalUASs 					Gauge32,
+		ctxPmValid   								INTEGER      
+	}
+
+ontPmIndex OBJECT-TYPE
+		SYNTAX  	IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  	current
+		DESCRIPTION
+				" ."
+		::= { otnPmEntry 1 }
+
+otnFecCorrectedErr            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"FEC Corrected Errors. Increment for each FEC corrected error ."
+		::= { otnPmEntry 2 }
+
+otnFecCorrectedErrMan            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"FEC Corrected Error Ratio - The mantissa value:1.0x10-4 ."
+		::= { otnPmEntry 3 }
+
+otnFecCorrectedErrExp            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"FEC Corrected Error Ratio - The exponent value（指数值）10-4 ."
+		::= { otnPmEntry 4 }
+
+otnFecCorrectedErrValid            OBJECT-TYPE
+		SYNTAX  	TruthValue
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"FEC Corrected Error Ratio - Validity flag ."
+		::= { otnPmEntry 5 }
+
+--otnFecCorrectedErrMan            OBJECT-TYPE
+--		SYNTAX  	INTEGER
+--		MAX-ACCESS  read-only
+--		STATUS  	current
+--		DESCRIPTION
+--				"Far End FEC Corrected Error Ratio - The mantissa value ."
+--		::= { otnPmEntry 6 }
+
+otnFecCorrectedErrExpFar            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Far End FEC Corrected Error Ratio - The exponent value."
+		::= { otnPmEntry 7 }
+
+otnFecCorrectedErrValidFar            OBJECT-TYPE
+		SYNTAX  	TruthValue
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Far End FEC Corrected Error Ratio -Validity flag ."
+		::= { otnPmEntry 8 }
+
+otnFecReset            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Writing this object reset the FEC PM ."
+		::= { otnPmEntry 9 }
+
+otnSmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OTU4 SM BIP-8 Error Count over PM Interval ."
+		::= { otnPmEntry 10 }
+
+otnarSmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"OTU4 far SM BIP-8 Error Count over PM Interval ."
+		::= { otnPmEntry 11 }
+
+otnPmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"ODU4 PM BIP-8 Error Count over PM Interval. ."
+		::= { otnPmEntry 12 }
+
+otnPmFarBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"ODU4 far PM Bip8Error Count over PM Interval. ."
+		::= { otnPmEntry 13 }
+
+--ctxPmIntervalESs            OBJECT-TYPE
+--		SYNTAX  	Gauge32
+--		MAX-ACCESS  read-only
+--		STATUS  	current
+--		DESCRIPTION
+--				"The number of  Errored Seconds encountered  in the PM interval  ."
+--		::= { otnPmEntry 14 }
+
+--ctxPmIntervalSEs            OBJECT-TYPE
+--		SYNTAX  	Gauge32
+--		MAX-ACCESS  read-only
+--		STATUS  	current
+--		DESCRIPTION
+--				"The number of Severely Errored Seconds encountered in the PM interval, Not for OTN FEC ."
+--		::= { otnPmEntry 15 }
+  
+--ctxPmIntervalUASs            OBJECT-TYPE
+--		SYNTAX  	Gauge32
+--		MAX-ACCESS  read-only
+--		STATUS  	current
+--		DESCRIPTION
+--				"Count the number of 10 consecutive Severely Errored Seconds , Not for OTN FEC."
+--		::= { otnPmEntry 16 }
+
+--ctxPmValid            OBJECT-TYPE
+--		SYNTAX  	INTEGER
+--		MAX-ACCESS  read-only
+--		STATUS  	current
+--		DESCRIPTION
+--				"间隔时间性能监视是否完成或准确的."
+--		::= { otnPmEntry 17 }
+			
+--
+--CoherentCfpPmTable
+--			
+coherentCfpPmTable OBJECT-TYPE
+		SYNTAX  SEQUENCE OF CoherentCfpPmEntry
+		MAX-ACCESS  		not-accessible
+		STATUS  			current
+		DESCRIPTION
+				"Ctx PM statistics."
+		::= { pm 4 }
+
+coherentCfpPmEntry OBJECT-TYPE
+		SYNTAX  		CoherentCfpPmEntry
+		MAX-ACCESS  	not-accessible
+		STATUS  		current
+		DESCRIPTION
+				"An entry in the table."
+		INDEX   { fccPmIndex }
+		::= { coherentCfpPmTable 1 }
+
+CoherentCfpPmEntry ::=
+	SEQUENCE {
+		coherentCfpPmIndex								IfIndex,
+		ntwkFecCorrBitsCnt						INTEGER,         
+		ntwkFecUncorrCodewordCnt				INTEGER,
+		ntwkOtnSmBip8ErrCnt						INTEGER,
+		ntwkOtnSmBeiErrCnt						INTEGER,
+		ntwkOtnPmBip8ErrCnt						INTEGER,
+		ntwkOtnPmBeiErrCnt						INTEGER,
+		hostTxFecCorrBitsCnt					INTEGER,
+		hostOtnSmBip8ErrCnt						INTEGER,
+		hostOtnSmBeiErrCnt						INTEGER,
+		hostOtnPmBip8ErrCnt 					INTEGER,
+		hostOtnPmBeiErrCnt 						INTEGER
+	}
+
+coherentCfpPmIndex OBJECT-TYPE
+		SYNTAX  	IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  	current
+		DESCRIPTION
+				" IfIndex."
+		::= { coherentCfpPmEntry 1 }
+
+ntwkFecCorrBitsCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network FEC Corrected Bits Count over PM Interval."
+		::= { coherentCfpPmEntry 2 }		
+	
+ntwkFecUncorrCodewordCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network FEC Uncorrectable Code word Count over PM Interval."
+		::= { coherentCfpPmEntry 3 }		
+	
+ntwkOtnSmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network OTN SM BIP-8 Error Count over PM Interval."
+		::= { coherentCfpPmEntry 4 }		
+	
+ntwkOtnSmBeiErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network OTN SM BEI Error Count over PM Interval."
+		::= { coherentCfpPmEntry 5 }		
+	
+ntwkOtnPmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network OTN PM BIP-8 Error Count over PM Interval."
+		::= { coherentCfpPmEntry 6 }		
+
+ntwkOtnPmBeiErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Network OTN PM BEI Error Count over PM Interval."
+		::= { coherentCfpPmEntry 7 }	
+	
+hostTxFecCorrBitsCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Host FEC Corrected Bits Count over PM Interval."
+		::= { coherentCfpPmEntry 8 }		
+	
+hostOtnSmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Host OTN SM BIP-8 Error Count over PM Interval."
+		::= { coherentCfpPmEntry 9 }		
+	
+hostOtnSmBeiErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Host OTN SM BEI Error Count over PM Interval."
+		::= { coherentCfpPmEntry 10 }		
+
+hostOtnPmBip8ErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Host OTN PM BIP-8 Error Count over PM Interval."
+		::= { coherentCfpPmEntry 11 }		
+		
+hostOtnPmBeiErrCnt            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"Host OTN PM BEI Error Count over PM Interval."
+		::= { coherentCfpPmEntry 12 }	
+		
+--		
+--OSC Port config	
+--
+oscPortConfigTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF OscPortConfigEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+	   		" MXP port table."
+		::= { mgmtPortConfig 1 }
+	
+oscPortConfigEntry OBJECT-TYPE
+		SYNTAX OscPortConfigEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"An entry in the table.  "
+		INDEX { oscPortIndex }
+		::= { oscPortConfigTable 1 }
+		
+OscPortConfigEntry ::=
+		SEQUENCE { 
+			oscPortIndex
+				IfIndex,
+			oscPortType 
+				DisplayString,
+			oscPortRate 
+				INTEGER,
+			oscAdminStatus 
+				INTEGER,
+			oscOperationalStatus 
+				INTEGER,   
+			oscPortOptics
+			    INTEGER,   
+			oscServiceType 
+				INTEGER,   
+			oscPortAlias    
+			    DisplayString
+}     
+
+oscPortIndex  OBJECT-TYPE
+	  SYNTAX  IfIndex       
+	  MAX-ACCESS not-accessible
+	  STATUS     current
+	  DESCRIPTION
+	      "端口号."
+	  ::= { oscPortConfigEntry 1 }		
+
+oscPortType  OBJECT-TYPE
+	  SYNTAX  DisplayString
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "端口类型."
+	  ::= { oscPortConfigEntry 2 }		
+
+oscPortRate   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "端口速率."
+	  ::= { oscPortConfigEntry 3 }		
+
+oscAdminStatus    OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				on(1),
+				off(2)
+		}    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "OSC端口管理状态."
+	  ::= { oscPortConfigEntry 4 }		
+
+oscOperationalStatus  OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				up(1),
+				down(2),
+				adminDown(3)
+		}        
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OSC端口运行状态."
+	  ::= { oscPortConfigEntry 5 }		
+
+oscPortOptics OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				exist(1),
+				noexist(2)
+		}    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OSC光模块是否插入"
+	  ::= { oscPortConfigEntry 6 }		
+
+oscServiceType   OBJECT-TYPE
+	  SYNTAX  INTEGER{
+				ge(1),
+				fe(2)
+		}    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OSC管理端口业务类型."
+	  ::= { oscPortConfigEntry 7 }
+	  
+oscPortAlias OBJECT-TYPE
+	  SYNTAX  DisplayString
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "OSC端口别名."
+	  ::= { oscPortConfigEntry 8 }	
+	  			
+--		
+--OSC Optical config	
+--
+oscSFPInfoTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF OscSFPInfoEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"光模块信息."
+		::= { mgmtPortConfig 2 }
+	
+oscSFPInfoEntry OBJECT-TYPE
+		SYNTAX OscSFPInfoEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+    		"An entry in the table."
+		INDEX { oscSFPPortNum }
+		::= { oscSFPInfoTable 1 }
+	
+OscSFPInfoEntry ::=
+		SEQUENCE { 
+			oscSFPPortNum 
+				IfIndex,
+			oscSFPinfo 
+				DisplayString,
+			oscSFPTxOutputPower 
+				INTEGER,
+			oscSFPRxInputPower 
+				INTEGER,
+			oscSFPTemp 
+				INTEGER,
+			oscSFPPHighRxPowerThreshold 
+				INTEGER,
+			oscSFPLowRxPowerThreshold 
+				INTEGER,
+			oscSFPunauthorized 
+				INTEGER    
+		 }
+
+oscSFPPortNum OBJECT-TYPE
+		SYNTAX IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  current
+		DESCRIPTION
+  			"OSC port number." 
+		::=  { oscSFPInfoEntry 1 }
+	
+oscSFPinfo  OBJECT-TYPE
+	  SYNTAX  DisplayString    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP光模块信息."
+	  ::= { oscSFPInfoEntry 2 }
+  
+oscSFPTxOutputPower   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP输出光功率output power."
+	  ::= { oscSFPInfoEntry 3 }		
+    
+oscSFPRxInputPower OBJECT-TYPE 
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP接收光功率."
+	  ::= { oscSFPInfoEntry 4 }		
+      
+oscSFPTemp  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-only
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP温度."
+	  ::= { oscSFPInfoEntry 5 }		
+      
+oscSFPPHighRxPowerThreshold  OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP默认最高接收功率告警门限."
+	  ::= { oscSFPInfoEntry 6 }		
+      
+oscSFPLowRxPowerThreshold    OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "SFP默认接收功率最低告警门限."
+	  ::= { oscSFPInfoEntry 7 }		
+      
+oscSFPunauthorized   OBJECT-TYPE
+	  SYNTAX  INTEGER    
+	  MAX-ACCESS read-write
+	  STATUS     current
+	  DESCRIPTION
+	      "非认证模块，Tx关断*."
+	  ::= { oscSFPInfoEntry 8 }		
+      
+--
+--Management Port
+--
+mgmtPortConfigTable OBJECT-TYPE
+		SYNTAX  SEQUENCE OF MgmtPortConfigEntry
+		MAX-ACCESS  		not-accessible
+		STATUS  			current
+		DESCRIPTION
+				"Management port configure table."
+		::= { mgmtPortConfig 3 }
+
+mgmtPortConfigEntry OBJECT-TYPE
+		SYNTAX  		MgmtPortConfigEntry
+		MAX-ACCESS  	not-accessible
+		STATUS  		current
+		DESCRIPTION
+				"An entry in the table."
+		INDEX   { mgmtPortIndex }
+		::= { mgmtPortConfigTable 1 }
+	
+MgmtPortConfigEntry ::=
+	SEQUENCE {
+		mgmtPortIndex										IfIndex,
+		mgmtPortType										DisplayString,
+		mgmtOperationalStatus						INTEGER,
+		mgmtAuto												INTEGER,
+		mgmtSpeed												INTEGER,
+		mgmtDuplex											INTEGER,
+		mgmtPortAlias										DisplayString
+	}
+
+mgmtPortIndex OBJECT-TYPE
+		SYNTAX  	IfIndex
+		MAX-ACCESS  not-accessible
+		STATUS  	current
+		DESCRIPTION
+				"IfIndex."
+		::= { mgmtPortConfigEntry 1 }
+
+mgmtPortType            OBJECT-TYPE
+		SYNTAX  	DisplayString
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+			"端口类型
+				10/100/1000Base-T."
+		::= { mgmtPortConfigEntry 2 }		
+	
+mgmtOperationalStatus            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-only
+		STATUS  	current
+		DESCRIPTION
+				"	端运行状态.
+			  	Up(1)=端口link up起来
+					Down(2)=端口link Down
+					Admin Down (3)=强制关掉."
+		::= { mgmtPortConfigEntry 3 }		
+
+mgmtAuto            OBJECT-TYPE
+		SYNTAX  	INTEGER{
+							enabled(1),
+							disabled(2)
+		}
+		MAX-ACCESS  read-write
+		STATUS  	current
+		DESCRIPTION
+				" Enabled(1)=使能自动协商
+					Disabled(2)=禁止自动协商."
+		::= { mgmtPortConfigEntry 4 }		
+
+mgmtSpeed            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-write
+		STATUS  	current
+		DESCRIPTION
+				" 管理端口速率，在Auto配置为disabled情况下，才可以配置速率"
+		::= { mgmtPortConfigEntry 5 }		
+
+mgmtDuplex            OBJECT-TYPE
+		SYNTAX  	INTEGER
+		MAX-ACCESS  read-write
+		STATUS  	current
+		DESCRIPTION
+				"双工配置, 在Auto配置为disabled情况下，才可以配置双工。"
+		::= { mgmtPortConfigEntry 6 }		
+
+mgmtPortAlias            OBJECT-TYPE
+		SYNTAX  	DisplayString
+		MAX-ACCESS  read-write
+		STATUS  	current
+		DESCRIPTION
+				"端口别名."
+		::= { mgmtPortConfigEntry 7 }			
+   	
+--
+-- SNMP 
+--           
+trapDestTable OBJECT-TYPE
+		SYNTAX SEQUENCE OF TrapDestEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"The trap destination table."
+		::= { snmpConfig 1 }
+
+trapDestEntry OBJECT-TYPE
+		SYNTAX TrapDestEntry
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"An entry in the table. The table is indexed by the Manager IP Address."
+		INDEX { trapDestAddress }
+		::= { trapDestTable 1 }
+
+TrapDestEntry ::=
+	SEQUENCE { 
+		trapDestAddress
+			IpAddress,
+		trapDestCommString
+			OCTET STRING,
+		trapDestUdpPort
+			INTEGER,
+		trapDestSnmpVer
+			INTEGER,
+		trapDestRowStatus
+			RowStatus
+	 }
+
+trapDestAddress OBJECT-TYPE
+		SYNTAX IpAddress
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+			"Manager IP address."
+		::= { trapDestEntry 1 }
+
+trapDestCommString OBJECT-TYPE
+		SYNTAX OCTET STRING (SIZE(1..24))
+		MAX-ACCESS read-create
+		STATUS current
+		DESCRIPTION
+			"Manager SNMP community string."
+		::= { trapDestEntry 2 }
+
+trapDestUdpPort OBJECT-TYPE
+		SYNTAX INTEGER
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"Trap udp port."
+		::= { trapDestEntry 3 }
+
+trapDestSnmpVer OBJECT-TYPE
+		SYNTAX INTEGER
+		MAX-ACCESS read-only
+		STATUS current
+		DESCRIPTION
+			"SNMP version supported by the manager."
+		::= { trapDestEntry 4 }
+  	
+trapDestRowStatus OBJECT-TYPE
+		SYNTAX RowStatus
+		MAX-ACCESS read-create
+		STATUS current
+		DESCRIPTION
+			"The row status variable, used according to row creation and removal conventions."
+		::= { trapDestEntry 5 }
+ 		
+--		
+--FTP download/upload
+--
+ftpTable OBJECT-TYPE
+	SYNTAX SEQUENCE OF FtpEntry 
+	MAX-ACCESS not-accessible
+	STATUS current
+	DESCRIPTION
+   		" The FTP client parameters table."
+	::= { ftp 1 }
+		
+ftpEntry OBJECT-TYPE
+		SYNTAX FtpEntry 
+		MAX-ACCESS not-accessible
+		STATUS current
+		DESCRIPTION
+	   		"An entry in the table.  "
+		INDEX { ftpRequesterID }
+		::= { ftpTable 1 }
+	
+FtpEntry ::=
+	SEQUENCE { 
+		ftpRequesterID 
+			IpAddress,
+		ftpFileIdentifier 
+			INTEGER,
+		ftpFileName 
+			DisplayString,
+		ftpFileServer 
+			IpAddress,
+     	ftpStatus
+			INTEGER, 
+		ftpRowStatus 
+			RowStatus,
+		ftpClientDirection 
+			INTEGER,
+		ftpUserName 
+			DisplayString,
+		ftpPassword
+			DisplayString 
+	 }
+	
+ftpRequesterID OBJECT-TYPE
+	SYNTAX IpAddress
+	MAX-ACCESS  not-accessible
+	STATUS  current
+	DESCRIPTION
+     	"The download/upload requester IP Address." 
+ 	::=  { ftpEntry 1 }
+	
+ftpFileIdentifier OBJECT-TYPE
+	SYNTAX INTEGER {
+			 software(1),
+		     backupData(2),
+		     logfile(3)
+   	}
+	MAX-ACCESS  read-write
+	STATUS  current
+	DESCRIPTION
+ 		"The identifier of the type of file to be uploaded / downloaded."
+ 	::=  { ftpEntry 2 }
+			
+ftpFileName OBJECT-TYPE
+	SYNTAX DisplayString(SIZE(1..32))
+	MAX-ACCESS  read-write
+	STATUS  current
+	DESCRIPTION
+      	"The Name of the file to be up/downloaded."
+  	::=  { ftpEntry 3 }
+			
+ftpFileServer OBJECT-TYPE
+	SYNTAX IpAddress
+	MAX-ACCESS  read-write
+	STATUS  current
+	DESCRIPTION
+      	"The IP Address of the up/download file server."
+ 	::=  { ftpEntry 4 }
+	
+ftpStatus  OBJECT-TYPE
+    SYNTAX  INTEGER {
+                success(1),
+                inProgress(2),
+                failed(3)
+            }
+    MAX-ACCESS  read-only
+    STATUS  current
+    DESCRIPTION
+   		"This object contains the current status of the 
+	    last requested up/download of the corresponding
+		  row component."
+   ::= { ftpEntry 5 }
+
+ftpRowStatus OBJECT-TYPE
+	SYNTAX RowStatus
+	MAX-ACCESS read-write
+	STATUS current
+	DESCRIPTION
+		"The row status variable."
+	::= { ftpEntry 6 }
+	
+ftpClientDirection OBJECT-TYPE
+	SYNTAX INTEGER {
+           	  download (1),
+			upload (2)
+   	}
+	MAX-ACCESS  read-write
+	STATUS  current
+	DESCRIPTION
+ 			" The behavior of the FTP machine when Client Mode is selected."
+    DEFVAL {1}
+  	::=  { ftpEntry 7 }
+                                                                                             
+ftpUserName OBJECT-TYPE
+	SYNTAX DisplayString
+	MAX-ACCESS  read-create
+	STATUS  current
+	DESCRIPTION
+	  	" FTP User Name when Client Mode is selected."
+	::=  { ftpEntry 8 }
+
+ftpPassword OBJECT-TYPE
+	SYNTAX DisplayString
+	MAX-ACCESS  read-create
+	STATUS  current
+	DESCRIPTION
+   		" FTP password when Client Mode is selected."
+ 	::=  { ftpEntry 9 }            
+ 	
+--
+--Alarm--
+--        
+ctxAlarmTable OBJECT-TYPE
+	SYNTAX      SEQUENCE OF CtxAlarmEntry 
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION
+	   "This table contains alarms raised."
+	::= { ctxAlarms	1 }
+
+ctxAlarmEntry OBJECT-TYPE
+	SYNTAX      CtxAlarmEntry 
+	MAX-ACCESS  not-accessible
+	STATUS      current
+	DESCRIPTION
+	   "Entries appear in this table once alarms are raised."
+	INDEX     { ctxAlarmIndex }
+	::= {ctxAlarmTable 1 }
+
+CtxAlarmEntry ::= SEQUENCE {     
+			ctxAlarmIndex  					INTEGER,
+			ctxAlarmIfIndex  				IfIndex,
+			ctxAlarmType     				AlarmType,
+			ctxAlarmSeverity				INTEGER,   
+			ctxAlarmServiceAffect 			INTEGER,   
+			ctxAlarmActive					INTEGER,
+			ctxAlarmText	     			DisplayString 
+		}   
+		
+ctxAlarmIndex  OBJECT-TYPE
+	SYNTAX      INTEGER
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "Alarm index"
+	::= { ctxAlarmEntry 1 }  
+
+ctxAlarmIfIndex    	OBJECT-TYPE
+	SYNTAX      IfIndex
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "Interface index"
+	::= { ctxAlarmEntry 2 }           
+	
+ctxAlarmType    	OBJECT-TYPE
+	SYNTAX      AlarmType
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "Alarm type:    
+  		psuFailure(1)--  电源故障，2个电源板卡
+		psuInserted(2)--  电源插入
+		psuPlugged(3)--    电源拔出
+		psuLowVolt(4)--  电压过低
+		chassisTemp(5)--  机箱温度告警
+		fanCardPlugged(6)--  风扇板卡拔出
+		fanCardInserted(7)--  风扇板卡插入
+		fanFailure(8)--     风扇故障（三个风扇）
+		swUpgFailure(9)--   SW升级失败告警
+		sntpFailure(10)--    SNTP协议失败
+		lofsonetAlarm(11)--   LOF (Loss of Frame),Loss of sync for SONET/SDH Service.
+		aisLineSonetAlarm(12)-- AIS-L (Line Alarm Indication Signal)/MS-AIS (MS AlarmIndication Signal)，Alarm Indication Signal (AIS) has been detected on the SONET/SDH or 10GbE-WAN link.
+		RfiLineSonetAlarm(13)-- RFI-L (Line Remote Failure Indication)/MS-RFI (MS Remote Failure Indication，Remote Failure Indication (RFI)has been detected on the SONET/SDH or 10GbE-WAN link.
+		ethConfigLinkFail(14)-- Ethernet Link Failure, Ethernet link failure. Check the Auto Negotiation parameters.
+		ethConfigPcsLossSync(15)--	Loss of Synchronization, Loss of sync for Ethernet Service. 			
+		fcBxPortLossOfSync(16)--  Loss of Synchronization, Loss of sync for FC Service.
+		portLinkUp(17)--  Standard Trap; Sent when the link status changed to UP.
+		portLinkDown(18)-- Standard Trap; Sent when the link status is changed to DOWN.
+		opticModuleRxOverload(19)-- 光模块Rx接收光功率过载.
+		opticModuleRxLow(20)--  光模块Rx输入功率过低.
+		opticModuleLossOfInputPower(21)--  光模块Rx接收无光.
+		opticModuleTxTooLow(22)--  光模块Tx发射功率过低.
+		opticModuleTxTooHigh(23)--  光模块Tx发射功率过高.
+		opticModuleTemp(24)--       光模块温度告警.
+		opticModuleTxBiasCurrent(25)--   光模块Tx Current告警.
+		opticModuleRemoved(26)--   光模块拔掉了.
+		opticModuleBitRateMismatch(27)-- 光模块速率与端口速率不匹配告警.
+		opticModuleLossOfLock(28)--   Signal Loss of Lock.
+		opticModuleBlock(29)--       Unauthorized optic inserted非认证光模块插入(Tx关断).
+		opticModuleTxLossOfLock(30)--Signal Transmission Loss of Lock.				
+		otnFecExc(31)--     OTN Excessive FEC Corrected Errors ，FEC纠错前误码越限告警 .
+		otnFecDeg(32)--     ON Degraded FEC Corrected Errors 
+		otnOtuDeg(33)--     OTN Section Degrade，OTUk/ ODUk PM/ ODUk TCMi级别信号劣化. 
+		otnLos(34)--        OTN LOS.
+		otnLof(35)--        OTN LOF, OTUk帧丢失，帧对齐处理连续3ms处于帧失步状态则上报此告警.
+		otnLom(36)--        OTN Loss of Multiframe, OTUk复帧丢失，复帧定位处理过程连续3ms处于复帧失步状态，即MFAS开销为非法值.
+		otuAis(37)--        OTN Section AIS, OTUk告警指示信号，整个OTUk为PN-11序列通用AIS信号，指示上游检测到的信号失效.
+		otuBdi(38)--        OTN Section BDI, OTUk/ ODUk PM/ ODUk TCMi级别后向缺陷指示告警.
+		otuTtim(39)--       OTN Section Trace Mismatch ，OTUk/ ODUk PM/ ODUk TCMi级别踪迹标识不匹配，本站相应级别应收和实收的TTI通道追踪字节不一致.
+		otnOtuEXC(40)--     OTN Section Excessive Errors，泊松模式下，OTUk/ ODUk PM/ ODUk TCMi级别BIP8误码率超过设定的误码越限门限，主要告警.
+		oduAis(41)--        OTN Path AIS, ODUk PM / ODUk TCMi告警指示信号，检测AIS，看相应的STAT开销是否为111.
+		oduLofLom(42)--     ODU Path LOFLOM, ODUk帧和复帧丢失，上下游的帧头信息不匹配，帧定位处理过程持续帧失步状态3ms.
+		oduOci(43)--        OTN Path Open Connection , ODUk PM/ ODUk TCMi级别断开连接指示告警，相应级别接收的STAT信息是110时产生OCI告警，指示输出没有连接到输入。
+		oduLck(44)--        OTN Path Locked ，ODUk PM/ ODUk TCMi级别信号锁定缺陷.
+		oduBdi(45)--        OTN Path BDI, OTUk/ ODUk PM/ ODUk TCMi级别后向缺陷指示告警.
+		oduTtim(46)--       OTN Path Trace ，OTUk/ ODUk PM/ ODUk TCMi级别踪迹标识不匹配，本站相应级别应收和实收的TTI通道追踪字节不一致Mismatch 
+		otnOduDeg(47)--     OTN Path Degrade，OTUk/ ODUk PM/ ODUk TCMi级别信号劣化.
+		oduPtm(48)--        OTN Path Payload Mismatch. 
+		otnOduEXC(49)--	    OTN Path Excessive Errors , 泊松模式下，OTUk/ ODUk PM/ ODUk TCMi级别BIP8误码率超过设定的误码越限门限，主要告警.
+	   "
+	::= { ctxAlarmEntry 3 }
+
+ctxAlarmSeverity    	OBJECT-TYPE
+	SYNTAX      INTEGER{   
+					noAlarm(1),
+					major(2), 
+					minor(3),
+					cleared(4), 
+					event(5) 
+	}
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "noAlarm(1) 
+		major(2) - Major Severity 
+		minor(3) - Minor Severity 
+		cleared(4) - the alarm is cleared 
+		event(5)"
+	::= { ctxAlarmEntry 4 }
+
+ctxAlarmServiceAffect    	OBJECT-TYPE
+	SYNTAX      INTEGER{ 
+				true(1), 
+				false(2)
+	}
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "true(1) - service affecting 
+		false(2) - non service affecting"
+	::= { ctxAlarmEntry 5 }
+
+ctxAlarmActive    	OBJECT-TYPE
+	SYNTAX      INTEGER
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "true(1) - the alarm is active 
+		false(2) - the alarm is cleared"
+	::= { ctxAlarmEntry 6 }
+
+ctxAlarmText    	OBJECT-TYPE
+	SYNTAX      DisplayString
+	MAX-ACCESS  read-only
+	STATUS      current
+	DESCRIPTION
+	   "Always empty."
+	::= { ctxAlarmEntry 7 }
+
+--
+--Event Trap
+--
+eventTrap OBJECT IDENTIFIER ::= { trap 1 }
+
+changeDateTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Change date ."
+		::= { eventTrap 1 }
+	
+restoreConfigTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Restore configuration file ."
+		::= { eventTrap 2 }
+	
+changeIpTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Change the ip information ."
+		::= { eventTrap 3 }
+	                                            
+resetPmTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Reset the PM counters ."
+		::= { eventTrap 4 }
+	
+changeSysTrap  NOTIFICATION-TYPE
+	STATUS  current
+	DESCRIPTION
+			"change the system configuration."
+	::= { eventTrap 5 }
+	
+addUserTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Add a user ."
+		::= { eventTrap 6 }
+	
+removeUserTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Remove a user ."
+		::= { eventTrap 7 }
+	
+adminDownPortTrap  NOTIFICATION-TYPE
+		OBJECTS { IfIndex }
+		STATUS  current
+		DESCRIPTION
+				"Admin down to port ."
+		::= { eventTrap 8 }
+	
+adminUpPortTrap  NOTIFICATION-TYPE
+		OBJECTS { IfIndex }
+		STATUS  current
+		DESCRIPTION
+				"Admin up to port ."
+		::= { eventTrap 9 }
+	
+startLoopbackTrap  NOTIFICATION-TYPE
+		OBJECTS { IfIndex }
+		STATUS  current
+		DESCRIPTION
+				"Start port loopback ."
+		::= { eventTrap 10 }
+	
+stopLoopbackTrap  NOTIFICATION-TYPE
+		OBJECTS { IfIndex }
+		STATUS  current
+		DESCRIPTION
+				"Stop port loopback ."
+		::= { eventTrap 11 }
+	
+--restoreConfigTrap  NOTIFICATION-TYPE
+--		STATUS  current
+--		DESCRIPTION
+--				"Restore configuration file ."
+--		::= { eventTrap 13 }
+	
+saveConfigStartTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Configuration file upload started."
+		::= { eventTrap 12 }
+	
+saveConfigCompletedTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Configuration file upload completed."
+		::= { eventTrap 13 }
+	
+saveConfigFailedTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				"Configuration file upgrade failed."
+		::= { eventTrap 14 }
+	
+swLoadUpgradeTrap  NOTIFICATION-TYPE
+		STATUS  current                     
+		DESCRIPTION
+				"Software Load Upgrade ."
+		::= { eventTrap 15 }    
+
+ftpStatusChangeTrap  NOTIFICATION-TYPE
+		OBJECTS { ftpStatus }
+		STATUS  current
+		DESCRIPTION
+				"Sent when the status of the ftp upload or download from SW is changed."
+		::= { eventTrap 16 }
+
+--
+--Event Inventory Trap
+--
+eventInventoryTrap OBJECT IDENTIFIER ::= { trap 2 }
+
+eventInventoryActionTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				""
+		::= { eventInventoryTrap 1 }
+	
+eventInventoryTypeTrap  NOTIFICATION-TYPE
+		STATUS  current
+		DESCRIPTION
+				" "
+		::= { eventInventoryTrap 2 }		
+
+--
+--alarm notifications
+--
+ctxAlarmTrap NOTIFICATION-TYPE
+     OBJECTS{ ctxAlarmIndex, ctxAlarmIfIndex, ctxAlarmType, ctxAlarmSeverity, ctxAlarmServiceAffect,   
+			ctxAlarmActive}
+     STATUS      current
+     DESCRIPTION
+         "This notification is caused by ctxAlarmTable change. "
+     ::= { trap 3 }
+
+	
+
+END
+
