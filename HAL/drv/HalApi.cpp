@@ -1011,6 +1011,11 @@ bool HalApi::SetOtuFecMode(int id, FecType::Enum type)
             APP_LOG("SetOtuFecMode port %d FEC type force change from %d to %d for Menara CFP", digi_port, type, FecType::GFEC);
             Digi::GetInst().SetFecType(digi_port, FecType::GFEC);
         }
+        else if((digi_port == 11)&&MsaCfp::GetInst(0).isHisiliconCfp())
+        {
+            APP_LOG("SetOtuFecMode port %d FEC type force change from %d to %d for Hisilicon CFP", digi_port, type, FecType::GFEC);
+            Digi::GetInst().SetFecType(digi_port, FecType::GFEC);
+        }
         else
         {
             Digi::GetInst().SetFecType(digi_port, type);

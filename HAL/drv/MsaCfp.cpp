@@ -18,10 +18,11 @@ const uint32_t cfpAlarmReg[2] = {0x06, 0x0A};
 #define MODULE_STATE        3
 #define NTWK_TX_POWER       4
 #define NTWK_RX_POWER       5
-uint16_t cfpReg[3][6] =
+uint16_t cfpReg[4][6] =
 {
     {0xA011, 0xA012, 0xA02F, 0xA016, 0xA2B0, 0xA2D0},
     {0xB011, 0xB012, 0x9094, 0xB016, 0xB4A0, 0xB4E0},
+    {0xB011, 0xB012, 0xB02F, 0xB016, 0xB4A0, 0xB4E0},
     {0xB011, 0xB012, 0xB02F, 0xB016, 0xB4A0, 0xB4E0},
 };
 
@@ -58,7 +59,7 @@ void MsaCfp::DelInst(uint32_t inst)
     }
 }
 
-MsaCfp::MsaCfp(int dev) : mDevId(dev), mIsAcacia(false), mIsMenara(false),
+MsaCfp::MsaCfp(int dev) : mDevId(dev), mIsAcacia(false), mIsMenara(false), mIsHisilicon(false),
     mPresent(false), mLaserOn(false), mPortMode(PortMode::NONE),
     mState(CfpState::Reset), mReg(&cfpReg[0][0]), mFecType(FecType::NONE),
     mChan(0)
@@ -87,23 +88,23 @@ void MsaCfp::InitCold()
     sleep(3);
     UpdateInventory();
     if((strncmp(mPartNumber.c_str(), "AC100", 5) != 0)&&(strncmp(mVendorName.c_str(), "eWAVE", 5) != 0))
+	{
+		while(maxTry >= 0)
 		{
-				while(maxTry >= 0)
-				{
-					usleep(50000);
-					mVendorName.resize(VENDOR_NAME_LEN, ' ');
-			    for(uint8_t i = 0; i < VENDOR_NAME_LEN; i++)
-			    {
-			        mVendorName[i] = CheckPrint(read(0x8021 + i));
-			    }
-			    if(strncmp(mVendorName.c_str(), "eWAVE", 5) == 0)
-			    {
-			    		break;
-			    }
-			    maxTry--;
-		  	}
-		}
-		APP_LOG("MsaCfp maxTry value is %d", maxTry);
+			usleep(50000);
+			mVendorName.resize(VENDOR_NAME_LEN, ' ');
+    	    for(uint8_t i = 0; i < VENDOR_NAME_LEN; i++)
+    	    {
+    	        mVendorName[i] = CheckPrint(read(0x8021 + i));
+    	    }
+    	    if(strncmp(mVendorName.c_str(), "eWAVE", 5) == 0)
+    	    {
+    	    		break;
+    	    }
+    	    maxTry--;
+	  	}
+	}
+	APP_LOG("MsaCfp maxTry value is %d", maxTry);
     Dump();
     mState = GetModuleState();
     if (strncmp(mPartNumber.c_str(), "AC100", 5) == 0)
@@ -112,6 +113,7 @@ void MsaCfp::InitCold()
         Digi::GetInst().SetFecType(11, FecType::NONE);
         mIsAcacia = true;
         mIsMenara = false;
+        mIsHisilicon = false;
         mReg = &cfpReg[1][0];
     }
     else if (strncmp(mVendorName.c_str(), "eWAVE", 5) == 0)
@@ -120,7 +122,17 @@ void MsaCfp::InitCold()
         Digi::GetInst().SetFecType(11, FecType::GFEC);
         mIsMenara = true;
         mIsAcacia = false;
+        mIsHisilicon = false;
         mReg = &cfpReg[2][0];
+    }
+    else if (strncmp(mVendorName.c_str(), "HISILICON", 9) == 0)
+    {
+        APP_LOG("MsaCfp HISILICON InitCold");
+        Digi::GetInst().SetFecType(11, FecType::GFEC);
+        mIsMenara = false;
+        mIsAcacia = false;
+        mIsHisilicon = true;
+        mReg = &cfpReg[3][0];
     }
     else
     {
@@ -128,6 +140,7 @@ void MsaCfp::InitCold()
         Digi::GetInst().SetFecType(11, FecType::NONE);
         mIsAcacia = false;
         mIsMenara = false;
+        mIsHisilicon = false;
         mReg = &cfpReg[0][0];
     }
 }
@@ -304,6 +317,41 @@ void MsaCfp::SetConfig(void)
             write(0xB400, val);
         }
     }
+    else if (mIsHisilicon)
+    {
+        
+        if (mPortMode == PortMode::OTU4)
+        {
+            write(mReg[NTWK_TX_CTRL], 0x0207);
+            write(mReg[NTWK_RX_CTRL], 0x0207);
+
+            write(0xB00B, 0x0000);
+            write(0x8FBB, 0x0001);
+
+            write(0x8FAD, 0x0101);
+            write(0x8FDE, 0x0002);           
+        }
+        else if(mPortMode == PortMode::ETH100G)
+        {
+            write(mReg[NTWK_TX_CTRL], 0x0201);
+            write(mReg[NTWK_RX_CTRL], 0x0201);
+            
+            write(0xB00B, 0x0000);
+            write(0x8FBB, 0x0000);
+
+            write(0x8FAD, 0x0101);
+            write(0x8FDE, 0x0002);     
+        }
+
+        {   // Chan
+            uint16_t val = 0;
+            //val = read(0xB400);
+            //val &= 0xE000;
+            val = 0x2000;
+            val += mChan;
+            write(0xB400, val);
+        }
+    }
     else
     {
         if (mPortMode == PortMode::OTU4)
@@ -385,7 +433,7 @@ float MsaCfp::GetTxPower()
     double aRetVal = 0;
     double aTemp;
 
-    if ((!mIsAcacia)&&(!mIsMenara))
+    if ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))
     {
         // read value is in 0.1uW increments
         // divide by 10 then divide by 1000 to get mW
@@ -428,7 +476,7 @@ float MsaCfp::GetRxPower()
     double aRetVal = 0;
     double aTemp;
 
-    if ((!mIsAcacia)&&(!mIsMenara))
+    if ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))
     {
         // read value is in 0.1uW increments
         // divide by 10 then divide by 1000 to get mW
@@ -542,7 +590,7 @@ bool MsaCfp::SetChan(int chan)
 
 std::string MsaCfp::GetMinFreq()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
     uint16_t v1 = read(0x818A) & 0xFF;
     uint16_t v2 = read(0x818B) & 0xFF;
     uint16_t v3 = read(0x818C) & 0xFF;
@@ -556,7 +604,7 @@ std::string MsaCfp::GetMinFreq()
 
 std::string MsaCfp::GetMaxFreq()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
     uint16_t v1 = read(0x818E) & 0xFF;
     uint16_t v2 = read(0x818F) & 0xFF;
     uint16_t v3 = read(0x8190) & 0xFF;
@@ -570,7 +618,7 @@ std::string MsaCfp::GetMaxFreq()
 
 std::string MsaCfp::GetGridSpacing()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
 
     uint16_t val = 0;
     val = read(0xB400);
@@ -595,10 +643,14 @@ std::string MsaCfp::GetGridSpacing()
 
 std::string MsaCfp::GetMaxChanNum()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
     if(mIsMenara)
     {
         return "103";
+    }
+    if(mIsHisilicon)
+    {
+        return "96";
     }
     uint16_t v1 = read(0x8196);
     uint16_t v2 = read(0x8197);
@@ -610,7 +662,7 @@ std::string MsaCfp::GetMaxChanNum()
 
 std::string MsaCfp::GetCurTxFreq()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
     uint16_t v1 = read(0xB450);
     uint16_t v2 = read(0xB460);
     char str[32] = {0};
@@ -620,7 +672,7 @@ std::string MsaCfp::GetCurTxFreq()
 
 std::string MsaCfp::GetCurRxFreq()
 {
-    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara))) return "N/A";
+    if (!mPresent || ((!mIsAcacia)&&(!mIsMenara)&&(!mIsHisilicon))) return "N/A";
     uint16_t v1 = read(0xB470);
     uint16_t v2 = read(0xB480);
     char str[32] = {0};
@@ -699,6 +751,7 @@ void MsaCfp::Dump()
         APP_LOG("\tCurRxFreq           : %s",   GetCurRxFreq().c_str());
         APP_LOG("\tmIsAcacia           : %d",   mIsAcacia);
         APP_LOG("\tmIsMenara           : %d",   mIsMenara);
+        APP_LOG("\tmIsHisilicon        : %d",   mIsHisilicon);
     }
     else
     {

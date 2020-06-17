@@ -108,6 +108,7 @@ public:
     std::string GetQfactor();
     bool GetFecCounter(OchCounter *cnt);
 	bool isMenaraCfp(){ return mIsMenara;}
+	bool isHisiliconCfp(){ return mIsHisilicon;}
 
 private:
     uint16_t read(uint16_t reg);
@@ -127,6 +128,7 @@ private:
     int mDevId;
     bool mIsAcacia;
 	bool mIsMenara;
+	bool mIsHisilicon;
 
     std::string mVendorName;
     std::string mPartNumber;
